@@ -1,11 +1,11 @@
 package br.com.acqua.entity;
 
-public enum Perfil {
+public enum UserRole {
 	USER("Usuário"), ADMIN("Administrador");
 
 	private String descricao;
 
-	private Perfil(String descricao) {
+	private UserRole(String descricao) {
 		this.descricao = descricao;
 	}
 
