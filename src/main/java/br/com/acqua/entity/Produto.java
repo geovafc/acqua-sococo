@@ -1,6 +1,5 @@
 package br.com.acqua.entity;
 
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -9,37 +8,38 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * A Produto.
+ * 
+ * @author Jairo Sousa
+ * 06/01/2017
  */
+
 @Entity
 public class Produto implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @NotNull
-    @Column(name = "codigo_de_barras", nullable = false, unique = true)
-    private String codigoDeBarras;
+	@NotNull
+	@Column(name = "codigo_de_barras", nullable = false, unique = true)
+	private String codigoDeBarras;
 
-    @Column(name = "descricao")
-    private String descricao;
+	@Column(name = "descricao")
+	private String descricao;
 
-    @Lob
-    @Column(name = "imagem")
-    private byte[] imagem;
+	@Lob
+	@Column(name = "imagem")
+	private byte[] imagem;
 
-    @Column(name = "imagem_content_type")
-    private String imagemContentType;
+	@Column(name = "imagem_content_type")
+	private String imagemContentType;
 
-    @OneToMany(mappedBy = "produto")
-    private List<Movimentacao> movimentacoes = new ArrayList<>();
+	@OneToMany(mappedBy = "produto")
+	private List<Movimentacao> movimentacoes = new ArrayList<>();
 
-    
-
-    public Long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -88,33 +88,29 @@ public class Produto implements Serializable {
 	}
 
 	@Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Produto produto = (Produto) o;
-        if (produto.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), produto.getId());
-    }
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Produto produto = (Produto) o;
+		if (produto.getId() == null || getId() == null) {
+			return false;
+		}
+		return Objects.equals(getId(), produto.getId());
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(getId());
+	}
 
-    @Override
-    public String toString() {
-        return "Produto{" +
-            "id=" + getId() +
-            ", codigoDeBarras='" + getCodigoDeBarras() + "'" +
-            ", descricao='" + getDescricao() + "'" +
-            ", imagem='" + getImagem() + "'" +
-            ", imagemContentType='" + imagemContentType + "'" +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "Produto{" + "id=" + getId() + ", codigoDeBarras='" + getCodigoDeBarras() + "'" + ", descricao='"
+				+ getDescricao() + "'" + ", imagem='" + getImagem() + "'" + ", imagemContentType='" + imagemContentType
+				+ "'" + "}";
+	}
 }

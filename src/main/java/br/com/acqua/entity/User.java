@@ -8,6 +8,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,37 +18,51 @@ import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+/**
+ * 
+ * @author Jairo Sousa
+ * 06/01/2017
+ */
 
 @Entity
 public class User implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;	
+	private Long id;
+
+	@NotEmpty(message = "O nome é obrigatório")
+	@Column(nullable = false)
 	private String nome;
+
 	private String sobrenome;
+
 	@NotEmpty(message = "O código é obrigatório")
 	@Column(name = "codigo", nullable = false, unique = true)
 	private String codigo;
+
 	@NotEmpty(message = "O username é obrigatório")
 	@Column(nullable = false, unique = true)
 	private String username;
+
 	@NotEmpty(message = "A senha é obrigatória")
 	@Column(name = "password", nullable = false)
 	private String password;
+
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	@Column(name = "data_cadastro", nullable = false)
 	private Date dataCadastro;
+
 	@Column(name = "enabled")
 	private boolean enabled;
-	private UserRole userRole;
-	 @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Movimentacao> movimentacoes = new ArrayList<>();
+
+	@OneToMany(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private List<Movimentacao> movimentacoes = new ArrayList<>();
+
+	@Enumerated(EnumType.STRING)
+	private UserRole roles;
 
 	public Long getId() {
 		return id;
@@ -88,8 +104,6 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-
-
 	public String getUsername() {
 		return username;
 	}
@@ -114,15 +128,13 @@ public class User implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public UserRole getUserRole() {
-		return userRole;
+	public UserRole getRoles() {
+		return roles;
 	}
 
-	public void setUserRole(UserRole userRole) {
-		this.userRole = userRole;
+	public void setRoles(UserRole roles) {
+		this.roles = roles;
 	}
-	
-	
 
 	public List<Movimentacao> getMovimentacoes() {
 		return movimentacoes;
