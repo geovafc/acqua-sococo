@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xlms:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<link rel="icon" type="image/png" href="/imagens/logo.png" />
+<title>Acqua</title>
+
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/dist/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/acqua.css}" />
+
+</head>
+
+<body>
+
+	<header layout:include="cabecalho"></header>
+
+	<section layout:fragment="conteudo">
+		<p>conteudo principal</p>
+	</section>
+
+
+
+	<script type="text/javascript"
+		th:src="@{/js/dist/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/acqua.js}"></script>
+
+</body>
+</html>

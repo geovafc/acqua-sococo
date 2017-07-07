@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xlms:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<link rel="icon" type="image/png" href="/imagens/logo.png" />
+<title>Acqua</title>
+
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/dist/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">
+					<h2>ACQUA</h2>
+				</a>
+			</div>
+		</div>
+	</nav>
+
+	<section layout:fragment="conteudo">
+		<p>conteudo principal</p>
+	</section>
+
+	<footer>
+		<div class="footer-links">
+			<a href="#" target="_blank"
+				class="icon-social youtube" data-toggle="tooltip"
+				data-placement="top" title="Assista">
+				</a> 
+				<a href="#" target="_blank"
+				class="icon-social twitter" data-toggle="tooltip"
+				data-placement="top" title="Comente">
+				</a> 
+				<a href="#" target="_blank"
+				class="icon-social facebook" data-toggle="tooltip"
+				data-placement="top" title="Compartilhe"></a>
+		</div>
+		<p class="text-center">© 2017 - ACQUA - Sistema de Gerenciamento de estoque</p>
+	</footer>
+
+	<script type="text/javascript" th:src="@{/js/dist/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/acqua.js}"></script>
+
+</body>
+</html>

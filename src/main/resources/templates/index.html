@@ -1,15 +1,69 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1"/>
-<title>Acqua</title>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/layoutIndex">
 
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/dist/bootstrap.min.css}" />
+<head>
+<title>Sistema Acqua - Controle de Movimentação de Produção</title>
 </head>
-<body>
-	<h1>Pagina Index</h1>
-	
-	<button class="btn btn-primary">ACQUA</button>
-</body>
+
+<section layout:fragment="conteudo">
+
+	<div class="container">
+
+		<main>
+		<div class="wrapper">
+		
+			<div class="block">
+				<div class="block-img">
+					<img th:src="@{imagens/prod1.png}" alt="Produtos"/>
+				</div>
+				<div class="block-desc">
+					<li>Cadastro de produtos</li>
+					<li>Lista de produtos</li>
+					<li>Verificar produto</li>
+				</div>
+				<div class="block-link">
+					<a href="#">Ver mais</a>
+				</div>
+			</div>
+
+			<div class="block">
+				<div class="block-img">
+					<img th:src="@{imagens/usuario.png}" alt="usuario"/>
+				</div>
+				<div class="block-desc">
+					<li>Novo usuário</li>
+					<li>Acesso Sistema </li>
+					<li>Cadastar usuário</li>
+				</div>
+				<div class="block-link">
+					<a href="#">Ver mais</a>
+				</div>
+			</div>
+
+			<div class="block">
+				<div class="block-img">
+					<img th:src="@{imagens/mov.png}"  alt="movimentacao"/>
+				</div>
+				<div class="block-desc">
+					<li>Nova movimentação</li>
+					<li>Verificar movimentação</li>
+					<li>Listar as movimentações</li>
+				</div>
+				<div class="block-link">
+					<a href="#">Ver mais</a>
+				</div>
+			</div>
+
+			
+		</div>
+		</main>
+
+
+	</div>
+
+</section>
+
 </html>
