@@ -1,16 +1,30 @@
 package br.com.acqua.entity;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 
- * @author Jairo Sousa
- * 06/01/2017
+ * @author Jairo Sousa 06/01/2017
  */
 
 @Entity
@@ -22,12 +36,22 @@ public class Produto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotNull
+	@NotEmpty(message = "O Nome é obrigatoria")
+	@Column(name = "nome", nullable = false)
+	private String nome;
+
+	@NotEmpty(message = "O Código de barras é obrigatoria")
 	@Column(name = "codigo_de_barras", nullable = false, unique = true)
 	private String codigoDeBarras;
 
+	@NotEmpty(message = "A Descrição é obrigatoria")
 	@Column(name = "descricao")
 	private String descricao;
+
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
+	private Date dataCadastro;
 
 	@Lob
 	@Column(name = "imagem")
@@ -47,6 +71,14 @@ public class Produto implements Serializable {
 		this.id = id;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public String getCodigoDeBarras() {
 		return codigoDeBarras;
 	}
@@ -61,6 +93,14 @@ public class Produto implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public byte[] getImagem() {

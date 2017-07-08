@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/layoutPadrao">
+
+<head>
+	<title>Pesquisa de Produtos</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div layout:include="layout/mensagem-geral"></div>
+
+	<div class="panel panel-default">
+	
+		<div class="panel-body">
+		
+			<div class="table-responsive">
+			
+				<table class="table table-bordered table-striped">
+					<fieldset>
+						
+						<legend>
+							<h3>Produtos</h3>
+							<a class="acq-link-panel" th:href="@{/produtos/novo}">novo produto</a>
+						</legend>
+					
+					</fieldset>
+					
+					<thead>
+					<tr>
+						<th class="text-center col-md-1">#</th>
+						<th class="text-center col-md-2">Codigo Barras</th>
+						<th class="text-center col-md-2">Descrição</th>
+						<th class="text-center col-md-2">Data Cadastro</th>
+						<th class="text-center col-md-1">Operação</th>
+						
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="produto: ${produtos}">
+						<td class="text-center" th:text="${produto.id}">1</td>
+						<td class="text-center" th:text="${produto.codigoDeBarras}">1</td>
+						<td class="text-center" th:text="${produto.descricao}">1</td>
+						<td class="text-center" th:text="${{produto.dataCadastro}}"></td>
+						<td class="text-center">
+						
+							<a class="btn btn-link btn-xs"
+								th:href="@{/produtos/{id}(id=${produto.id})}"
+								title="Editar" rel="tooltip" data-placement="top"> 
+								<span class="glyphicon glyphicon-pencil"></span>
+							</a> 
+							
+							<a class="btn btn-link btn-xs" data-toggle="modal"
+								data-target="#confirmacaoExclusaoModal"
+								th:attr="data-id=${produto.id}, data-nome=${produto.nome}"
+								title="Excluir" rel="tooltip" data-placement="top"> <span
+								class="glyphicon glyphicon-remove"></span>
+							</a>
+						</td>					
+					</tr>
+					
+					<tr>
+						<td class="text-center" colspan="5" th:if="${#lists.isEmpty(produtos)}">Nenhum
+							produto foi encontrado</td>
+					</tr>
+				
+				</tbody>
+				
+				</table>
+			
+			</div>
+		
+		</div>
+		<div layout:include="layout/dialog-confirmacao-exclusao"></div>
+	</div>
+
+</section>	
+	
+	
+</html>

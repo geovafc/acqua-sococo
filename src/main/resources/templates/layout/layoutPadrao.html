@@ -14,23 +14,27 @@
 
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/dist/bootstrap.min.css}" />
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/acqua.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/acqua.css}" />
 
 </head>
 
 <body>
 
-	<header layout:include="cabecalho"></header>
-
-	<section layout:fragment="conteudo">
-		<p>conteudo principal</p>
-	</section>
 
 
+	<header layout:include="layout/cabecalho"></header>
+	
+	<div class="container">
+		
+		<section layout:fragment="conteudo">
+			<p>conteudo principal</p>
+		</section>
+	
+	</div>
 
-	<script type="text/javascript"
-		th:src="@{/js/dist/jquery.min.js}"></script>
+
+	<script type="text/javascript" th:src="@{/js/dist/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/dist/bootstrap.min.js}"></script>
 	<script type="text/javascript" th:src="@{/js/acqua.js}"></script>
 
 </body>

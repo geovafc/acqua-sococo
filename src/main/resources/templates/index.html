@@ -14,14 +14,14 @@
 
 		<main>
 		<div class="wrapper">
-		
+
 			<div class="block">
 				<div class="block-img">
-					<img th:src="@{imagens/prod.png}" alt="Produtos"/>
+					<img th:src="@{imagens/prod.png}" alt="Produtos" />
 				</div>
 				<div class="block-desc">
-					<li>Cadastro de produtos</li>
-					<li>Lista de produtos</li>
+					<li><a th:href="@{/produtos/novo}">Cadastro de produtos</a></li>
+					<li><a th:href="@{/produtos}">Lista de produtos</a></li>
 					<li>Verificar produto</li>
 				</div>
 				<div class="block-link">
@@ -31,11 +31,11 @@
 
 			<div class="block">
 				<div class="block-img">
-					<img th:src="@{imagens/usuario.png}" alt="usuario"/>
+					<img th:src="@{imagens/usuario.png}" alt="usuario" />
 				</div>
 				<div class="block-desc">
 					<li>Novo usuário</li>
-					<li>Acesso Sistema </li>
+					<li>Acesso Sistema</li>
 					<li>Cadastar usuário</li>
 				</div>
 				<div class="block-link">
@@ -45,7 +45,7 @@
 
 			<div class="block">
 				<div class="block-img">
-					<img th:src="@{imagens/mov.png}"  alt="movimentacao"/>
+					<img th:src="@{imagens/mov.png}" alt="movimentacao" />
 				</div>
 				<div class="block-desc">
 					<li>Nova movimentação</li>
@@ -57,7 +57,7 @@
 				</div>
 			</div>
 
-			
+
 		</div>
 		</main>
 

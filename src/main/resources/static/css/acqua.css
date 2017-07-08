@@ -1,0 +1,19 @@
+.navbar-brand h2 {
+	margin-top: -4px;
+	color: #fff;
+}
+
+.acq-link-panel {
+	float: right;
+	margin-top: -40px;
+	padding: 0;
+	
+}
+
+.acq-link-panel:hover{
+	cursor: "pointer"
+}
+.acq-produto-panel {
+	
+	
+}
