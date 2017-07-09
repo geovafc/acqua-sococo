@@ -1,14 +1,17 @@
-package br.com.acqua;
+package br.com.acqua.service;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import br.com.acqua.entity.AvatarProd;
 import br.com.acqua.entity.Produto;
+import br.com.acqua.repository.ProdutosRepository;
 
 @Service
 public class ProdutoService {
@@ -26,7 +29,7 @@ public class ProdutoService {
 
 		} catch (DataIntegrityViolationException e) {
 			throw new IllegalArgumentException("Formato de data inválido");
-		}
+		} 
 	}
 
 	public List<Produto> listar() {

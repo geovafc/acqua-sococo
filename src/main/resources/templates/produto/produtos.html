@@ -30,8 +30,9 @@
 					
 					<thead>
 					<tr>
-						<th class="text-center col-md-1">#</th>
+						<th class="text-center col-md-2">Imagem</th>
 						<th class="text-center col-md-2">Codigo Barras</th>
+						<th class="text-center col-md-2">Nome</th>
 						<th class="text-center col-md-2">Descrição</th>
 						<th class="text-center col-md-2">Data Cadastro</th>
 						<th class="text-center col-md-1">Operação</th>
@@ -41,9 +42,12 @@
 				
 				<tbody>
 					<tr th:each="produto: ${produtos}">
-						<td class="text-center" th:text="${produto.id}">1</td>
+						<td class="text-center">
+							<img id="avatar" th:src="@{/avatar-prod/load/{id}(id=${produto.avatar.id})}" />
+						</td>
 						<td class="text-center" th:text="${produto.codigoDeBarras}">1</td>
 						<td class="text-center" th:text="${produto.descricao}">1</td>
+						<td class="text-center" th:text="${produto.nome}">1</td>
 						<td class="text-center" th:text="${{produto.dataCadastro}}"></td>
 						<td class="text-center">
 						
@@ -63,7 +67,7 @@
 					</tr>
 					
 					<tr>
-						<td class="text-center" colspan="5" th:if="${#lists.isEmpty(produtos)}">Nenhum
+						<td class="text-center" colspan="6s" th:if="${#lists.isEmpty(produtos)}">Nenhum
 							produto foi encontrado</td>
 					</tr>
 				

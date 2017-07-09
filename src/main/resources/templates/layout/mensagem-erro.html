@@ -4,7 +4,9 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 
-<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+<div class="alert alert-dismissible alert-danger" th:if="${#fields.hasAnyErrors()}">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong class="text-center">ERROR!</strong><br />
 	<div th:each="detailedError : ${#fields.detailedErrors()}">
 		<span th:text="${detailedError.message}"></span>
 	</div>

@@ -6,16 +6,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -53,9 +54,9 @@ public class Produto implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
 
-	@Lob
-	@Column(name = "imagem")
-	private byte[] imagem;
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@JoinColumn(name = "avatar_id")
+	public AvatarProd avatar;
 
 	@Column(name = "imagem_content_type")
 	private String imagemContentType;
@@ -103,12 +104,12 @@ public class Produto implements Serializable {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public byte[] getImagem() {
-		return imagem;
+	public AvatarProd getAvatar() {
+		return avatar;
 	}
 
-	public void setImagem(byte[] imagem) {
-		this.imagem = imagem;
+	public void setAvatar(AvatarProd avatar) {
+		this.avatar = avatar;
 	}
 
 	public String getImagemContentType() {
@@ -150,7 +151,7 @@ public class Produto implements Serializable {
 	@Override
 	public String toString() {
 		return "Produto{" + "id=" + getId() + ", codigoDeBarras='" + getCodigoDeBarras() + "'" + ", descricao='"
-				+ getDescricao() + "'" + ", imagem='" + getImagem() + "'" + ", imagemContentType='" + imagemContentType
-				+ "'" + "}";
+				+ getDescricao() + "'" + ", imagem='" + getAvatar().getTitulo() + "'" + ", imagemContentType='"
+				+ imagemContentType + "'" + "}";
 	}
 }

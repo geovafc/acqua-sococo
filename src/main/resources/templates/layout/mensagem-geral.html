@@ -3,7 +3,9 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
+<div class="alert alert-dismissible alert-success" th:if="${!#strings.isEmpty(mensagem)}">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong class="text-center">Sucesso!</strong><br />
 	<span th:text="${mensagem}"></span>
 </div>
 

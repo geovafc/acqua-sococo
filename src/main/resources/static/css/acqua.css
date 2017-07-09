@@ -13,7 +13,17 @@
 .acq-link-panel:hover{
 	cursor: "pointer"
 }
-.acq-produto-panel {
-	
-	
+
+/*tamanho imagem fileupload*/
+#avatar {
+	width: 30%;
+}
+
+.file-drop-zone {
+	margin: 0 auto;
+}
+
+/*Ocultar o botão Upload do fileupload*/
+.btn.btn-default.fileinput-upload.fileinput-upload-button {
+	display: none;
 }

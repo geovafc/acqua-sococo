@@ -1,4 +1,4 @@
-package br.com.acqua;
+package br.com.acqua.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
