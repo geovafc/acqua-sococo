@@ -1,5 +1,17 @@
 $('[rel="tooltip"]').tooltip();
 
+//INICIO JAVASCRIPT RELACIONADOS A MOVIMENTACAO
+function obterProdutoPorCodigo(codigo) {
+	$.ajax({
+		url: "/movimentacoes/produtoPorCodigo/" + codigo,
+		success: function(data) {
+			$("#movimentacaoHolter").html(data);
+		}
+	});
+};
+
+//FIM DOS JAVASCRIPTS RELACIONADOS A MOVIMENTACAO
+
 $('#confirmacaoExclusaoModal').on('show.bs.modal', function(event){
 	var button = $(event.relatedTarget);
 	

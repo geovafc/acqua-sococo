@@ -9,13 +9,15 @@
 <title>Registro de Movimentação</title>
 </head>
 
-<section layout:fragment="conteudo">
+<section layout:fragment="conteudo" id="movimentacaoHolter">
 
 	<div class="panel panel-default">
 
 		<div class="panel-body">
 
-			<form class="form-horizontal" method="POST" enctype="multipart/form-data">
+			<form class="form-horizontal" method="POST" enctype="multipart/form-data"
+			th:object="${movimentacao}" th:action="@{/movimentacoes}"
+			>
 
 				<fieldset>
 					<legend>
@@ -33,6 +35,20 @@
 							</div>
 						</div>
 						<div class="col-md-8">
+						
+						
+						<!-- Quando mudar o cursor, fazer uma consulta para obter o produto por codigo e mostrar as infs dele na tela -->
+						<div class="form-group">
+								<label for="codigoDeBarras" class="col-lg-3 control-label">Código de barras</label>
+								<div class="col-lg-9">
+									<input type="text" class="form-control" id="codigoBarras"
+										autofocus="autofocus"
+										placeholder="Código de barras"										
+										onblur="obterProdutoPorCodigo(this.value);"
+										
+										 />
+								</div>
+							</div>
 
 							<div class="form-group">
 								<label for="codigoDeBarras" class="col-lg-3 control-label">Data e hora</label>
