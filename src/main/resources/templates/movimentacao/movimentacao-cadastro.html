@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/layoutPadrao">
+
+
+<head>
+<title>Registro de Movimentação</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="panel panel-default">
+
+		<div class="panel-body">
+
+			<form class="form-horizontal" method="POST" enctype="multipart/form-data">
+
+				<fieldset>
+					<legend>
+						<h3 class="acq-produto-panel"> Registro de Movimentação </h3>
+						<a class="acq-link-panel">Listar Movimentações</a>
+					</legend>
+
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								
+								<div class="col-lg-9">
+									<img id="fotoMovimentacaoEmabalagem" src="/imagens/mov.png"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-8">
+
+							<div class="form-group">
+								<label for="codigoDeBarras" class="col-lg-3 control-label">Data e hora</label>
+								<div class="col-lg-9">
+									<input type="text" class="form-control" id="dataEhora"
+										 autofocus="autofocus"
+										placeholder="Data e Hora" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="nome" class="col-lg-3 control-label">Observações</label>
+								<div class="col-lg-9">
+									<input type="text" class="form-control" id="observacao"
+										placeholder="Observacao" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="descricao" class="col-lg-3 control-label">Situação</label>
+								<div class="col-lg-9">
+									<input type="text" class="form-control" id="situacao"
+										placeholder="Situação" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="descricao" class="col-lg-3 control-label">Lote</label>
+								<div class="col-lg-9">
+									<input type="text" class="form-control" id="lote"
+										placeholder="Lote" />
+								</div>
+							</div>
+						
+							
+
+							<div class="form-group">
+								<div class="col-lg-10 col-lg-offset-3">
+									<button type="submit" class="btn btn-primary">Salvar</button>
+									<button type="reset"  class="btn btn-default">Cancelar</button>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+
+
+
+				</fieldset>
+			</form>
+		</div>
+
+	</div>
+
+</section>
+</html>

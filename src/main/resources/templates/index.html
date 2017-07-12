@@ -20,13 +20,22 @@
 					<img th:src="@{imagens/prod.png}" alt="Produtos" />
 				</div>
 				<div class="block-desc">
-					<li><a th:href="@{/produtos/novo}">Cadastro de produtos</a></li>
-					<li><a th:href="@{/produtos}">Lista de produtos</a></li>
-					<li>Verificar produto</li>
+				
+<!-- 					<li><a th:href="@{/produtos/novo}">Cadastro de produtos</a></li> -->
+<!-- 					<li><a th:href="@{/produtos}">Lista de produtos</a></li> -->
+					<div class="block-link">
+						<a th:href="@{/produtos}">Lista de produtos</a>
+					</div>
+					<div class="block-link">
+						<a th:href="@{/produtos/novo}">Cadastro de produtos</a>
+					</div>
 				</div>
-				<div class="block-link">
-					<a href="#">Ver mais</a>
-				</div>
+<!-- 				<div class="block-link"> -->
+<!-- 					<a th:href="@{/produtos/novo}">Cadastro de produtos</a> -->
+<!-- 				</div> -->
+<!-- 				<div class="block-link"> -->
+<!-- 					<a th:href="@{/produtos}">Lista de produtos</a> -->
+<!-- 				</div> -->
 			</div>
 
 			<div class="block">
@@ -34,13 +43,16 @@
 					<img th:src="@{imagens/usuario.png}" alt="usuario" />
 				</div>
 				<div class="block-desc">
-					<li>Novo usuário</li>
-					<li>Acesso Sistema</li>
-					<li>Cadastar usuário</li>
+					<div class="block-link">
+						<a th:href="@{/usuarios}">Lista de operadores</a>
+					</div>
+					<div class="block-link">
+						<a th:href="@{/usuarios/novo}">Cadastro de operadores</a>
+					</div>
 				</div>
-				<div class="block-link">
+				<!-- <div class="block-link">
 					<a href="#">Ver mais</a>
-				</div>
+				</div> -->
 			</div>
 
 			<div class="block">
@@ -48,13 +60,18 @@
 					<img th:src="@{imagens/mov.png}" alt="movimentacao" />
 				</div>
 				<div class="block-desc">
-					<li>Nova movimentação</li>
-					<li>Verificar movimentação</li>
-					<li>Listar as movimentações</li>
+				<div class="block-desc">
+					<div class="block-link">
+						<a th:href="@{/movimentacoes}">Lista de movimentações</a>
+					</div>
+					<div class="block-link">
+						<a th:href="@{/movimentacoes/novo}">Cadastro de movimentações</a>
+					</div>
 				</div>
-				<div class="block-link">
-					<a href="#">Ver mais</a>
 				</div>
+<!-- 				<div class="block-link"> -->
+<!-- 					<a href="#">Ver mais</a> -->
+<!-- 				</div> -->
 			</div>
 
 

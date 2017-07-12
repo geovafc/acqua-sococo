@@ -4,12 +4,10 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import br.com.acqua.entity.AvatarProd;
 import br.com.acqua.entity.Produto;
 import br.com.acqua.repository.ProdutosRepository;
 
