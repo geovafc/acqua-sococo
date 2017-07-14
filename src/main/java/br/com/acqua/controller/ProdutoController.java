@@ -64,7 +64,8 @@ public class ProdutoController {
 		if (produto.getAvatar() == null && file != null) {
 			AvatarProd avatar = avatarService.getAvatarByUpload(file);
 			produto.setAvatar(avatar);
-		}else if (produto.getAvatar() != null && file != null){
+		}
+		if (produto.getAvatar() != null && file != null){
 			AvatarProd avatar = avatarService.getAvatarByUpload(file);
 			avatar.setId(produto.getAvatar().getId());
 			produto.setAvatar(avatarService.save(avatar));

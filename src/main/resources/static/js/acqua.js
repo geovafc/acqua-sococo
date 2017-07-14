@@ -18,13 +18,3 @@ $('#confirmacaoExclusaoModal').on('show.bs.modal', function(event){
 	modal.find('.modal-body span').html('Tem certeza que deseja excluir <strong>' + nome + '</strong>?');
 });
 
-
-$("#file-avatar").fileinput({
-    uploadExtraData: {kvId: '10'}
-});
-
-$('#file-pt').fileinput({
-    language: 'pt-BR',
-    uploadUrl: '#',
-    allowedFileExtensions: ['jpg', 'png', 'gif']
-});

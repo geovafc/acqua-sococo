@@ -14,10 +14,6 @@
 
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/bootstrap/bootstrap.min.css}" />
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/fileinput/fileinput.css}" />
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/fileinput/theme.css}" />
 	
 <link rel="stylesheet" type="text/css" th:href="@{/css/acqua.css}" />
 
@@ -29,7 +25,7 @@
 
 	<header layout:include="layout/cabecalho"></header>
 	
-	<div class="container">
+	<div class="container-fluid">
 		
 		<section layout:fragment="conteudo">
 			<p>conteudo principal</p>
@@ -39,12 +35,13 @@
 
 
 	<script type="text/javascript" th:src="@{/js/bootstrap/jquery.min.js}"></script>
-	<script type="text/javascript" th:src="@{/js/fileinput/sortable.js}"></script>
-	<script type="text/javascript" th:src="@{/js/fileinput/fileinput.js}"></script>
-	<script type="text/javascript" th:src="@{/js/fileinput/pt-BR.js}"></script>
-	<script type="text/javascript" th:src="@{/js/fileinput/theme.js}"></script>
-	
 	<script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/holder/additional-methods.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/holder/messages_pt_BR.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/holder/localfilereader.js}"></script>
+	<script type="text/javascript" th:src="@{/js/holder/holder.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/holder/jquery.mask.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/holder/mask.js}"></script>
 	<script type="text/javascript" th:src="@{/js/acqua.js}"></script>
 
 </body>
