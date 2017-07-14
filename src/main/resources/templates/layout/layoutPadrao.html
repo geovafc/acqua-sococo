@@ -45,4 +45,54 @@
 	<script type="text/javascript" th:src="@{/js/acqua.js}"></script>
 
 </body>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xlms:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<link rel="icon" type="image/png" href="/imagens/logo.png" />
+<title>Acqua</title>
+
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/fileinput/fileinput.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/fileinput/theme.css}" />
+	
+<link rel="stylesheet" type="text/css" th:href="@{/css/acqua.css}" />
+
+</head>
+
+<body>
+
+
+
+	<header layout:include="layout/cabecalho"></header>
+	
+	<div class="container">
+		
+		<section layout:fragment="conteudo">
+			<p>conteudo principal</p>
+		</section>
+	
+	</div>
+
+
+	<script type="text/javascript" th:src="@{/js/bootstrap/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/fileinput/sortable.js}"></script>
+	<script type="text/javascript" th:src="@{/js/fileinput/fileinput.js}"></script>
+	<script type="text/javascript" th:src="@{/js/fileinput/pt-BR.js}"></script>
+	<script type="text/javascript" th:src="@{/js/fileinput/theme.js}"></script>
+	
+	<script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/acqua.js}"></script>
+
+</body>
 </html>

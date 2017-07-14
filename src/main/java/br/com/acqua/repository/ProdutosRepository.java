@@ -6,6 +6,6 @@ import br.com.acqua.entity.Produto;
 
 public interface ProdutosRepository extends JpaRepository<Produto, Long> {
 	
-	
+	public Produto findByCodigoDeBarras(String codigoDeBarras);
 
 }
