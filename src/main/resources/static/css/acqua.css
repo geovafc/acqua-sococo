@@ -5,18 +5,27 @@
 
 .acq-link-panel {
 	float: right;
-	margin-top: -55px;
+	margin-top: -39px;
 	padding: 0;
-	
 }
 
-.acq-link-panel:hover{
+.acq-link-panel:hover {
 	cursor: "pointer"
 }
 
 /*tamanho imagem fileupload*/
 #avatar {
-	width: 30%;
+	width: 30px;
+	height: 30px;
+}
+
+.card-img-bottom a img {
+	width: 320px;
+	height: 320px;
+}
+
+.text-center{
+	padding-top: 50px;
 }
 
 .file-drop-zone {
@@ -25,9 +34,7 @@
 
 /*Ocultar o botão Upload do fileupload*/
 .btn.btn-default.fileinput-upload.fileinput-upload-button {
-	display: none;
-.navbar-brand h2 {
-	margin-top: -4px;
+	display: none; . navbar-brand h2 { margin-top : -4px;
 	color: #fff;
 }
 
@@ -35,16 +42,23 @@
 	float: right;
 	margin-top: -40px;
 	padding: 0;
-	
 }
 
 .btn-panel-listarUsuarios {
 	float: right;
-	margin-top: -40px;	
+	margin-top: -40px;
 }
 
-.acq-link-panel:hover{
+.acq-link-panel:hover {
 	cursor: "pointer"
+}
+
+.card-img-bottom {
+	color: #fff;
+	width: 60rem;
+	height: 60rem;
+	text-align: center;
+	background-size: cover;
 }
 
 /*tamanho imagem fileupload*/
@@ -63,10 +77,9 @@
 
 #fotoEmbalagem {
 	padding-left: 60px;
-	
 }
 
-#fotoMovimentacaoEmabalagem{
+#fotoMovimentacaoEmabalagem {
 	width: 100%;
 	height: 100%;
 	margin-left: 30px;

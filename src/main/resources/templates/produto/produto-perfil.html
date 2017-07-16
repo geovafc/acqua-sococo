@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/layoutPadrao">
+
+
+<head>
+<title>Cadastro de Produto</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+		<div class="container">
+		<blockquote>
+			<div class="card ">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card-block">
+							<h4 style="font-size: 50px;" class="card-title" th:text="${produto.nome}"></h4>
+							<p class="card-text" th:text="${produto.descricao}"></p>
+							<label>Código de Barras</label>
+							<p class="card-text" th:text="${produto.codigoDeBarras}"></p>
+							<label>Data Cadastro</label>
+							<p class="card-text" th:text="${{produto.dataCadastro}}"></p>
+							
+						</div>
+						<hr/>
+						<div class="card-block" style="margin-top: 15px">
+							<a class="btn btn-primary" style="margin-right: 5px"
+								th:href="@{/produto/update/{id}(id=${produto.id})}" title="Editar"
+								rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-pencil"></span>
+							</a>
+							<a class="btn btn-warning"
+								th:href="@{/produto}" title="Voltar"
+								rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-circle-arrow-left"></span>
+							</a> 
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card-img-bottom" style="text-align: center">
+							<a th:href="@{/avatar-prod/update/{id}(id=${produto.avatar.id})}" title="Alterar Imagem"
+								th:attr="data-id=${produto.avatar.id}"
+								rel="tooltip" data-placement="top">
+								<img th:src="@{/avatar-prod/load/{id}(id=${produto.avatar.id})}"/>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</blockquote>
+	</div>
+
+</section>
+
+</html>

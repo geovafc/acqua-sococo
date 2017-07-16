@@ -1,6 +1,8 @@
 package br.com.acqua.service;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +21,8 @@ public class AvatarProdService {
 	private AvatarProdRepository avatarRepository;
 
 	@Transactional(readOnly = false)
-	public AvatarProd save(AvatarProd avatar) {
-		return avatarRepository.save(avatar);
+	public void saveOrUpdate(AvatarProd avatar) {
+		avatarRepository.save(avatar);
 	}
 
 	public AvatarProd getAvatarByUpload(MultipartFile file) {
@@ -34,6 +36,14 @@ public class AvatarProdService {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}else{
+			try {
+				avatar.setTipo("image/png");
+				avatar.setTitulo("default.png");
+				avatar.setAvatar(this.imageToByte());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return avatar;
@@ -41,6 +51,16 @@ public class AvatarProdService {
 
 	public AvatarProd findById(Long id) {
 		return avatarRepository.findOne(id);
+	}
+	
+	public byte[] imageToByte() throws IOException {
+	    InputStream is = null;
+	    byte[] buffer = null;
+	    is = new FileInputStream("src/main/resources/static/imagens/default.png");
+	    buffer = new byte[is.available()];
+	    is.read(buffer);
+	    is.close();
+	    return buffer;
 	}
 
 }

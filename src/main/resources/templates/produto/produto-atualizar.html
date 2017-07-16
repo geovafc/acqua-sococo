@@ -15,42 +15,23 @@
 		<div class="col-lg-6 col-md-6 col-lg-offset-3 col-md-offset-3">
 
 			<form class="form-horizontal" method="POST"
-				enctype="multipart/form-data" th:action="@{/produto}"
-				th:object="${produto}">
-
-				<input type="hidden" th:field="*{id}" /> <input type="hidden"
-					th:field="*{dataCadastro}" /> <input type="hidden"
-					th:field="*{avatar}" />
+				th:action="@{/produto/update}" th:object="${produto}">
 
 				<div layout:include="layout/mensagem-erro"></div>
 				<div layout:include="layout/mensagem-geral"></div>
+				
+				<input type="hidden" th:field="*{id}" /> 
 
 				<fieldset>
 
 					<legend>
 
-						<h4 class="acq-produto-panel">Cadastro de Produto</h4>
+						<h4 class="acq-produto-panel">Editar de Produto</h4>
 
 						<a class="acq-link-panel" th:href="@{/produto}"><h4>Listar
 								Produtos</h4></a>
 
 					</legend>
-					<div class="text-center">
-						<div class="fileinput fileinput-new" data-provides="fileinput">
-							<div class="fileinput-preview thumbnail" data-trigger="fileinput"
-								style="width: 320px; height: 320px;">
-							<img th:src="@{/imagens/default.png}"/>
-							</div>
-							<div>
-								<span class="btn btn-default btn-file"> <span
-									class="fileinput-new">Selecione uma Imagem</span> <span
-									class="fileinput-exists">Trocar</span> <input type="file"
-									name="file" />
-								</span> <a href="#" class="btn btn-default fileinput-exists"
-									data-dismiss="fileinput">Remover</a>
-							</div>
-						</div>
-					</div>
 
 					<div class="form-group"
 						th:classappend="${#fields.hasErrors('codigoDeBarras')} ? has-error">
@@ -72,8 +53,8 @@
 							placeholder="Descricao" />
 					</div>
 					<div class="form-group">
-						<button type="submit" class="btn btn-primary btn-block">Salvar</button>
-						<button type="reset" class="btn btn-default btn-block">Cancelar</button>
+						<button type="submit" class="btn btn-primary btn-block">Atualizar</button>
+						<a th:href="@{/produto/perfil/{id}(id=${produto.id})}" class="btn btn-default btn-block">Cancelar</a>
 					</div>
 				</fieldset>
 			</form>

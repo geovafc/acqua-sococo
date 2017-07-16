@@ -64,7 +64,7 @@ public class MovimentacaoController {
 public String obterProdutoPorCodigo(@PathVariable String codigo, ModelMap model) {
 		
 		System.out.println("codigo digitado: "+codigo);
-		model.addAttribute("produto", produtoService.buscarPorCodigo(codigo));
+		model.addAttribute("produto", produtoService.findByCodigo(codigo));
 	
 	
 	return "";
