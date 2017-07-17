@@ -18,6 +18,8 @@
 			<form class="form-horizontal" method="POST" enctype="multipart/form-data"
 			th:object="${movimentacao}" th:action="@{/movimentacoes}"
 			>
+			
+
 
 				<fieldset>
 					<legend>
@@ -30,13 +32,21 @@
 							<div class="form-group">
 								
 								<div class="col-lg-9">
+									
 									<img id="fotoMovimentacaoEmabalagem" src="/imagens/mov.png"/>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-8">
 						
-						
+						<div class="form-group">
+								<label for="produto" class="col-lg-3 control-label">Produto</label>
+								<div class="col-lg-9">
+									<input class="form-control" th:field="${produto.descricao}"  disabled="disabled"/>
+												<input type="hidden" th:field="*{produto}" />
+								</div>
+							</div>
+												
 						<!-- Quando mudar o cursor, fazer uma consulta para obter o produto por codigo e mostrar as infs dele na tela -->
 						<div class="form-group">
 								<label for="codigoDeBarras" class="col-lg-3 control-label">Código de barras</label>

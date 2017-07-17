@@ -1,5 +1,8 @@
 package br.com.acqua.controller;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,8 +18,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.acqua.entity.Movimentacao;
 import br.com.acqua.entity.Produto;
+import br.com.acqua.entity.User;
 import br.com.acqua.service.MovimentacaoService;
 import br.com.acqua.service.ProdutoService;
+import br.com.acqua.service.UsuarioService;
 
 @Controller
 @RequestMapping("/movimentacoes")
@@ -30,24 +35,43 @@ public class MovimentacaoController {
 	@Autowired
 	private ProdutoService produtoService;
 	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	
 	@GetMapping("/novo")
 	public ModelAndView novo(){
 		ModelAndView view = new ModelAndView(CADASTRO_VIEW);
 		view.addObject(new Movimentacao());
+		view.addObject(new Produto());
 		return view;
 	}
 	
-	@RequestMapping(value = "/novo", method = RequestMethod.POST)
-	public String salvar(@Validated Movimentacao movimentacao, Errors errors, RedirectAttributes attributes) {
+	@RequestMapping( method = RequestMethod.POST)
+	public String salvar(@Validated Movimentacao movimentacao, Errors errors, RedirectAttributes attributes, ModelMap model) {
 
 		if (errors.hasErrors()) {
 			return CADASTRO_VIEW;
 		}
 		try {
+			
+			System.out.println("p"+movimentacao.getProduto());
+			
+			User user = new User();
+			
+			user.setCodigo("sasasas");
+			user.setEnabled(true);
+			user.setNome("Geovane");
+			user.setPassword("'123");
+			user.setSobrenome("freitas");
+			user.setUsername("fc");
+			
+			movimentacao.setUser(user);
+			//movimentacao.setProduto();
 
 			movimentacaoService.salvar(movimentacao);
+			
+			
 
 			attributes.addFlashAttribute("mensagem", "Movimentação salva com Sucesso!");
 
@@ -63,11 +87,21 @@ public class MovimentacaoController {
 	@GetMapping("/produtoPorCodigo/{codigo}")
 public String obterProdutoPorCodigo(@PathVariable String codigo, ModelMap model) {
 		
-		System.out.println("codigo digitado: "+codigo);
+		Produto p = new Produto();
+		
+		p.setCodigoDeBarras("123");
+		p.setDescricao("sasasasa");
+		p.setNome("Agua de coco");
+		p.setDataCadastro(Date.valueOf(LocalDate.now()));
+		
+		produtoService.salvar(p);
+		
+		
+		
+		System.out.println("codigo digitado: "+produtoService.buscarPorCodigo(codigo).getCodigoDeBarras());
 		model.addAttribute("produto", produtoService.buscarPorCodigo(codigo));
 	
-	
-	return "";
+	return "movimentacao/movimentacao-cadastro";
 }
 
 }
