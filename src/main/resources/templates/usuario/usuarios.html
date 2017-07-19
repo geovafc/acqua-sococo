@@ -35,6 +35,8 @@
 						<th class="text-center col-md-2">Username</th>
 						<th class="text-center col-md-2">Data de Cadastro</th>
 						<th class="text-center col-md-2">Perfil</th>
+						<th class="text-center col-md-2">Status</th>
+						<th class="text-center col-md-2">Operação</th>
 						
 						
 					</tr>
@@ -45,9 +47,10 @@
 						
 						<td class="text-center" th:text="${usuario.nome}">1</td>
 						<td class="text-center" th:text="${usuario.codigo}">1</td>
-						<td class="text-center" th:text="${usuario.usernome}">1</td>
+						<td class="text-center" th:text="${usuario.username}">1</td>
 						<td class="text-center" th:text="${{usuario.dataCadastro}}"></td>
 						<td class="text-center" th:text="${{usuario.roles}}"></td>
+						<td class="text-center" th:text="${{usuario.enabled}}"></td>
 						<td class="text-center">
 						
 							<a class="btn btn-link btn-xs"
@@ -77,7 +80,7 @@
 			</div>
 		
 		</div>
-		<div layout:include="layout/dialog-confirmacao-exclusao"></div>
+<!-- 		<div layout:include="layout/dialog-confirmacao-exclusao"></div> -->
 	</div>
 
 </section>	
