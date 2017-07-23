@@ -87,19 +87,9 @@ public class MovimentacaoController {
 	@GetMapping("/produtoPorCodigo/{codigo}")
 public String obterProdutoPorCodigo(@PathVariable String codigo, ModelMap model) {
 		
-		Produto p = new Produto();
+
 		
-		p.setCodigoDeBarras("123");
-		p.setDescricao("sasasasa");
-		p.setNome("Agua de coco");
-		p.setDataCadastro(Date.valueOf(LocalDate.now()));
-		
-		produtoService.salvar(p);
-		
-		
-		
-		System.out.println("codigo digitado: "+produtoService.buscarPorCodigo(codigo).getCodigoDeBarras());
-		model.addAttribute("produto", produtoService.buscarPorCodigo(codigo));
+		model.addAttribute("produto", produtoService.findByCodigo(codigo));
 	
 	return "movimentacao/movimentacao-cadastro";
 }

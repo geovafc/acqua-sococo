@@ -21,7 +21,7 @@ public class AvatarProd implements Serializable {
 	private String tipo;
 
 	@Lob
-	@Column(nullable = false)
+	@Column
 	private byte[] avatar;
 
 	public Long getId() {

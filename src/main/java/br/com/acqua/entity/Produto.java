@@ -54,7 +54,7 @@ public class Produto implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
 
-	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, optional = true)
 	@JoinColumn(name = "avatar_id")
 	public AvatarProd avatar;
 

@@ -5,7 +5,7 @@
 	layout:decorator="layout/layoutPadrao">
 
 <head>
-	<title>Pesquisa de Produtos</title>
+<title>Pesquisa de Produtos</title>
 </head>
 
 <section layout:fragment="conteudo">
@@ -13,75 +13,78 @@
 	<div layout:include="layout/mensagem-geral"></div>
 
 	<div class="panel panel-default">
-	
+
 		<div class="panel-body">
-		
+
 			<div class="table-responsive">
-			
+
 				<table class="table table-bordered table-striped">
 					<fieldset>
-						
+
 						<legend>
-							<h3>Lista de Produtos</h3>
-							<a class="acq-link-panel" th:href="@{/produtos/novo}">novo produto</a>
-						</legend>
-					
-					</fieldset>
-					
-					<thead>
-					<tr>
-						<th class="text-center col-md-2">Imagem</th>
-						<th class="text-center col-md-2">Codigo Barras</th>
-						<th class="text-center col-md-2">Nome</th>
-						<th class="text-center col-md-2">Descrição</th>
-						<th class="text-center col-md-2">Data Cadastro</th>
-						<th class="text-center col-md-1">Operação</th>
-						
-					</tr>
-				</thead>
-				
-				<tbody>
-					<tr th:each="produto: ${produtos}">
-						<td class="text-center">
-							<img id="avatar" th:src="@{/avatar-prod/load/{id}(id=${produto.avatar.id})}" />
-						</td>
-						<td class="text-center" th:text="${produto.codigoDeBarras}">1</td>
-						<td class="text-center" th:text="${produto.descricao}">1</td>
-						<td class="text-center" th:text="${produto.nome}">1</td>
-						<td class="text-center" th:text="${{produto.dataCadastro}}"></td>
-						<td class="text-center">
-						
-							<a class="btn btn-link btn-xs"
-								th:href="@{/produtos/{id}(id=${produto.id})}"
-								title="Editar" rel="tooltip" data-placement="top"> 
-								<span class="glyphicon glyphicon-pencil"></span>
-							</a> 
+							<h4>Lista de Produtos</h4>
 							
-							<a class="btn btn-link btn-xs" data-toggle="modal"
+								<a class="acq-link-panel" th:href="@{/produto/novo}"><h4>Novo
+								produto</h4></a>
+							
+						</legend>
+
+					</fieldset>
+
+					<thead>
+						<tr>
+							<th class="text-center col-md-2">Imagem</th>
+							<th class="text-center col-md-1">Código</th>
+							<th class="text-center col-md-2">Codigo Barras</th>
+							<th class="text-center col-md-2">Nome</th>
+							<th class="text-center col-md-2">Descrição</th>
+							<th class="text-center col-md-2">Data Cadastro</th>
+							<th class="text-center col-md-1">Operação</th>
+
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="produto: ${produtos}" >
+							<td class="text-center">
+							<img id="avatar" th:src="@{/avatar-prod/load/{id}(id=${produto.avatar.id})}" />
+							</td>
+							<td style="padding-top: 15px;" class="text-center" th:text="${produto.id}">1</td>
+							<td style="padding-top: 15px;" class="text-center" th:text="${produto.codigoDeBarras}">1</td>
+							<td style="padding-top: 15px;" class="text-center" th:text="${produto.nome}">1</td>
+							<td style="padding-top: 15px;" class="text-center" th:text="${produto.descricao}">1</td>
+							<td style="padding-top: 15px;" class="text-center" th:text="${{produto.dataCadastro}}"></td>
+							<td style="padding-top: 15px;" class="text-center">
+							<a class="btn btn-info btn-xs"
+								th:href="@{/produto/perfil/{id}(id=${produto.id})}" title="Perfil"
+								rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-eye-open"></span>
+							</a> 
+							<a class="btn btn-danger btn-xs" data-toggle="modal"
 								data-target="#confirmacaoExclusaoModal"
 								th:attr="data-id=${produto.id}, data-nome=${produto.nome}"
 								title="Excluir" rel="tooltip" data-placement="top"> <span
-								class="glyphicon glyphicon-remove"></span>
-							</a>
-						</td>					
-					</tr>
-					
-					<tr>
-						<td class="text-center" colspan="6s" th:if="${#lists.isEmpty(produtos)}">Nenhum
-							produto foi encontrado</td>
-					</tr>
-				
-				</tbody>
-				
+									class="glyphicon glyphicon-remove"></span>
+							</a></td>
+						</tr>
+
+						<tr>
+							<td class="text-center" colspan="7"
+								th:if="${#lists.isEmpty(produtos)}">Nenhum produto foi
+								encontrado</td>
+						</tr>
+
+					</tbody>
+
 				</table>
-			
+
 			</div>
-		
+
 		</div>
-		<div layout:include="layout/dialog-confirmacao-exclusao"></div>
+		<div layout:include="produto/dialog-confirmacao-exclusao"></div>
 	</div>
 
-</section>	
-	
-	
+</section>
+
+
 </html>

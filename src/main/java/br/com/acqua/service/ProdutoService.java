@@ -7,15 +7,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import br.com.acqua.entity.AvatarProd;
 import br.com.acqua.entity.Produto;
-import br.com.acqua.repository.ProdutosRepository;
+import br.com.acqua.repository.ProdutoRepository;
 
 @Service
 public class ProdutoService {
 	
 	@Autowired
-	private ProdutosRepository produtosRepository;
+	private ProdutoRepository produtosRepository;
 	
 	public void salvar(Produto produto) {
 
@@ -30,20 +32,30 @@ public class ProdutoService {
 		} 
 	}
 
-	public List<Produto> listar() {
+	public List<Produto> findAll() {
 		return produtosRepository.findAll();
 	}
 	
-	public void excluir(Long id) {
+	public void delete(Long id) {
 		produtosRepository.delete(id);
 	}
 	
-	public Produto buscar(Long id){
+	public Produto findById(Long id){
 		return produtosRepository.findOne(id);
 	}
 	
-	public Produto buscarPorCodigo(String codigoDeBarras){
+	public Produto findByCodigo(String codigoDeBarras){
 		return produtosRepository.findByCodigoDeBarras(codigoDeBarras);
+	}
+
+	@Transactional(readOnly = false)
+	public void updateNomeAndDescricaoAndCodigoBarra(Produto produto) {
+		System.out.println(produto.getNome()+produto.getDescricao()+produto.getCodigoDeBarras()+ produto.getId());
+		produtosRepository.updateNomeAndDescricaoAndCodigoBarra(produto.getNome(), produto.getDescricao(), produto.getCodigoDeBarras(), produto.getId());
+	}
+
+	public Produto findByAvatar(AvatarProd avatar) {
+		return produtosRepository.findByAvatar(avatar);
 	}
 
 }

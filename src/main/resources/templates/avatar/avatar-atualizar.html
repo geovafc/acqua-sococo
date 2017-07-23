@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/layoutPadrao">
+
+
+<head>
+<title>Atualizar Imagem</title>
+</head>
+
+<section layout:fragment="conteudo">
+	<div class="row">
+		<main>
+		<div class="col-lg-6 col-md-6 col-lg-offset-3 col-md-offset-3">
+
+			<form class="form-horizontal" method="POST"
+				enctype="multipart/form-data" th:action="@{/avatar-prod/update}"
+				th:object="${avatar}">
+
+				<input type="hidden" th:field="*{id}" />
+
+				<div layout:include="layout/mensagem-erro"></div>
+				<div layout:include="layout/mensagem-geral"></div>
+
+				<fieldset>
+
+					<legend>
+
+						<h4 class="acq-produto-panel">Atualizar Imagem</h4>
+
+						<a class="acq-link-panel" th:href="@{/produto}"><h4>Listar
+								Produtos</h4></a>
+
+					</legend>
+					<div class="text-center">
+						<div class="fileinput fileinput-new" data-provides="fileinput">
+							<div class="fileinput-preview thumbnail" data-trigger="fileinput"
+								style="width: 320px; height: 320px;">
+								<img th:src="@{/avatar-prod/load/{id}(id=${avatar.id})}" />
+							</div>
+							<div>
+								<span class="btn btn-default btn-file"> <span
+									class="fileinput-new">Selecione Imagem</span> <span
+									class="fileinput-exists">Trocar</span> <input type="file"
+									name="file" />
+								</span> <a href="#" class="btn btn-default fileinput-exists"
+									data-dismiss="fileinput">Remover</a>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary btn-block">Atualizar Imagem</button>
+						<a href="javascript:history.back()"
+							class="btn btn-default btn-block">Voltar</a>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		<div class="clearfix"></div>
+		</main>
+	</div>
+
+
+</section>
+
+</html>

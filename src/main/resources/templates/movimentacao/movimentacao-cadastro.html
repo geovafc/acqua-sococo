@@ -19,8 +19,6 @@
 			th:object="${movimentacao}" th:action="@{/movimentacoes}"
 			>
 			
-
-
 				<fieldset>
 					<legend>
 						<h3 class="acq-produto-panel"> Registro de Movimentação </h3>
@@ -33,7 +31,7 @@
 								
 								<div class="col-lg-9">
 									
-									<img id="fotoMovimentacaoEmabalagem" src="/imagens/mov.png"/>
+									<img style="height:300px;width:300px"  id="fotoMovimentacaoEmabalagem" src="/imagens/mov.png"/>
 								</div>
 							</div>
 						</div>
@@ -42,8 +40,8 @@
 						<div class="form-group">
 								<label for="produto" class="col-lg-3 control-label">Produto</label>
 								<div class="col-lg-9">
-									<input class="form-control" th:field="${produto.descricao}"  disabled="disabled"/>
-												<input type="hidden" th:field="*{produto}" />
+									<input class="form-control" th:field="${movimentacao.produto.descricao}"  disabled="disabled"/>
+												
 								</div>
 							</div>
 												
@@ -71,7 +69,7 @@
 							<div class="form-group">
 								<label for="nome" class="col-lg-3 control-label">Observações</label>
 								<div class="col-lg-9">
-									<input type="text" class="form-control" id="observacao"
+									<input th:field="*{observacao}" type="text" class="form-control" id="observacao"
 										placeholder="Observacao" />
 								</div>
 							</div>

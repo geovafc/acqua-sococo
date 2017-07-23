@@ -1,16 +1,6 @@
+$('.fileinput').fileinput();
+
 $('[rel="tooltip"]').tooltip();
-
-//INICIO JAVASCRIPT RELACIONADOS A MOVIMENTACAO
-function obterProdutoPorCodigo(codigo) {
-	$.ajax({
-		url: "/movimentacoes/produtoPorCodigo/" + codigo,
-		success: function(data) {
-			$("#movimentacaoHolter").html(data);
-		}
-	});
-};
-
-//FIM DOS JAVASCRIPTS RELACIONADOS A MOVIMENTACAO
 
 $('#confirmacaoExclusaoModal').on('show.bs.modal', function(event){
 	var button = $(event.relatedTarget);
@@ -30,13 +20,14 @@ $('#confirmacaoExclusaoModal').on('show.bs.modal', function(event){
 	modal.find('.modal-body span').html('Tem certeza que deseja excluir <strong>' + nome + '</strong>?');
 });
 
+//INICIO JAVASCRIPT RELACIONADOS A MOVIMENTACAO
+function obterProdutoPorCodigo(codigo) {
+	$.ajax({
+		url: "/movimentacoes/produtoPorCodigo/" + codigo,
+		success: function(data) {
+			$("#movimentacaoHolter").html(data);
+		}
+	});
+};
 
-$("#file-avatar").fileinput({
-    uploadExtraData: {kvId: '10'}
-});
-
-$('#file-pt').fileinput({
-    language: 'pt-BR',
-    uploadUrl: '#',
-    allowedFileExtensions: ['jpg', 'png', 'gif']
-});
+//FIM DOS JAVASCRIPTS RELACIONADOS A MOVIMENTACAO

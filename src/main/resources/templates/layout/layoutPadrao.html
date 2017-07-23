@@ -7,18 +7,19 @@
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="viewport" content="width=device-width" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
 <link rel="icon" type="image/png" href="/imagens/logo.png" />
 <title>Acqua</title>
 
 
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/bootstrap/bootstrap.min.css}" />
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/fileinput/fileinput.css}" />
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/fileinput/theme.css}" />
 	
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/jasny/jasny-bootstrap.min.css}" />
+
 <link rel="stylesheet" type="text/css" th:href="@{/css/acqua.css}" />
 
 </head>
@@ -28,24 +29,23 @@
 
 
 	<header layout:include="layout/cabecalho"></header>
-	
-	<div class="container">
-		
+
+	<div class="container-fluid">
+
 		<section layout:fragment="conteudo">
 			<p>conteudo principal</p>
 		</section>
-	
+
 	</div>
 
 
 	<script type="text/javascript" th:src="@{/js/bootstrap/jquery.min.js}"></script>
-	<script type="text/javascript" th:src="@{/js/fileinput/sortable.js}"></script>
-	<script type="text/javascript" th:src="@{/js/fileinput/fileinput.js}"></script>
-	<script type="text/javascript" th:src="@{/js/fileinput/pt-BR.js}"></script>
-	<script type="text/javascript" th:src="@{/js/fileinput/theme.js}"></script>
-	
 	<script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/jasny/jasny-bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/holder/jquery.mask.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/holder/mask.js}"></script>
 	<script type="text/javascript" th:src="@{/js/acqua.js}"></script>
 
 </body>
+
 </html>
