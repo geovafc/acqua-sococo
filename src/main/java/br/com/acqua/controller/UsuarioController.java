@@ -1,21 +1,23 @@
 package br.com.acqua.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import br.com.acqua.entity.User;
 import br.com.acqua.entity.UserRole;
@@ -33,39 +35,10 @@ public class UsuarioController {
 	
 	@GetMapping("/novo")
 	public ModelAndView novo(){
-		User usuario = new User();
-		/*usuario.setCodigo("001");
-		
-		try {
-			String date_s = "2011-01-18"; 
-			SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd"); 
-			Date date = dt.parse(date_s);
-			usuario.setDataCadastro(date);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-			
-		usuario.setEnabled(true);
-		usuario.setNome("teste");
-		usuario.setPassword("234");
-		usuario.setSobrenome("teste");
-		usuario.setUsername("rraa");
-		
-		usuarioService.salvar(usuario);*/
-		
-		
-		
+		User usuario = new User();	
 		ModelAndView view = new ModelAndView(CADASTRO_VIEW);
-		view.addObject("usuario", usuario);
-		
-		
-		
+		view.addObject("usuario", usuario);	
 		return view;
-		
-	
-		
-		
 	}
 	
 	@GetMapping
@@ -90,10 +63,9 @@ public class UsuarioController {
 		}
 		
 		try{
-			
 			Date hoje = new Date();
 			usuario.setDataCadastro(hoje);
-				
+			usuario.setRoles(UserRole.USER);	
 			usuarioService.salvar(usuario);
 			attributes.addFlashAttribute("mensagem", "Operador cadastrado com sucesso!");
 			return "redirect:/usuarios";
@@ -101,6 +73,32 @@ public class UsuarioController {
 			attributes.addFlashAttribute("mensagem", "Desculpe, mas algo deu errado.");
 			return CADASTRO_VIEW;
 		}
+	}
+	
+	@RequestMapping(value = {"/{id}"} , method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView editar(@PathVariable("id") Optional<Long> id, @ModelAttribute("usuario") User usuario) {
+		
+		
+		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
+		if(id.isPresent()){
+			usuario = usuarioService.findById(id.get());
+			mv.addObject("usuario", usuario);
+			
+			System.out.println("OBJETO " + usuario.getNome());
+			
+			
+		}
+		
+		return mv;
+		
+	}
+	
+	@DeleteMapping(value="{id}")
+	private String excluir(@PathVariable Long id, RedirectAttributes attributes) {
+		
+		usuarioService.delete(id);
+		attributes.addFlashAttribute("mensagem", "Usuário excluído com sucesso!");	
+		return "redirect:/usuarios";
 	}
 	
 }

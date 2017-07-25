@@ -49,7 +49,7 @@
 						<td class="text-center" th:text="${usuario.codigo}">1</td>
 						<td class="text-center" th:text="${usuario.username}">1</td>
 						<td class="text-center" th:text="${{usuario.dataCadastro}}"></td>
-						<td class="text-center" th:text="${{usuario.roles}}"></td>
+						<td class="text-center" th:text="${{usuario.roles.descricao}}"></td>
 						<td class="text-center" th:text="${{usuario.enabled}}"></td>
 						<td class="text-center">
 						
@@ -69,7 +69,7 @@
 					</tr>
 					
 					<tr>
-						<td class="text-center" colspan="6s" th:if="${#lists.isEmpty(usuarios)}">Nenhum
+						<td class="text-center" colspan="7s" th:if="${#lists.isEmpty(usuarios)}">Nenhum
 							operador foi encontrado</td>
 					</tr>
 				
@@ -80,7 +80,7 @@
 			</div>
 		
 		</div>
-<!-- 		<div layout:include="layout/dialog-confirmacao-exclusao"></div> -->
+		<div layout:include="usuario/dialog-confirmacao-exclusao"></div>
 	</div>
 
 </section>	

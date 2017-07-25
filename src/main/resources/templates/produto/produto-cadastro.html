@@ -10,10 +10,14 @@
 </head>
 
 <section layout:fragment="conteudo">
-	<div class="row">
-		<main>
-		<div class="col-lg-6 col-md-6 col-lg-offset-3 col-md-offset-3">
 
+	<div class="panel panel-default ">
+		<div class="panel-heading">
+			<h3 class="acq-produto-panel">Cadastro de Produto</h3>
+			<a class="acq-link-panel" th:href="@{/produto}"><button class="btn btn-primary">Listar Produtos</button></a>
+		</div>
+		
+		<div class="panel-body">
 			<form class="form-horizontal" method="POST"
 				enctype="multipart/form-data" th:action="@{/produto}"
 				th:object="${produto}">
@@ -25,62 +29,67 @@
 				<div layout:include="layout/mensagem-erro"></div>
 				<div layout:include="layout/mensagem-geral"></div>
 
-				<fieldset>
 
-					<legend>
-
-						<h4 class="acq-produto-panel">Cadastro de Produto</h4>
-
-						<a class="acq-link-panel" th:href="@{/produto}"><h4>Listar
-								Produtos</h4></a>
-
-					</legend>
-					<div class="text-center">
-						<div class="fileinput fileinput-new" data-provides="fileinput">
-							<div class="fileinput-preview thumbnail" data-trigger="fileinput"
-								style="width: 320px; height: 320px;">
-							<img th:src="@{/imagens/default.png}"/>
-							</div>
-							<div>
-								<span class="btn btn-default btn-file"> <span
-									class="fileinput-new">Selecione uma Imagem</span> <span
-									class="fileinput-exists">Trocar</span> <input type="file"
-									name="file" />
-								</span> <a href="#" class="btn btn-default fileinput-exists"
-									data-dismiss="fileinput">Remover</a>
+				
+					<div class="row">
+						<div class="text-center col-lg-4 ">
+							<div class="fileinput fileinput-new" data-provides="fileinput">
+								<div class="fileinput-preview thumbnail" data-trigger="fileinput">
+									<img th:src="@{/imagens/default.png}" />
+								</div>
+								<div>
+									<span class="btn btn-default btn-file"> 
+										<span class="fileinput-new">Selecione uma Imagem</span>
+										<span class="fileinput-exists">Trocar</span> 
+										<input type="file" name="file" />
+									</span> 
+									<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput" >Remover</a>
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="form-group"
-						th:classappend="${#fields.hasErrors('codigoDeBarras')} ? has-error">
-						<label for="codigoDeBarras">Codigo de Barras</label> <input
-							type="text" class="form-control" id="codigoDeBarras"
-							th:field="*{codigoDeBarras}" autofocus="autofocus"
-							placeholder="Codigo de Barras" />
+						<div class="form-cadprod col-lg-8">
+							<div class="form-group col-lg-11"
+								th:classappend="${#fields.hasErrors('codigoDeBarras')} ? has-error">
+								<label for="codigoDeBarras">Codigo de Barras</label> <input
+									type="text" class="form-control col-lg-3" id="codigoDeBarras"
+									th:field="*{codigoDeBarras}" autofocus="autofocus"
+									placeholder="Codigo de Barras" />
+							</div>
+							<div class="form-group col-lg-11"
+								th:classappend="${#fields.hasErrors('nome')} ? has-error">
+								<label for="nome">Nome</label> <input type="text"
+									class="form-control" id="nome" th:field="*{nome}"
+									placeholder="Nome" />
+							</div>
+							<div class="form-group col-lg-11"
+								th:classappend="${#fields.hasErrors('descricao')} ? has-error">
+								<label for="descricao">Descricao</label> <input type="text"
+									class="form-control" id="descricao" th:field="*{descricao}"
+									placeholder="Descricao" />
+							</div>
+							
+							<br/>
+							<br/>
+							<div class="form-group">
+								<div class="col-lg-8 col-lg-offset-3">
+									<button style="width: 30%;" id="btn1" type="submit" class="btn btn-primary">Salvar</button>
+									<button style="width: 30%;" id="btn2" type="reset" class="btn btn-default">Cancelar</button>
+								</div>
+							</div>
+						</div>
+						
+						
 					</div>
-					<div class="form-group"
-						th:classappend="${#fields.hasErrors('nome')} ? has-error">
-						<label for="nome">Nome</label> <input type="text"
-							class="form-control" id="nome" th:field="*{nome}"
-							placeholder="Nome" />
-					</div>
-					<div class="form-group"
-						th:classappend="${#fields.hasErrors('descricao')} ? has-error">
-						<label for="descricao">Descricao</label> <input type="text"
-							class="form-control" id="descricao" th:field="*{descricao}"
-							placeholder="Descricao" />
-					</div>
-					<div class="form-group">
-						<button type="submit" class="btn btn-primary btn-block">Salvar</button>
-						<button type="reset" class="btn btn-default btn-block">Cancelar</button>
-					</div>
-				</fieldset>
+					
+						
+				
+
+				
 			</form>
 		</div>
-		<div class="clearfix"></div>
-		</main>
 	</div>
+
 
 
 </section>

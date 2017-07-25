@@ -80,11 +80,8 @@ public class ProdutoController {
 		return view;
 	}
 
-	@RequestMapping(value = {"/update/{id}", "/update"},
-			method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView editar(@PathVariable("id") Optional<Long> id, 
-			@ModelAttribute("produto") Produto produto) {
-		
+	@RequestMapping(value = {"/update/{id}", "/update"}, method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView editar(@PathVariable("id") Optional<Long> id, @ModelAttribute("produto") Produto produto) {
 		ModelAndView view = new ModelAndView();
 		if (id.isPresent()) {
 			produto = produtoService.findById(id.get());

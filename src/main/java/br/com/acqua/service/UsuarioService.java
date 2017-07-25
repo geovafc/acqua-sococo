@@ -27,4 +27,12 @@ public class UsuarioService {
 			throw new IllegalArgumentException ("Algo deu errado ao salvar este operador");
 		}
 	}
+	
+	public void delete(Long id) {
+		usuarioRepository.delete(id);
+	}
+	
+	public User findById(Long id){
+		return usuarioRepository.findOne(id);
+	}
 }
