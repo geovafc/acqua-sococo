@@ -38,7 +38,7 @@
 						
 						
 						<!-- Quando mudar o cursor, fazer uma consulta para obter o produto por codigo e mostrar as infs dele na tela -->
-						<div class="form-group">
+						<div class="form-group"  >
 								<label for="codigoDeBarras" class="col-lg-3 control-label">Código de barras</label>
 								<div class="col-lg-9">
 									<input type="text" class="form-control" id="codigoBarras"
@@ -48,35 +48,54 @@
 										
 										 />
 								</div>
-							</div>
+						
+							
+								<label for="produto" class="col-lg-3 control-label">Produto</label>
+								<div class="col-lg-9">
+									<input type="text" class="form-control" id="produto"
+									readonly="readonly"
+									th:value="${movimentacao.produto.nome}"
+										 autofocus="autofocus"
+										placeholder="Produto" />
+								</div>
+						
 
-							<div class="form-group">
-								<label for="codigoDeBarras" class="col-lg-3 control-label">Data e hora</label>
+
+								<label for="dataEhora" class="col-lg-3 control-label">Data e hora</label>
 								<div class="col-lg-9">
 									<input type="text" class="form-control" id="dataEhora"
 										 autofocus="autofocus"
-										placeholder="Data e Hora" />
+										placeholder="Data e Hora"
+										
+										 />
 								</div>
 							</div>
+							
 							<div class="form-group">
 								<label for="nome" class="col-lg-3 control-label">Observações</label>
 								<div class="col-lg-9">
 									<input type="text" class="form-control" id="observacao"
-										placeholder="Observacao" />
+										placeholder="Observacao"
+										th:field="*{observacao}"
+										 />
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="descricao" class="col-lg-3 control-label">Situação</label>
 								<div class="col-lg-9">
 									<input type="text" class="form-control" id="situacao"
-										placeholder="Situação" />
+										placeholder="Situação" 
+										th:field="*{situacao}"
+										/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="descricao" class="col-lg-3 control-label">Lote</label>
 								<div class="col-lg-9">
 									<input type="text" class="form-control" id="lote"
-										placeholder="Lote" />
+										placeholder="Lote"
+										th:field="*{lote}"
+										 />
 								</div>
 							</div>
 						

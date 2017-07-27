@@ -111,6 +111,6 @@ public class Movimentacao implements Serializable {
 	@Override
 	public String toString() {
 		return "Movimentacao{" + "id=" + getId() + ", dataHora='" + getDataHora() + "'" + ", observacao='"
-				+ getObservacao() + "'" + ", situacao='" + getSituacao() + "'" + ", lote='" + getLote() + "'" + "}";
+				+ getObservacao() + "'" + ", situacao='" + getSituacao() + "'" + ", lote='" + getLote() + "'" + ", produto='" +getProduto()+ "}";
 	}
 }
