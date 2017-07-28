@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -14,13 +14,9 @@
 <title>Acqua</title>
 
 
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/bootstrap/bootstrap.min.css}" />
-	
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/jasny/jasny-bootstrap.min.css}" />
-
-<link rel="stylesheet" type="text/css" th:href="@{/css/acqua.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/jasny/jasny-bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" href="/css/acqua.css" />
 
 </head>
 
@@ -30,7 +26,7 @@
 
 	<header layout:include="layout/cabecalho"></header>
 
-	<div class="container-fluid">
+	<div class="container">
 
 		<section layout:fragment="conteudo">
 			<p>conteudo principal</p>
@@ -47,5 +43,6 @@
 	<script type="text/javascript" th:src="@{/js/acqua.js}"></script>
 
 </body>
+
 
 </html>

@@ -10,6 +10,8 @@ img {
 
 .navbar-brand img {
 	margin-top: -10px;
+	width: 200px;
+	
 }
 
 .navbar-brand h2 {

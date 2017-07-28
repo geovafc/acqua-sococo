@@ -51,7 +51,8 @@ public class User implements Serializable {
 	@Column(name = "password", nullable = false)
 	private String password;
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+//	pattern = "dd/MM/yyyy HH:mm:ss"
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "data_cadastro", nullable = false)
 	private Date dataCadastro;
 
@@ -148,7 +149,7 @@ public class User implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
@@ -162,7 +163,10 @@ public class User implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (nome == null) {
 			if (other.nome != null)

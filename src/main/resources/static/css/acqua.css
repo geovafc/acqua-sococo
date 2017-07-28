@@ -3,6 +3,9 @@
 	color: #fff;
 }
 
+body{
+	background-image: url("/imagens/fundo_verdeclaro.png");
+}
 .acq-link-panel {
 	float: right;
 	margin-top: -39px;
@@ -25,7 +28,13 @@
 }
 
 .text-center{
-	padding-top: 50px;
+	padding-top: 30px;
+	padding-right: 30px
+}
+
+.form-cadprod{
+	padding-top: 30px;
+	
 }
 
 .file-drop-zone {
@@ -83,4 +92,10 @@
 	width: 100%;
 	height: 100%;
 	margin-left: 30px;
+}
+
+.form-cadprod .form-group #btn1 {
+	width: 40px;
+	height: 40px;
+
 }
