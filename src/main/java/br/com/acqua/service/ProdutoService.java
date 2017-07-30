@@ -12,13 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.acqua.entity.AvatarProd;
 import br.com.acqua.entity.Produto;
 import br.com.acqua.repository.ProdutoRepository;
+import br.com.acqua.repository.filter.ProdutoFilter;
 
 @Service
 public class ProdutoService {
-	
+
 	@Autowired
 	private ProdutoRepository produtosRepository;
-	
+
 	public void salvar(Produto produto) {
 
 		try {
@@ -29,29 +30,31 @@ public class ProdutoService {
 
 		} catch (DataIntegrityViolationException e) {
 			throw new IllegalArgumentException("Formato de data inválido");
-		} 
+		}
 	}
 
 	public List<Produto> findAll() {
 		return produtosRepository.findAll();
 	}
-	
+
 	public void delete(Long id) {
 		produtosRepository.delete(id);
 	}
-	
-	public Produto findById(Long id){
+
+	public Produto findById(Long id) {
 		return produtosRepository.findOne(id);
 	}
-	
-	public Produto findByCodigo(String codigoDeBarras){
-		return produtosRepository.findByCodigoDeBarras(codigoDeBarras);
+
+	public Produto findByCodigo(ProdutoFilter filtro) {
+		String codigo = filtro.getCodigo() == null ? "%" : filtro.getCodigo();
+		return produtosRepository.findByCodigoDeBarras(codigo);
 	}
 
 	@Transactional(readOnly = false)
 	public void updateNomeAndDescricaoAndCodigoBarra(Produto produto) {
-		System.out.println(produto.getNome()+produto.getDescricao()+produto.getCodigoDeBarras()+ produto.getId());
-		produtosRepository.updateNomeAndDescricaoAndCodigoBarra(produto.getNome(), produto.getDescricao(), produto.getCodigoDeBarras(), produto.getId());
+		System.out.println(produto.getNome() + produto.getDescricao() + produto.getCodigoDeBarras() + produto.getId());
+		produtosRepository.updateNomeAndDescricaoAndCodigoBarra(produto.getNome(), produto.getDescricao(),
+				produto.getCodigoDeBarras(), produto.getId());
 	}
 
 	public Produto findByAvatar(AvatarProd avatar) {

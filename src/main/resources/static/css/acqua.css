@@ -26,6 +26,10 @@ body{
 	width: 320px;
 	height: 320px;
 }
+.card-img-bottom img {
+	width: 320px;
+	height: 320px;
+}
 
 .text-center{
 	padding-top: 30px;

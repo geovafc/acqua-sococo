@@ -1,7 +1,6 @@
 package br.com.acqua.service;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +19,6 @@ public class MovimentacaoService {
 	public void salvar(Movimentacao movimentacao) {
 
 		try {
-			if (movimentacao.getId() == null) {
-				movimentacao.setDataHora(Date.valueOf(LocalDate.now()));
-				//obter o usuario que esta logado
-				//obter produto por codigo de barras
-			}
 			movimentacaoRepository.save(movimentacao);
 
 		} catch (DataIntegrityViolationException e) {

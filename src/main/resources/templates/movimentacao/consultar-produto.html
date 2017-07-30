@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/layoutPadrao">
+
+
+<head>
+<title>Registro de Movimentação</title>
+</head>
+
+<section layout:fragment="conteudo" id="movimentacaoHolter">
+
+	<div class="panel panel-default">
+
+		<div class="panel-body">
+			<fieldset>
+				<legend>
+					<h3 class="acq-produto-panel">Registro de Movimentação</h3>
+					<a class="acq-link-panel"  th:href="@{/movimentacoes}">Listar Movimentações</a>
+				</legend>
+
+				<div class="row">
+					<div th:if="${movimentacao == null}">
+						<form method="GET" th:action="@{/movimentacoes/pesquisar/codigo}"
+							th:object="${filtro}">
+
+							<div class="col-sm-6">
+								<div class="input-group">
+									<input class="form-control color"
+										placeholder="Informe o código de barras do produto que está procurando!"
+										autofocus="autofocus" th:field="*{codigo}"> </input> <span
+										class="input-group-btn">
+										<button type="submit" class="btn color">
+											<i class="glyphicon glyphicon-search"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<br /> <br />
+
+			</fieldset>
+		</div>
+
+	</div>
+
+
+
+</section>
+
+</html>

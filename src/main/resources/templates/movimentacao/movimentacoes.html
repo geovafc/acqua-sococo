@@ -1,10 +1,75 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/layoutPadrao">
 
-</body>
+<head>
+<title>Movimentações</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div layout:include="layout/mensagem-geral"></div>
+
+	<div class="panel panel-default">
+
+		<div class="panel-body">
+
+			<div class="table-responsive">
+
+				<table class="table table-bordered table-striped">
+					<fieldset>
+
+						<legend>
+							<h4>Lista de Movimentações</h4>
+
+							<a class="acq-link-panel" th:href="@{/movimentacoes/pesquisar}"><h4>Nova
+									Movimentação</h4></a>
+
+						</legend>
+
+					</fieldset>
+
+					<thead>
+						<tr>
+							<th class="text-center col-md-2">Imagem</th>
+							<th class="text-center col-md-1">Código</th>
+							<th class="text-center col-md-1">Data Cadastro</th>
+							<th class="text-center col-md-1">Operação</th>
+
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="movimentacao: ${movimentacoes}">
+							<td class="text-center"><img id="avatar"
+								th:src="@{/avatar-prod/load/{id}(id=${movimentacao.produto.avatar.id})}" />
+							</td>
+							<td style="padding-top: 15px;" class="text-center"
+								th:text="${movimentacao.id}">1</td>
+							<td style="padding-top: 15px;" class="text-center"
+								th:text="${{movimentacao.dataHora}}"></td>
+
+						</tr>
+
+						<tr>
+							<td class="text-center" colspan="7"
+								th:if="${#lists.isEmpty(movimentacoes)}">Nenhuma
+								movimentação foi encontrado</td>
+						</tr>
+
+					</tbody>
+
+				</table>
+
+			</div>
+
+		</div>
+		<!-- 		<div layout:include="produto/dialog-confirmacao-exclusao"></div> -->
+	</div>
+
+</section>
+
+
 </html>

@@ -61,7 +61,7 @@ public class Produto implements Serializable {
 	@Column(name = "imagem_content_type")
 	private String imagemContentType;
 
-	@OneToMany(mappedBy = "produto")
+	@OneToMany(mappedBy = "produto", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Movimentacao> movimentacoes = new ArrayList<>();
 
 	public Long getId() {

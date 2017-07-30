@@ -5,7 +5,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * 
@@ -22,6 +21,7 @@ public class Movimentacao implements Serializable {
 	private Long id;
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	@Temporal(TemporalType.DATE )
 	@Column(name = "data_hora", nullable = false)
 	private Date dataHora;
 
@@ -46,6 +46,14 @@ public class Movimentacao implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Date getDataHora() {
@@ -89,28 +97,40 @@ public class Movimentacao implements Serializable {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		Movimentacao movimentacao = (Movimentacao) o;
-		if (movimentacao.getId() == null || getId() == null) {
-			return false;
-		}
-		return Objects.equals(getId(), movimentacao.getId());
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
+		return result;
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hashCode(getId());
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Movimentacao other = (Movimentacao) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (produto == null) {
+			if (other.produto != null)
+				return false;
+		} else if (!produto.equals(other.produto))
+			return false;
+		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "Movimentacao{" + "id=" + getId() + ", dataHora='" + getDataHora() + "'" + ", observacao='"
-				+ getObservacao() + "'" + ", situacao='" + getSituacao() + "'" + ", lote='" + getLote() + "'" + ", produto='" +getProduto()+ "}";
+				+ getObservacao() + "'" + ", situacao='" + getSituacao() + "'" + ", lote='" + getLote() + "'"
+				+ ", produto='" + getProduto() + "}";
 	}
 }
