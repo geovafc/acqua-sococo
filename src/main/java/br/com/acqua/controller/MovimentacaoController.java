@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -115,10 +116,14 @@ public class MovimentacaoController {
 	// return view.getViewName();
 	// }
 
-	@GetMapping("/pesquisar/codigo")
-	public ModelAndView pesquisarProdutoPorCodigo(@ModelAttribute("filtro") ProdutoFilter filtro) {
+	@GetMapping("/pesquisar/codigo/{codigo}")
+	public ModelAndView pesquisarProdutoPorCodigo(@PathVariable String codigo) {
 
 		this.view = new ModelAndView("movimentacao/movimentacao-cadastro-beta");
+		
+		ProdutoFilter filtro = new ProdutoFilter();
+		filtro.setCodigo(codigo);
+		
 
 		if (filtro.getCodigo() == "") {
 			return this.pesquisar(filtro);

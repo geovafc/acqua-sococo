@@ -1,5 +1,8 @@
 $(function() {
-	$('#dataHora').datetimepicker();
+	$('#dataHora').datetimepicker({
+		format: "DD/MM/YYYY HH:mm:ss"
+		
+	});
 });
 
 $('.fileinput').fileinput();
@@ -31,7 +34,7 @@ $('#confirmacaoExclusaoModal').on(
 // INICIO JAVASCRIPT RELACIONADOS A MOVIMENTACAO
 function obterProdutoPorCodigo(codigo) {
 	$.ajax({
-		url : "/movimentacoes/produtoPorCodigo/" + codigo,
+		url : "/movimentacoes/pesquisar/codigo/" + codigo,
 		success : function(data) {
 			$("#movimentacaoHolter").html(data);
 		}
