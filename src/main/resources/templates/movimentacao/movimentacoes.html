@@ -34,8 +34,9 @@
 					<thead>
 						<tr>
 							<th class="text-center col-md-2">Imagem</th>
-							<th class="text-center col-md-1">Código</th>
-							<th class="text-center col-md-1">Data Cadastro</th>
+							<th class="text-center col-md-1">Código de barras</th>
+							<th class="text-center col-md-1">Operador</th>
+							<th class="text-center col-md-1">Data de registro</th>
 							<th class="text-center col-md-1">Operação</th>
 
 						</tr>
@@ -46,10 +47,28 @@
 							<td class="text-center"><img id="avatar"
 								th:src="@{/avatar-prod/load/{id}(id=${movimentacao.produto.avatar.id})}" />
 							</td>
+
 							<td style="padding-top: 15px;" class="text-center"
-								th:text="${movimentacao.id}">1</td>
+								th:text="${movimentacao.produto.codigoDeBarras}"></td>
+
+							<td style="padding-top: 15px;" class="text-center"
+								th:text="${movimentacao.user.nome}"></td>
+
 							<td style="padding-top: 15px;" class="text-center"
 								th:text="${{movimentacao.dataHora}}"></td>
+
+
+							<td class="text-center"><a class="btn btn-link btn-xs"
+								th:href="@{/movimentacoes/{id}(id=${movimentacao.id})}" title="Editar"
+								rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-pencil"></span>
+									
+							</a> <a class="btn btn-link btn-xs" data-toggle="modal"
+								data-target="#confirmacaoExclusaoModal"
+								th:attr="data-id=${movimentacao.id}"
+								title="Excluir" rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-remove"></span>
+							</a></td>
 
 						</tr>
 
@@ -66,7 +85,7 @@
 			</div>
 
 		</div>
-		<!-- 		<div layout:include="produto/dialog-confirmacao-exclusao"></div> -->
+				<div layout:include="movimentacao/dialog-confirmacao-exclusao"></div>
 	</div>
 
 </section>

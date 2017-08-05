@@ -13,9 +13,14 @@ $('#confirmacaoExclusaoModal').on(
 		'show.bs.modal',
 		function(event) {
 			var button = $(event.relatedTarget);
-
+			
 			var codigo = button.data('id');
 			var nome = button.data('nome');
+			//sempre quando o nome for undefined, é por que está sendo 
+			//chamado o dialog para excluir movimentação
+			if (nome == undefined){
+				nome = "a movimentação";
+			}
 
 			var modal = $(this);
 			var form = modal.find('form');
