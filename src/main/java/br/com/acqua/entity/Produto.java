@@ -37,15 +37,15 @@ public class Produto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotEmpty(message = "O Nome é obrigatoria")
+	@NotEmpty(message = "O NOME é obrigatorio")
 	@Column(name = "nome", nullable = false)
 	private String nome;
 
-	@NotEmpty(message = "O Código de barras é obrigatoria")
+	@NotEmpty(message = "O CÓDIGO DE BARRAS é obrigatorio")
 	@Column(name = "codigo_de_barras", nullable = false, unique = true)
 	private String codigoDeBarras;
 
-	@NotEmpty(message = "A Descrição é obrigatoria")
+	@NotEmpty(message = "A DESCRIÇÃO é obrigatoria")
 	@Column(name = "descricao")
 	private String descricao;
 

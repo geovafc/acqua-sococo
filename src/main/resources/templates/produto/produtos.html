@@ -13,21 +13,28 @@
 	<div layout:include="layout/mensagem-geral"></div>
 
 	<div class="panel panel-default">
-
+		<div class="panel-heading">
+			<img id="logo_produto" src="/imagens/box_ico.png" />
+			<h3 class="acq-produto-panel">TODOS OS PRODUTOS</h3>
+			<!-- <a class="acq-link-panel" th:href="@{/produto}"><button class="btn btn-primary">TODOS OS PRODUTOS</button></a> -->
+			<a id="botao-voltar-form" th:href="@{/}"><span class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span></a>
+		</div>
 		<div class="panel-body">
-
+		<a th:href="@{/produto/novo}"> <button class="btn btn-info"><i class="glyphicon glyphicon-plus"></i> Novo produto</button></a> 
+		<p>
+		</p>
 			<div class="table-responsive">
 
 				<table class="table table-bordered table-striped">
 					<fieldset>
 
-						<legend>
+						<!-- <legend>
 							<h4>Lista de Produtos</h4>
-							
-								<a class="acq-link-panel" th:href="@{/produto/novo}"><h4>Novo
-								produto</h4></a>
-							
-						</legend>
+
+							<a class="acq-link-panel" th:href="@{/produto/novo}"><h4>Novo
+									produto</h4></a>
+
+						</legend> -->
 
 					</fieldset>
 
@@ -55,10 +62,10 @@
 							<td style="padding-top: 15px;" class="text-center" th:text="${produto.descricao}">1</td>
 							<td style="padding-top: 15px;" class="text-center" th:text="${{produto.dataCadastro}}"></td>
 							<td style="padding-top: 15px;" class="text-center">
-							<a class="btn btn-info btn-xs"
-								th:href="@{/produto/perfil/{id}(id=${produto.id})}" title="Perfil"
+							<a class="btn btn-warning btn-xs"
+								th:href="@{/produto/perfil/{id}(id=${produto.id})}" title="Editar"
 								rel="tooltip" data-placement="top"> <span
-									class="glyphicon glyphicon-eye-open"></span>
+									class="glyphicon glyphicon-pencil"></span>
 							</a> 
 							<a class="btn btn-danger btn-xs" data-toggle="modal"
 								data-target="#confirmacaoExclusaoModal"
@@ -79,7 +86,8 @@
 				</table>
 
 			</div>
-
+	
+		
 		</div>
 		<div layout:include="produto/dialog-confirmacao-exclusao"></div>
 	</div>

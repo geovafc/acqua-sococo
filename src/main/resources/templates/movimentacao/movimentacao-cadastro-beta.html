@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/layoutPadrao">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 
 <head>
@@ -11,12 +10,14 @@
 
 <section layout:fragment="conteudo">
 
+	
 	<div class="panel panel-default ">
-		<div class="panel-heading">
-			<h3 class="acq-produto-panel">Registro de Movimentação</h3>
-			<a class="acq-link-panel" th:href="@{/movimentacoes}"><button class="btn btn-primary">Listar Movimentações</button></a>
-		</div>
 		
+		<div class="panel-heading">
+			<img id="logo_produto" src="/imagens/movimentacao.png"/><h3 class="acq-produto-panel">REGISTRO DE MOVIMENTAÇÃO</h3>
+<!-- 			<a class="acq-link-panel" th:href="@{/usuarios}"><button class="btn btn-primary">TODOS OS PRODUTOS</button></a> -->
+				<a id="botao-voltar-form" th:href="@{/movimentacoes/pesquisar}"><span class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span></a>
+		</div>
 		<div class="panel-body">
 			<form class="form-horizontal" method="POST"
 				th:action="@{/movimentacoes}" th:object="${movimentacao}">
@@ -84,7 +85,7 @@
 							<div class="form-group">
 								<div class="col-lg-8 col-lg-offset-3">
 									<button style="width: 30%;" id="btn1" type="submit" class="btn btn-primary">Salvar</button>
-									<button th:href="@{/movimentacoes/pesquisar}" style="width: 30%;" id="btn2" type="button" class="btn btn-default">Voltar</button>
+<!-- 									<button th:href="@{/movimentacoes/pesquisar}" style="width: 30%;" id="btn2" type="button" class="btn btn-default">Voltar</button> -->
 								</div>
 							</div>
 						</div>

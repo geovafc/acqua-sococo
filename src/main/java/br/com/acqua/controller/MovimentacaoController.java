@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.acqua.entity.Movimentacao;
 import br.com.acqua.entity.Produto;
-import br.com.acqua.entity.User;
 import br.com.acqua.repository.filter.ProdutoFilter;
 import br.com.acqua.service.MovimentacaoService;
 import br.com.acqua.service.ProdutoService;

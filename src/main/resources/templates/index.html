@@ -19,13 +19,13 @@
 				<div class="block-img">
 					<img th:src="@{imagens/prod.png}" alt="Produtos" />
 				</div>
-				<div class="block-desc">
-								
+				<div class="block-desc">		
 					<div class="block-link">
-						<a th:href="@{/produto}">Lista de produtos</a>
+						<a  id="btn_cad" th:href="@{/produto/novo}">Cadastro de produtos</a>
+<!-- 						<button id="btn_cad" class="btn btn-primary" th:href="@{/produto/novo}">Cadastro de produtos</button> -->
 					</div>
 					<div class="block-link">
-						<a th:href="@{/produto/novo}">Cadastro de produtos</a>
+						<a  id="btn_listar" th:href="@{/produto}">Lista de produtos</a>
 					</div>
 				</div>
 
@@ -37,10 +37,10 @@
 				</div>
 				<div class="block-desc">
 					<div class="block-link">
-						<a th:href="@{/usuarios}">Lista de operadores</a>
+						<a id="btn_cad" th:href="@{/usuarios/novo}">Cadastro de operadores</a>
 					</div>
-					<div class="block-link">
-						<a th:href="@{/usuarios/novo}">Cadastro de operadores</a>
+						<div class="block-link">
+						<a id="btn_listar" th:href="@{/usuarios}">Lista de operadores</a>
 					</div>
 				</div>
 				<!-- <div class="block-link">
@@ -55,11 +55,11 @@
 				<div class="block-desc">
 				<div class="block-desc">
 					<div class="block-link">
-						<a th:href="@{/movimentacoes}">Lista de movimentações</a>
+						<a  id="btn_cad" th:href="@{/movimentacoes/pesquisar}">Cadastro de movimentações</a>
 					</div>
 					<div class="block-link">
-						<a th:href="@{/movimentacoes/pesquisar}">Cadastro de movimentações</a>
-					</div>
+						<a  id="btn_listar" th:href="@{/movimentacoes}">Lista de movimentações</a>
+					</div>		
 				</div>
 				</div>
 <!-- 				<div class="block-link"> -->

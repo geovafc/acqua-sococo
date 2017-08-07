@@ -13,18 +13,24 @@
 	<div layout:include="layout/mensagem-geral"></div>
 
 	<div class="panel panel-default">
-	
+		<div class="panel-heading">
+			<img id="logo_produto" src="/imagens/box_ico.png"/><h3 class="acq-produto-panel">OPERADORES</h3>
+<!-- 			<a class="acq-link-panel" th:href="@{/usuarios}"><button class="btn btn-primary">TODOS OS PRODUTOS</button></a> -->
+				<a id="botao-voltar-form" th:href="@{/}"><span class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span></a>
+		</div>
 		<div class="panel-body">
-		
+		<a th:href="@{/usuarios/novo}"> <button class="btn btn-info"><i class="glyphicon glyphicon-plus"></i> Novo operador</button></a> 
+		<p>
+		</p>
 			<div class="table-responsive">
 			
 				<table class="table table-bordered table-striped">
 					<fieldset>
 						
-						<legend>
+						<!-- <legend>
 							<h4>Lista de Operadores</h4>
 							<a class="acq-link-panel" th:href="@{/usuarios/novo}"><h4>Novo operador</h4></a>
-						</legend>
+						</legend> -->
 					
 					</fieldset>
 					
@@ -53,13 +59,17 @@
 						<td class="text-center" th:text="${{usuario.enabled}}"></td>
 						<td class="text-center">
 						
-							<a class="btn btn-link btn-xs"
+						
+						
+						
+						
+							<a class="btn btn-warning btn-xs"
 								th:href="@{/usuarios/{id}(id=${usuario.id})}"
 								title="Editar" rel="tooltip" data-placement="top"> 
 								<span class="glyphicon glyphicon-pencil"></span>
 							</a> 
 							
-							<a class="btn btn-link btn-xs" data-toggle="modal"
+							<a class="btn btn-danger btn-xs" data-toggle="modal"
 								data-target="#confirmacaoExclusaoModal"
 								th:attr="data-id=${usuario.id}, data-nome=${usuario.nome}"
 								title="Excluir" rel="tooltip" data-placement="top"> <span
