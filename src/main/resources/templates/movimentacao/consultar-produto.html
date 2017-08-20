@@ -13,27 +13,37 @@
 
 	<div class="panel panel-default">
 
+		<div class="panel-heading">
+			<img id="logo_produto" src="/imagens/movimentacao.png"/><h3 class="acq-produto-panel">CADASTRO DE OPERADOR</h3>
+				<a id="botao-voltar-form" th:href="@{/}"><span class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span></a>
+		</div>
+		
+		
 		<div class="panel-body">
 			<fieldset>
-				<legend>
-					<h3 class="acq-produto-panel">Registro de Movimentação</h3>
+				<!-- <legend>
+					<h3 class="acq-produto-panel">REGISTRO DE MOVIMENTAÇÃO</h3>
 					<a class="acq-link-panel"  th:href="@{/movimentacoes}">Listar Movimentações</a>
-				</legend>
+				</legend> -->
 
 				<div class="row">
 					<div th:if="${movimentacao == null}">
-						<form method="GET" th:action="@{/movimentacoes/pesquisar/codigo}"
-							th:object="${filtro}">
+						<form method="GET" th:action="@{/movimentacoes/pesquisar/codigo}" th:object="${filtro}">
 
-							<div class="col-sm-6">
-								<div class="input-group">
+							<div class="col-lg-12 text-center">
+								<div id="campoBuscaCodigoBarras" class="col-lg-8 input-group">
 									<input class="form-control color"
-										placeholder="Informe o código de barras do produto que está procurando!"
-										autofocus="autofocus" th:field="*{codigo}"> </input> <span
-										class="input-group-btn">
-										<button type="submit" class="btn color">
-											<i class="glyphicon glyphicon-search"></i>
+										onblur="obterProdutoPorCodigo(this.value);"
+										placeholder="Informe o código de barras do produto"
+										autofocus="autofocus" th:field="*{codigo}"> </input> 
+										<span class="input-group-btn">
+										
+										 
+										<button type="submit" class="btn btn-info"> <i class="glyphicon glyphicon-search"></i> PESQUISAR
 										</button>
+										
+										
+										
 									</span>
 								</div>
 							</div>

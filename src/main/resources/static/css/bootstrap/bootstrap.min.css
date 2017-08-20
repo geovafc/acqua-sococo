@@ -1353,7 +1353,7 @@ html {
 body {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 14px;
-	line-height: 1.42857143;
+/* 	line-height: 1.42857143; */
 	color: #555555;
 	background-color: #ffffff
 }
@@ -1728,7 +1728,8 @@ blockquote {
 	padding: 10px 20px;
 	margin: 0 0 20px;
 	font-size: 17.5px;
-	border-left: 5px solid #eeeeee
+	border-left: 5px solid #eeeeee;
+/* 	 margin-top: 80px  */
 }
 
 blockquote p:last-child, blockquote ul:last-child, blockquote ol:last-child
@@ -1842,7 +1843,7 @@ pre code {
 
 @media ( min-width :768px) {
 	.container {
-		width: 750px
+		width: 800px
 	}
 }
 
@@ -4894,8 +4895,9 @@ textarea.input-group-sm>.form-control, textarea.input-group-sm>.input-group-addo
 }
 
 .navbar-default {
-	background-color: #00bc8c;
-	border-color: #16cea0
+	/* background-color: #00bc8c;
+	border-color: #16cea0 */
+	background-color: white;
 }
 
 .navbar-default .navbar-brand {
@@ -6223,13 +6225,15 @@ a.list-group-item-danger.active, button.list-group-item-danger.active, a.list-gr
 }
 
 .panel-default {
-	border-color: #dddddd
+/* 	border-color: #dddddd; */
+	border-color: #8a9ea4
 }
 
 .panel-default>.panel-heading {
 	color: #555555;
-	background-color: #f5f5f5;
-	border-color: #dddddd
+	border-color: #dddddd;
+	background-color: #4b4b4c;
+	/* 	background-color: #f5f5f5; */
 }
 
 .panel-default>.panel-heading+.panel-collapse>.panel-body {
@@ -7405,15 +7409,16 @@ button.close {
 }
 
 .navbar-default {
-	background-image: -webkit-linear-gradient(#0ad19f, #00bc8c 60%, #0ad19f);
-	background-image: -o-linear-gradient(#0ad19f, #00bc8c 60%, #0ad19f);
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#0ad19f),
+/* 	background-image: -webkit-linear-gradient(#0ad19f, #00bc8c 60%, #0ad19f); 
+ 	background-image: -o-linear-gradient(#0ad19f, #00bc8c 60%, #0ad19f); 
+ 	background-image: -webkit-gradient(linear, left top, left bottom, from(#0ad19f), 
 		color-stop(60%, #00bc8c), to(#0ad19f));
-	background-image: linear-gradient(#0ad19f, #00bc8c 60%, #0ad19f);
+ 	background-image: linear-gradient(#0ad19f, #00bc8c 60%, #0ad19f); */
 	background-repeat: no-repeat;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff54b4eb',
 		endColorstr='#ff1d9ce5', GradientType=0);
-	border-bottom: 1px solid #00bc8c;
+/* 	border-bottom: 1px solid #00bc8c; */
+ 	border:1px solid #cdcdcd;  /* eu coloquei */
 	-webkit-filter: none;
 	filter: none;
 	-webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);

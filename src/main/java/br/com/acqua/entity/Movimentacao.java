@@ -21,7 +21,7 @@ public class Movimentacao implements Serializable {
 	private Long id;
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-	@Temporal(TemporalType.DATE )
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_hora", nullable = false)
 	private Date dataHora;
 

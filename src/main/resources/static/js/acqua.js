@@ -1,5 +1,8 @@
 $(function() {
-	$('#dataHora').datetimepicker();
+	$('#dataHora').datetimepicker({
+		format: "DD/MM/YYYY HH:mm:ss"
+		
+	});
 });
 
 $('.fileinput').fileinput();
@@ -10,9 +13,14 @@ $('#confirmacaoExclusaoModal').on(
 		'show.bs.modal',
 		function(event) {
 			var button = $(event.relatedTarget);
-
+			
 			var codigo = button.data('id');
 			var nome = button.data('nome');
+			//sempre quando o nome for undefined, é por que está sendo 
+			//chamado o dialog para excluir movimentação
+			if (nome == undefined){
+				nome = "a movimentação";
+			}
 
 			var modal = $(this);
 			var form = modal.find('form');
@@ -31,7 +39,7 @@ $('#confirmacaoExclusaoModal').on(
 // INICIO JAVASCRIPT RELACIONADOS A MOVIMENTACAO
 function obterProdutoPorCodigo(codigo) {
 	$.ajax({
-		url : "/movimentacoes/produtoPorCodigo/" + codigo,
+		url : "/movimentacoes/pesquisar/codigo/" + codigo,
 		success : function(data) {
 			$("#movimentacaoHolter").html(data);
 		}
