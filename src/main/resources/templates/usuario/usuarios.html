@@ -21,6 +21,7 @@
 			<a id="botao-voltar-form" th:href="@{/}"><span
 				class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span></a>
 		</div>
+
 		<div class="panel-body">
 
 			<a th:href="@{/usuarios/novo}">
@@ -28,10 +29,13 @@
 					<i class="glyphicon glyphicon-plus"></i> Novo operador
 				</button>
 			</a>
+
 			<p></p>
+
 			<div class="table-responsive">
 
 				<table class="table table-bordered table-striped">
+
 					<fieldset>
 
 						<!-- <legend>
@@ -41,6 +45,7 @@
 						</legend> -->
 
 					</fieldset>
+
 
 					<thead>
 						<tr>
@@ -54,73 +59,48 @@
 						</tr>
 					</thead>
 
-					<tbody>
-						<tr th:each="usuario: ${usuarios}">
+					<tr th:each="usuario: ${usuarios}">
+						<td class="text-center" th:text="${usuario.nome}">1</td>
+						<td class="text-center" th:text="${usuario.codigo}">1</td>
+						<td class="text-center" th:text="${usuario.username}">1</td>
+						<td class="text-center" th:text="${{usuario.dataCadastro}}"></td>
 
-							<td class="text-center" th:text="${usuario.nome}">1</td>
-							<td class="text-center" th:text="${usuario.codigo}">1</td>
-							<td class="text-center" th:text="${usuario.username}">1</td>
-							<td class="text-center" th:text="${{usuario.dataCadastro}}"></td>
-							<td class="text-center"
-								th:each="permissao: ${usuario.permissoes}">
-								<div class="form-group">
-									<div th:text="${permissao.nome}"></div>
-								</div>
-							</td>
-							<td class="text-center" th:text="${{usuario.enabled}}"></td>
-							<td class="text-center"><a class="btn btn-link btn-xs"
+						<td class="text-center" th:each="permissao: ${usuario.permissoes}">
+							<div class="form-group">
+								<div th:text="${permissao.nome}"></div>
+							</div>
+						</td>
+
+						<td class="text-center" th:text="${{usuario.enabled}}"></td>
+
+						<td class="text-center">
+							<a class="btn btn-warning btn-xs"
 								th:href="@{/usuarios/{id}(id=${usuario.id})}" title="Editar"
-								rel="tooltip" data-placement="top"> <span
-									class="glyphicon glyphicon-pencil"></span>
-							</a> <a class="btn btn-link btn-xs" data-toggle="modal"></a>
-						<tr>
-							<th class="text-center col-md-2">Operador</th>
-							<th class="text-center col-md-2">Codigo</th>
-							<th class="text-center col-md-2">Username</th>
-							<th class="text-center col-md-2">Data de Cadastro</th>
-							<th class="text-center col-md-2">Perfil</th>
-							<th class="text-center col-md-2">Status</th>
-							<th class="text-center col-md-2">Operação</th>
-
-
-						</tr>
-					</thead>
-
-					<tbody>
-						<tr th:each="usuario: ${usuarios}">
-
-							<td class="text-center" th:text="${usuario.nome}">1</td>
-							<td class="text-center" th:text="${usuario.codigo}">1</td>
-							<td class="text-center" th:text="${usuario.username}">1</td>
-							<td class="text-center" th:text="${{usuario.dataCadastro}}"></td>
-							<td class="text-center" th:text="${{usuario.roles.descricao}}"></td>
-							<td class="text-center" th:text="${{usuario.enabled}}"></td>
-							<td class="text-center"><a class="btn btn-warning btn-xs"
-								th:href="@{/usuarios/{id}(id=${usuario.id})}" title="Editar"
-								rel="tooltip" data-placement="top"> <span
-									class="glyphicon glyphicon-pencil"></span>
-							</a> <a class="btn btn-danger btn-xs" data-toggle="modal"
+								rel="tooltip" data-placement="top"> 
+								<span class="glyphicon glyphicon-pencil"></span>
+							</a>
+							<a class="btn btn-danger btn-xs" data-toggle="modal"
 								data-target="#confirmacaoExclusaoModal"
 								th:attr="data-id=${usuario.id}, data-nome=${usuario.nome}"
-								title="Excluir" rel="tooltip" data-placement="top"> <span
-									class="glyphicon glyphicon-remove"></span>
-							</a></td>
-						</tr>
-
+								title="Excluir" rel="tooltip" data-placement="top"> 
+								<span class="glyphicon glyphicon-remove"></span>
+							</a>
+						</td>
+					</tr>
+					<tbody>
 						<tr>
 							<td class="text-center" colspan="7s"
-								th:if="${#lists.isEmpty(usuarios)}">Nenhum operador foi
-								encontrado</td>
+								th:if="${#lists.isEmpty(usuarios)}">
+								Nenhum operador foi	encontrado
+							</td>
 						</tr>
-
 					</tbody>
 
 				</table>
-
 			</div>
 
 		</div>
-		<div layout:include="usuario/dialog-confirmacao-exclusao"></div>
+			<div layout:include="usuario/dialog-confirmacao-exclusao"></div>
 	</div>
 
 </section>

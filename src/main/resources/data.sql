@@ -5,13 +5,19 @@ insert into permissao (id, nome) values
 	
 insert into usuario (id,codigo, nome,sobrenome, username, password, enabled, data_cadastro) values 
 	(1,'001', 'Jairo','Nascimento', 'jairo.sousa', '$2a$10$JvyF9q/k/eYwXTVjc4Ay0OT/dCwjW14eT88q3e587jaENTvtt30s2', true, '2017-08-19')
-	, (2,'002', 'Geovane','Freitas', 'geo.freitas', '$2a$10$JvyF9q/k/eYwXTVjc4Ay0OT/dCwjW14eT88q3e587jaENTvtt30s2', true, '2017-08-19')
+	, (2,'002', 'Geovane','Freitas', 'geovane.freitas', '$2a$10$JvyF9q/k/eYwXTVjc4Ay0OT/dCwjW14eT88q3e587jaENTvtt30s2', true, '2017-08-19')
+	, (3,'003', 'Rayan','Teixeira', 'rayan.teixeira', '$2a$10$JvyF9q/k/eYwXTVjc4Ay0OT/dCwjW14eT88q3e587jaENTvtt30s2', true, '2017-08-19')
+	, (4,'004', 'User','Default', 'user', '$2a$10$JvyF9q/k/eYwXTVjc4Ay0OT/dCwjW14eT88q3e587jaENTvtt30s2', true, '2017-08-19')
 ;
 	
 insert into usuario_permissoes (usuario_id, permissao_id) values 
-	(1, 1)
+	  (1, 1)
 	, (1, 2)
+	, (2, 1)
 	, (2, 2)
+	, (3, 1)
+	, (3, 2)
+	, (4,2)
 ;
 
 insert into avatares(id, avatar, tipo, titulo) values 
