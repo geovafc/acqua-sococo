@@ -6,4 +6,6 @@ import br.com.acqua.entity.Usuario;
 
 public interface UserRepository extends JpaRepository<Usuario, Long> {
 
+	public Usuario findByNome(String nome);
+
 }

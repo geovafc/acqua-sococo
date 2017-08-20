@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,7 @@ public class MovimentacaoController {
 
 	@Autowired
 	private ProdutoService produtoService;
-	
+
 	@Autowired
 	private UsuarioService userService;
 
@@ -71,12 +72,11 @@ public class MovimentacaoController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String salvar(@Validated Movimentacao movimentacao, RedirectAttributes attributes) throws Exception {
 
-		
 		try {
 
-			movimentacao.setUsuario(userService.findById(1l));
-			
-			movimentacaoService.salvar(movimentacao);
+			String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+
+			movimentacaoService.salvar(movimentacao, nome);
 
 			attributes.addFlashAttribute("mensagem", "Movimentação salva com Sucesso!");
 
