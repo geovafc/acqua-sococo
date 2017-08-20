@@ -77,7 +77,7 @@ public class MovimentacaoController {
 		
 		try {
 
-			movimentacao.setUser(userService.findById(1l));
+			movimentacao.setUsuario(userService.findById(1l));
 			
 			movimentacaoService.salvar(movimentacao);
 

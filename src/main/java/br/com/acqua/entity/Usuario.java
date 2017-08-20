@@ -8,24 +8,26 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 
- * @author Jairo Sousa
- * 06/01/2017
+ * @author Jairo Sousa 06/01/2017
  */
 
 @Entity
-public class User implements Serializable {
+public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -51,19 +53,21 @@ public class User implements Serializable {
 	@Column(name = "password", nullable = false)
 	private String password;
 
-//	pattern = "dd/MM/yyyy HH:mm:ss"
+	// pattern = "dd/MM/yyyy HH:mm:ss"
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
 	@Column(name = "data_cadastro", nullable = false)
 	private Date dataCadastro;
 
 	@Column(name = "enabled")
 	private boolean enabled;
 
-	@OneToMany(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@OneToMany(mappedBy = "usuario", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Movimentacao> movimentacoes = new ArrayList<>();
 
-	@Enumerated(EnumType.STRING)
-	private UserRole roles;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "usuario_permissoes",joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "permissao_id", referencedColumnName = "id"))
+	private List<Permissao> permissoes;
 
 	public Long getId() {
 		return id;
@@ -129,20 +133,20 @@ public class User implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public UserRole getRoles() {
-		return roles;
-	}
-
-	public void setRoles(UserRole roles) {
-		this.roles = roles;
-	}
-
 	public List<Movimentacao> getMovimentacoes() {
 		return movimentacoes;
 	}
 
 	public void setMovimentacoes(List<Movimentacao> movimentacoes) {
 		this.movimentacoes = movimentacoes;
+	}
+
+	public List<Permissao> getPermissoes() {
+		return permissoes;
+	}
+
+	public void setPermissaos(List<Permissao> permissoes) {
+		this.permissoes = permissoes;
 	}
 
 	@Override
@@ -162,7 +166,7 @@ public class User implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Usuario other = (Usuario) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

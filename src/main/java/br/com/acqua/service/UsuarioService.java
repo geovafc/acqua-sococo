@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import br.com.acqua.entity.User;
+import br.com.acqua.entity.Usuario;
 import br.com.acqua.repository.UserRepository;
 
 @Service
@@ -15,12 +15,12 @@ public class UsuarioService {
 	@Autowired
 	private UserRepository usuarioRepository;
 	
-	public List<User> listar() {
+	public List<Usuario> listar() {
 		return usuarioRepository.findAll();
 	}
 	
 	
-	public void salvar(User usuario){
+	public void salvar(Usuario usuario){
 		try{			
 			usuarioRepository.save(usuario);			
 		}catch (DataIntegrityViolationException e) {
@@ -32,7 +32,7 @@ public class UsuarioService {
 		usuarioRepository.delete(id);
 	}
 	
-	public User findById(Long id){
+	public Usuario findById(Long id){
 		return usuarioRepository.findOne(id);
 	}
 }
