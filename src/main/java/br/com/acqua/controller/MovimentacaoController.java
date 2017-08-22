@@ -115,6 +115,36 @@ public class MovimentacaoController {
 		attributes.addFlashAttribute("mensagem", "Movimentação excluída com sucesso!");	
 		return "redirect:/movimentacoes";
 	}
+	
+	@GetMapping("/pesquisar/codigo")
+	public ModelAndView pesquisarProdutoPorCodigo(@ModelAttribute("filtro") ProdutoFilter filtro) {
+
+		this.view = new ModelAndView("movimentacao/movimentacao-cadastro-beta");
+
+		if (filtro.getCodigo() == "") {
+			return this.pesquisar(filtro);
+		}
+		try {
+			Produto produto = new Produto();
+			produto = produtoService.findByCodigo(filtro);
+
+			if (produto == null) {
+				return this.pesquisar(filtro);
+			}
+
+			Movimentacao movimentacao = new Movimentacao();
+			movimentacao.setDataHora(new Date(System.currentTimeMillis()));
+			movimentacao.setProduto(produto);
+
+			view.addObject(movimentacao);
+
+			return view;
+
+		} catch (Exception e) {
+			return this.pesquisar(filtro);
+		}
+
+	}
 
 	@GetMapping("/pesquisar/codigo/{codigo}")
 	public ModelAndView pesquisarProdutoPorCodigo(@PathVariable String codigo) {
@@ -148,5 +178,6 @@ public class MovimentacaoController {
 		}
 
 	}
+	
 
 }

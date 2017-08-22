@@ -41,6 +41,7 @@
 						<tr>
 							<th class="text-center col-md-2">Imagem</th>
 							<th class="text-center col-md-1">Código de barras</th>
+							<th class="text-center col-md-1">Nota Fiscal</th>
 							<th class="text-center col-md-1">Operador</th>
 							<th class="text-center col-md-1">Data de registro</th>
 							<th class="text-center col-md-1">Operação</th>
@@ -56,6 +57,9 @@
 
 							<td style="padding-top: 15px;" class="text-center"
 								th:text="${movimentacao.produto.codigoDeBarras}"></td>
+								
+															<td style="padding-top: 15px;" class="text-center"
+								th:text="${movimentacao.notaFiscal}"></td>
 
 							<td style="padding-top: 15px;" class="text-center"
 								th:text="${movimentacao.user.nome}"></td>

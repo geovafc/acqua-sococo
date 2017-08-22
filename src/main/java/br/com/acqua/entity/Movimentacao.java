@@ -27,6 +27,9 @@ public class Movimentacao implements Serializable {
 
 	@Column(name = "observacao")
 	private String observacao;
+	
+	@Column(name = "nota_fiscal")
+	private String notaFiscal;
 
 	@Column(name = "situacao")
 	private String situacao;
@@ -94,6 +97,16 @@ public class Movimentacao implements Serializable {
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+	
+	
+
+	public String getNotaFiscal() {
+		return notaFiscal;
+	}
+
+	public void setNotaFiscal(String notaFiscal) {
+		this.notaFiscal = notaFiscal;
 	}
 
 	@Override

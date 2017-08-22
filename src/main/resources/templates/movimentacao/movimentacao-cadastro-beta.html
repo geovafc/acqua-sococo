@@ -10,93 +10,103 @@
 
 <section layout:fragment="conteudo">
 
-	
+
 	<div class="panel panel-default ">
-		
+
 		<div class="panel-heading">
-			<img id="logo_produto" src="/imagens/movimentacao.png"/><h3 class="acq-produto-panel">REGISTRO DE MOVIMENTAÇÃO</h3>
-<!-- 			<a class="acq-link-panel" th:href="@{/usuarios}"><button class="btn btn-primary">TODOS OS PRODUTOS</button></a> -->
-				<a id="botao-voltar-form" th:href="@{/movimentacoes/pesquisar}"><span class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span></a>
+			<img id="logo_produto" src="/imagens/movimentacao.png" />
+			<h3 class="acq-produto-panel">REGISTRO DE MOVIMENTAÇÃO</h3>
+			<!-- 			<a class="acq-link-panel" th:href="@{/usuarios}"><button class="btn btn-primary">TODOS OS PRODUTOS</button></a> -->
+			<a id="botao-voltar-form" th:href="@{/movimentacoes/pesquisar}"><span
+				class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span></a>
 		</div>
 		<div class="panel-body">
 			<form class="form-horizontal" method="POST"
 				th:action="@{/movimentacoes}" th:object="${movimentacao}">
 
-				<input type="hidden" th:field="*{id}" /> 
-				<input type="hidden" th:field="*{produto}" /> 
-				<input type="hidden" th:field="*{produto.avatar}" />
+				<input type="hidden" th:field="*{id}" /> <input type="hidden"
+					th:field="*{produto}" /> <input type="hidden"
+					th:field="*{produto.avatar}" />
 
 				<div layout:include="layout/mensagem-erro"></div>
 				<div layout:include="layout/mensagem-geral"></div>
 
 
-				
-					<div class="row">
-						<div class="text-center col-lg-4 ">
-							<div class="col-md-4">
-								<div class="card-img-bottom" style="text-align: center">
-									<img
-										th:src="@{/avatar-prod/load/{id}(id=${movimentacao.produto.avatar.id})}" />
-								</div>
-							</div>
-						</div>
 
-						<div class="form-cadprod col-lg-8">
-							<div class="form-group col-lg-11">
-								<label for="produto">Produto</label> 
-								<input type="text" class="form-control col-lg-3" id="produto"
-									th:field="*{produto.nome}" autofocus="autofocus"
-									readonly="readonly"/>
-							</div>
-							<div class="form-group col-lg-11">
-								<label for="codigoDeBarras">Código de Barra</label> 
-								<input type="text" class="form-control" id="codigoDeBarras" th:field="*{produto.codigoDeBarras}"
-									placeholder="Código de Barras" />
-							</div>
-							<div class="form-group col-lg-11">
-								<label for="descricao">Descricao</label> 
-								<input type="text" class="form-control" id="descricao" th:field="*{produto.descricao}"
-									placeholder="Descricao" />
-							</div>
-							
-							
-							<div class="form-group col-lg-11">
-								<label for="dataHora">Data	e hora</label> 
-								<input type="text" class="form-control" id="dataHora" th:field="*{dataHora}"
-									autofocus="autofocus" />
-							</div>
-							
-							<div class="form-group col-lg-11">
-								<label for="observacao">Observações</label> 
-								<input type="text" class="form-control" id="observacao" th:field="*{observacao}"
-									placeholder="Descricao" />
-							</div>
-							<div class="form-group col-lg-11">
-								<label for="situacao">Situação</label> 
-								<input type="text" class="form-control" id="descricao" th:field="*{situacao}"
-									placeholder="Situação" />
-							</div>
-							<div class="form-group col-lg-11">
-								<label for="lote">Lote</label> 
-								<input type="text" class="form-control" id="descricao" th:field="*{lote}"
-									placeholder="Lote" />
-							</div>
-							
-							<div class="form-group">
-								<div class="col-lg-8 col-lg-offset-3">
-									<button style="width: 30%;" id="btn1" type="submit" class="btn btn-primary">Salvar</button>
-<!-- 									<button th:href="@{/movimentacoes/pesquisar}" style="width: 30%;" id="btn2" type="button" class="btn btn-default">Voltar</button> -->
-								</div>
+				<div class="row">
+					<div class="text-center col-lg-4 ">
+						<div class="col-md-4">
+							<div class="card-img-bottom" style="text-align: center">
+								<img
+									th:src="@{/avatar-prod/load/{id}(id=${movimentacao.produto.avatar.id})}" />
 							</div>
 						</div>
-						
-						
 					</div>
-					
-						
-				
 
-				
+					<div class="form-cadprod col-lg-8">
+						<div class="form-group col-lg-11">
+							<label for="produto">Produto</label> <input type="text"
+								class="form-control col-lg-3" id="produto"
+								th:field="*{produto.nome}" autofocus="autofocus"
+								readonly="readonly" />
+						</div>
+						<div class="form-group col-lg-11">
+							<label for="codigoDeBarras">Código de Barra</label> <input
+								type="text" class="form-control" id="codigoDeBarras"
+								th:field="*{produto.codigoDeBarras}"
+								placeholder="Código de Barras" />
+						</div>
+						<div class="form-group col-lg-11">
+							<label for="descricao">Descricao</label> <input type="text"
+								class="form-control" id="descricao"
+								th:field="*{produto.descricao}" placeholder="Descricao" />
+						</div>
+
+						<div class="form-group col-lg-11">
+							<label for="observacao">Nota Fiscal</label> <input type="text"
+								class="form-control" id="notaFiscal" th:field="*{observacao}"
+								placeholder="Nota Fiscal" />
+						</div>
+
+
+						<div class="form-group col-lg-11">
+							<label for="dataHora">Data e hora</label> <input type="text"
+								class="form-control" id="dataHora" th:field="*{dataHora}"
+								autofocus="autofocus" />
+						</div>
+
+						<div class="form-group col-lg-11">
+							<label for="observacao">Observações</label> <input type="text"
+								class="form-control" id="observacao" th:field="*{observacao}"
+								placeholder="Observação" />
+						</div>
+						<div class="form-group col-lg-11">
+							<label for="situacao">Situação</label> <input type="text"
+								class="form-control" id="descricao" th:field="*{situacao}"
+								placeholder="Situação" />
+						</div>
+						<div class="form-group col-lg-11">
+							<label for="lote">Lote</label> <input type="text"
+								class="form-control" id="descricao" th:field="*{lote}"
+								placeholder="Lote" />
+						</div>
+
+						<div class="form-group">
+							<div class="col-lg-8 col-lg-offset-3">
+								<button style="width: 30%;" id="btn1" type="submit"
+									class="btn btn-primary">Salvar</button>
+								<!-- 									<button th:href="@{/movimentacoes/pesquisar}" style="width: 30%;" id="btn2" type="button" class="btn btn-default">Voltar</button> -->
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+
+
+
+
 			</form>
 		</div>
 	</div>
