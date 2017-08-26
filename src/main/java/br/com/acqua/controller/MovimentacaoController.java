@@ -1,12 +1,14 @@
 package br.com.acqua.controller;
 
-
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.acqua.entity.Movimentacao;
 import br.com.acqua.entity.Produto;
+import br.com.acqua.entity.Usuario;
 import br.com.acqua.repository.filter.ProdutoFilter;
 import br.com.acqua.service.MovimentacaoService;
 import br.com.acqua.service.ProdutoService;
@@ -64,6 +67,8 @@ public class MovimentacaoController {
 	@GetMapping("/novo")
 	public ModelAndView novo() {
 		this.view = new ModelAndView(CADASTRO_VIEW);
+
+		
 		Produto produto = new Produto();
 		Movimentacao movimentacao = new Movimentacao();
 		movimentacao.setProduto(produto);
@@ -76,10 +81,12 @@ public class MovimentacaoController {
 	public String salvar(@Validated Movimentacao movimentacao, RedirectAttributes attributes) throws Exception {
 
 		try {
-//Apos implementacao de login, obter usuario da sessao
-			movimentacao.setUser(userService.findById(new Long(1)));
 
-			movimentacaoService.salvar(movimentacao);
+			String usernName = SecurityContextHolder.getContext().getAuthentication().getName();
+			
+		      
+
+			movimentacaoService.salvar(movimentacao, usernName);
 
 			attributes.addFlashAttribute("mensagem", "Movimentação salva com Sucesso!");
 
@@ -90,7 +97,7 @@ public class MovimentacaoController {
 		}
 	}
 	
-	@RequestMapping(value = {"/{id}"} , method = {RequestMethod.GET})
+	@RequestMapping(value = {"/{id}"} , method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView editar(@PathVariable("id") Optional<Long> id, @ModelAttribute("movimentacao") Movimentacao movimentacao) {
 		
 		
@@ -99,7 +106,7 @@ public class MovimentacaoController {
 			movimentacao = movimentacaoService.buscar(id.get());
 			mv.addObject("movimentacao", movimentacao);
 			
-			System.out.println("OBJETO mov editar " + movimentacao.getProduto().getCodigoDeBarras());
+			System.out.println("OBJETO " +movimentacao);
 			
 			
 		}
@@ -109,17 +116,44 @@ public class MovimentacaoController {
 	}
 	
 	@DeleteMapping(value="{id}")
-	private String excluir(@PathVariable Long id, RedirectAttributes attributes) {
-		
-		movimentacaoService.excluir(id);
-		attributes.addFlashAttribute("mensagem", "Movimentação excluída com sucesso!");	
-		return "redirect:/movimentacoes";
-	}
-	
+	 	private String excluir(@PathVariable Long id, RedirectAttributes attributes) {
+	 		
+	 		movimentacaoService.excluir(id);
+	 		attributes.addFlashAttribute("mensagem", "Movimentação excluída com sucesso!");	
+	 		return "redirect:/movimentacoes";
+		}
+
+//	 @GetMapping("/produtoPorCodigo/{codigo}")
+//	 public String obterProdutoPorCodigo(@PathVariable String codigo, ModelMap
+//	 model) {
+//	
+//	
+//	 Movimentacao movimentacao = new Movimentacao();
+//		 this.view = new ModelAndView("movimentacao/movimentacao-cadastro-beta");
+//		 		
+//		 		ProdutoFilter filtro = new ProdutoFilter();
+//		 		filtro.setCodigo(codigo);
+//	
+//	 Produto produto = produtoService.findByCodigo(filtro);
+//	 movimentacao = new Movimentacao();
+//	 movimentacao.setProduto(produto);
+//
+//	 //view.addObject("movimentacao", movimentacao );
+//	
+//	 //model.addAttribute("produto", produtoService.findByCodigo(codigo));
+//	 //view.addObject("produto",produto);
+//	 //model.addAttribute("produto", produto);
+//	 //model.addAttribute("movimentacao", movimentacao);
+//	 model.addAttribute("movimentacao", movimentacao);
+//	
+//	
+//	 return view.getViewName();
+//	 }
+
 	@GetMapping("/pesquisar/codigo")
 	public ModelAndView pesquisarProdutoPorCodigo(@ModelAttribute("filtro") ProdutoFilter filtro) {
 
-		this.view = new ModelAndView("movimentacao/movimentacao-cadastro-beta");
+		this.view = new ModelAndView(CADASTRO_VIEW);
 
 		if (filtro.getCodigo() == "") {
 			return this.pesquisar(filtro);
@@ -145,39 +179,5 @@ public class MovimentacaoController {
 		}
 
 	}
-
-	@GetMapping("/pesquisar/codigo/{codigo}")
-	public ModelAndView pesquisarProdutoPorCodigo(@PathVariable String codigo) {
-
-		this.view = new ModelAndView("movimentacao/movimentacao-cadastro-beta");
-
-		ProdutoFilter filtro = new ProdutoFilter();
-		filtro.setCodigo(codigo);
-
-		if (filtro.getCodigo() == "") {
-			return this.pesquisar(filtro);
-		}
-		try {
-			Produto produto = new Produto();
-			produto = produtoService.findByCodigo(filtro);
-
-			if (produto == null) {
-				return this.pesquisar(filtro);
-			}
-
-			Movimentacao movimentacao = new Movimentacao();
-			movimentacao.setDataHora(new Date(System.currentTimeMillis()));
-			movimentacao.setProduto(produto);
-
-			view.addObject(movimentacao);
-
-			return view;
-
-		} catch (Exception e) {
-			return this.pesquisar(filtro);
-		}
-
-	}
-	
 
 }

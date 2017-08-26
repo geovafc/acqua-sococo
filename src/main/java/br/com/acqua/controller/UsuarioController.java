@@ -1,6 +1,5 @@
 package br.com.acqua.controller;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -18,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
-import br.com.acqua.entity.User;
-import br.com.acqua.entity.UserRole;
+import br.com.acqua.entity.Usuario;
 import br.com.acqua.service.UsuarioService;
 
 
@@ -35,7 +32,7 @@ public class UsuarioController {
 	
 	@GetMapping("/novo")
 	public ModelAndView novo(){
-		User usuario = new User();	
+		Usuario usuario = new Usuario();	
 		ModelAndView view = new ModelAndView(CADASTRO_VIEW);
 		view.addObject("usuario", usuario);	
 		return view;
@@ -44,19 +41,14 @@ public class UsuarioController {
 	@GetMapping
 	public ModelAndView listar(){
 		ModelAndView view = new ModelAndView("usuario/usuarios");
-		List<User> usuarios = usuarioService.listar();
+		List<Usuario> usuarios = usuarioService.listar();
 		view.addObject("usuarios", usuarios);
 		return view;
 	}
 	
 	
-	@ModelAttribute("todosPerfis")
-	public List<UserRole> todosStatusTitulo() {
-		return Arrays.asList(UserRole.values());
-	}
-	
 	@RequestMapping(method = RequestMethod.POST )
-	public String salvar(@Validated User usuario, Errors errors, RedirectAttributes attributes  ){
+	public String salvar(@Validated Usuario usuario, Errors errors, RedirectAttributes attributes  ){
 		
 		if(errors.hasErrors()){
 			return CADASTRO_VIEW;
@@ -65,7 +57,6 @@ public class UsuarioController {
 		try{
 			Date hoje = new Date();
 			usuario.setDataCadastro(hoje);
-			usuario.setRoles(UserRole.USER);	
 			usuarioService.salvar(usuario);
 			attributes.addFlashAttribute("mensagem", "Operador cadastrado com sucesso!");
 			return "redirect:/usuarios";
@@ -76,7 +67,7 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value = {"/{id}"} , method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView editar(@PathVariable("id") Optional<Long> id, @ModelAttribute("usuario") User usuario) {
+	public ModelAndView editar(@PathVariable("id") Optional<Long> id, @ModelAttribute("usuario") Usuario usuario) {
 		
 		
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
