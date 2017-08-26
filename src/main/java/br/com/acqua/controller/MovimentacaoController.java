@@ -32,6 +32,8 @@ import br.com.acqua.service.UsuarioService;
 public class MovimentacaoController {
 
 	private static final String CADASTRO_VIEW = "movimentacao/movimentacao-cadastro";
+	private static final String DETALHES_VIEW = "movimentacao/movimentacao-detalhes";
+
 
 	@Autowired
 	private MovimentacaoService movimentacaoService;
@@ -115,6 +117,24 @@ public class MovimentacaoController {
 		
 	}
 	
+	@RequestMapping(value = {"/detalhes/{id}"} , method = {RequestMethod.GET})
+	public ModelAndView detalhes(@PathVariable("id") Optional<Long> id, @ModelAttribute("movimentacao") Movimentacao movimentacao) {
+		
+		
+		ModelAndView mv = new ModelAndView(DETALHES_VIEW);
+		if(id.isPresent()){
+			movimentacao = movimentacaoService.buscar(id.get());
+			mv.addObject("movimentacao", movimentacao);
+			
+			System.out.println("OBJETO " +movimentacao);
+			
+			
+		}
+		
+		return mv;
+		
+	}
+	
 	@DeleteMapping(value="{id}")
 	 	private String excluir(@PathVariable Long id, RedirectAttributes attributes) {
 	 		
@@ -154,7 +174,7 @@ public class MovimentacaoController {
 	public ModelAndView pesquisarProdutoPorCodigo(@ModelAttribute("filtro") ProdutoFilter filtro) {
 
 		this.view = new ModelAndView(CADASTRO_VIEW);
-
+		
 		if (filtro.getCodigo() == "") {
 			return this.pesquisar(filtro);
 		}

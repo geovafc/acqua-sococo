@@ -31,7 +31,11 @@
 				<div class="row">
 					<div th:if="${movimentacao == null}">
 						<form method="GET" th:action="@{/movimentacoes/pesquisar/codigo}" th:object="${filtro}">
-
+				
+				<div th:if="${param.codigo}">
+					<div class="alert alert-danger">Produto não encontrado, informe o código de um produto cadastrado !!!</div>
+				</div>
+				
 							<div class="col-lg-12 text-center">
 								<div id="campoBuscaCodigoBarras" class="col-lg-8 input-group">
 									<input class="form-control color"

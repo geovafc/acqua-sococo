@@ -76,7 +76,7 @@
 									Fiscal</label>
 								<div class="col-lg-9">
 
-									<input type="text" class="form-control" id="notaFiscal"
+									<input readonly="readonly" type="text" class="form-control" id="notaFiscal"
 										th:field="*{notaFiscal}" placeholder="Nota Fiscal" />
 
 								</div>
@@ -85,29 +85,36 @@
 							<div class="form-group">
 								<label for="observacao" class="col-lg-3 control-label">Observações</label>
 								<div class="col-lg-9">
-									<input type="text" class="form-control" id="observacao"
+									<input readonly="readonly" type="text" class="form-control" id="observacao"
 										placeholder="Observacao" th:field="*{observacao}" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="situacao" class="col-lg-3 control-label">Situação</label>
 								<div class="col-lg-9">
-									<input type="text" class="form-control" id="situacao"
+									<input readonly="readonly" type="text" class="form-control" id="situacao"
 										placeholder="Situação" th:field="*{situacao}" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="lote" class="col-lg-3 control-label">Lote</label>
 								<div class="col-lg-9">
-									<input type="text" class="form-control" id="lote"
+									<input readonly="readonly" type="text" class="form-control" id="lote"
 										placeholder="Lote" th:field="*{lote}" />
+								</div>
+							</div>
+							
+														<div class="form-group">
+								<label for="dataHora" class="col-lg-3 control-label">Data e hora da movimentação</label>
+								<div class="col-lg-9">
+									<input readonly="readonly" type="text" class="form-control" id="dataHora"
+										placeholder="Data e Hora" th:field="*{dataHora}" />
 								</div>
 							</div>
 
 
 							<div class="form-group">
 								<div class="col-lg-10 col-lg-offset-3">
-								<button  type="submit" class="btn btn-primary">Salvar</button>
 									<button th:href="@{/movimentacoes/pesquisar}" type="button"
 										class="btn btn-default">Voltar</button>
 								</div>
