@@ -13,15 +13,20 @@
 	<div layout:include="layout/mensagem-geral"></div>
 
 	<div class="panel panel-default">
-<div class="panel-heading">
-			<img id="logo_produto" src="/imagens/box_ico.png"/><h3 class="acq-produto-panel">MOVIMENTAÇÕES</h3>
-<!-- 			<a class="acq-link-panel" th:href="@{/usuarios}"><button class="btn btn-primary">TODOS OS PRODUTOS</button></a> -->
-				<a id="botao-voltar-form" th:href="@{/}"><span class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span></a>
+		<div class="panel-heading">
+			<img id="logo_produto" src="/imagens/box_ico.png" />
+			<h3 class="acq-produto-panel">MOVIMENTAÇÕES</h3>
+			<!-- 			<a class="acq-link-panel" th:href="@{/usuarios}"><button class="btn btn-primary">TODOS OS PRODUTOS</button></a> -->
+			<a id="botao-voltar-form" th:href="@{/}"><span
+				class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span></a>
 		</div>
 		<div class="panel-body">
-		<a th:href="@{/movimentacoes/pesquisar}"> <button class="btn btn-info"><i class="glyphicon glyphicon-plus"></i> Nova movimentação</button></a> 
-		<p>
-		</p>
+			<a th:href="@{/movimentacoes/pesquisar}">
+				<button class="btn btn-info">
+					<i class="glyphicon glyphicon-plus"></i> Nova movimentação
+				</button>
+			</a>
+			<p></p>
 			<div class="table-responsive">
 
 				<table class="table table-bordered table-striped">
@@ -41,6 +46,7 @@
 						<tr>
 							<th class="text-center col-md-2">Imagem</th>
 							<th class="text-center col-md-1">Código de barras</th>
+							<th class="text-center col-md-1">Nota Fiscal</th>
 							<th class="text-center col-md-1">Operador</th>
 							<th class="text-center col-md-1">Data de registro</th>
 							<th class="text-center col-md-1">Operação</th>
@@ -58,21 +64,33 @@
 								th:text="${movimentacao.produto.codigoDeBarras}"></td>
 
 							<td style="padding-top: 15px;" class="text-center"
+								th:text="${movimentacao.notaFiscal}"></td>
+
+							<td style="padding-top: 15px;" class="text-center"
 								th:text="${movimentacao.usuario.nome}"></td>
 
 							<td style="padding-top: 15px;" class="text-center"
 								th:text="${{movimentacao.dataHora}}"></td>
 
 
-							<td class="text-center"><a class="btn btn-warning btn-xs"
-								th:href="@{/movimentacoes/{id}(id=${movimentacao.id})}" title="Editar"
-								rel="tooltip" data-placement="top"> <span
+
+
+							<td class="text-center"><a class="btn btn-info btn-xs"
+								th:href="@{/movimentacoes/detalhes/{id}(id=${movimentacao.id})}"
+								title="Visualizar" rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-eye-open"></span>
+
+							</a> <a class="btn btn-warning btn-xs"
+								sec:authorize="hasRole('ROLE_ADMIN')"
+								th:href="@{/movimentacoes/{id}(id=${movimentacao.id})}"
+								title="Editar" rel="tooltip" data-placement="top"> <span
 									class="glyphicon glyphicon-pencil"></span>
-									
-							</a> <a class="btn btn-danger btn-xs" data-toggle="modal"
+
+							</a> <a class="btn btn-danger btn-xs"
+								sec:authorize="hasRole('ROLE_ADMIN')" data-toggle="modal"
 								data-target="#confirmacaoExclusaoModal"
-								th:attr="data-id=${movimentacao.id}"
-								title="Excluir" rel="tooltip" data-placement="top"> <span
+								th:attr="data-id=${movimentacao.id}" title="Excluir"
+								rel="tooltip" data-placement="top"> <span
 									class="glyphicon glyphicon-remove"></span>
 							</a></td>
 
@@ -91,7 +109,7 @@
 			</div>
 
 		</div>
-				<div layout:include="movimentacao/dialog-confirmacao-exclusao"></div>
+		<div layout:include="movimentacao/dialog-confirmacao-exclusao"></div>
 	</div>
 
 </section>
