@@ -9,8 +9,14 @@ public class InicioController {
 
 	@GetMapping("/")
 	public String inicio() {
-		return "index";
+		return "redirect:/index";
 	}
+	
+	@GetMapping("/index")
+	public String indexAcqua() {
+		return "index-acqua";
+	}
+
 
 	@GetMapping("/login")
 	public String login() {

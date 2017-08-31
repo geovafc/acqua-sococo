@@ -1,18 +1,18 @@
 -- -----------------------------------------------------
--- Schema sococo
+-- Schema appacai_acqua
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `sococo` ;
+DROP SCHEMA IF EXISTS `appacai_acqua` ;
 
 -- -----------------------------------------------------
--- Schema sococo
+-- Schema appacai_acqua
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `sococo` DEFAULT CHARACTER SET utf8 ;
-USE `sococo` ;
+CREATE SCHEMA IF NOT EXISTS `appacai_acqua` DEFAULT CHARACTER SET utf8 ;
+USE `appacai_acqua` ;
 
 -- -----------------------------------------------------
--- Table `sococo`.`avatares`
+-- Table `appacai_acqua`.`avatares`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sococo`.`avatares` (
+CREATE TABLE IF NOT EXISTS `appacai_acqua`.`avatares` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `avatar` LONGBLOB NULL DEFAULT NULL,
   `tipo` VARCHAR(255) NOT NULL,
@@ -23,9 +23,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `sococo`.`produto`
+-- Table `appacai_acqua`.`produto`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sococo`.`produto` (
+CREATE TABLE IF NOT EXISTS `appacai_acqua`.`produto` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `codigo_de_barras` VARCHAR(255) NOT NULL,
   `data_cadastro` TIMESTAMP NULL DEFAULT NULL,
@@ -38,15 +38,15 @@ CREATE TABLE IF NOT EXISTS `sococo`.`produto` (
   INDEX `FKi59bk14twpl93xlccaoq2rbbv` (`avatar_id` ASC),
   CONSTRAINT `FKi59bk14twpl93xlccaoq2rbbv`
     FOREIGN KEY (`avatar_id`)
-    REFERENCES `sococo`.`avatares` (`id`))
+    REFERENCES `appacai_acqua`.`avatares` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `sococo`.`usuario`
+-- Table `appacai_acqua`.`usuario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sococo`.`usuario` (
+CREATE TABLE IF NOT EXISTS `appacai_acqua`.`usuario` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `codigo` VARCHAR(255) NOT NULL,
   `data_cadastro` TIMESTAMP NOT NULL,
@@ -63,9 +63,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `sococo`.`movimentacao`
+-- Table `appacai_acqua`.`movimentacao`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sococo`.`movimentacao` (
+CREATE TABLE IF NOT EXISTS `appacai_acqua`.`movimentacao` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `data_hora` TIMESTAMP NOT NULL,
   `lote` VARCHAR(255) NULL DEFAULT NULL,
@@ -80,18 +80,18 @@ CREATE TABLE IF NOT EXISTS `sococo`.`movimentacao` (
   INDEX `FKm285fyfcychfcyeunh0vcr3i6` (`usuario_id` ASC),
   CONSTRAINT `FK2goctwoi39n4dbtug0re74y75`
     FOREIGN KEY (`produto_id`)
-    REFERENCES `sococo`.`produto` (`id`),
+    REFERENCES `appacai_acqua`.`produto` (`id`),
   CONSTRAINT `FKm285fyfcychfcyeunh0vcr3i6`
     FOREIGN KEY (`usuario_id`)
-    REFERENCES `sococo`.`usuario` (`id`))
+    REFERENCES `appacai_acqua`.`usuario` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `sococo`.`permissao`
+-- Table `appacai_acqua`.`permissao`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sococo`.`permissao` (
+CREATE TABLE IF NOT EXISTS `appacai_acqua`.`permissao` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`))
@@ -101,18 +101,18 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `sococo`.`usuario_permissao`
+-- Table `appacai_acqua`.`usuario_permissao`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sococo`.`usuario_permissoes` (
+CREATE TABLE IF NOT EXISTS `appacai_acqua`.`usuario_permissoes` (
   `usuario_id` BIGINT(20) NOT NULL,
   `permissao_id` BIGINT(20) NOT NULL,
   INDEX `FKtcuagcmypmug2ddh2d5uol8s5` (`permissao_id` ASC),
   INDEX `FK5wc2vh351r26qbqt1tc52sh4m` (`usuario_id` ASC),
   CONSTRAINT `FK5wc2vh351r26qbqt1tc52sh4m`
     FOREIGN KEY (`usuario_id`)
-    REFERENCES `sococo`.`usuario` (`id`),
+    REFERENCES `appacai_acqua`.`usuario` (`id`),
   CONSTRAINT `FKtcuagcmypmug2ddh2d5uol8s5`
     FOREIGN KEY (`permissao_id`)
-    REFERENCES `sococo`.`permissao` (`id`))
+    REFERENCES `appacai_acqua`.`permissao` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
