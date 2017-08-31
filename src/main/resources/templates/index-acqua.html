@@ -16,7 +16,7 @@
 			<h1><span sec:authentication="principal.nome"></span>, Bem vindo ao sistema Acqua</h1>
 		</div>
 	
-		<form action="/logout" method="post" class="navbar-form navbar-right">
+		<form th:action="@{/logout}" method="post" class="navbar-form navbar-right">
 			<button type="submit" class="btn btn-default">
 				<span class="glyphicon glyphicon-log-out"></span> Sair
 			</button>
