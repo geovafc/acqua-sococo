@@ -12,7 +12,16 @@
 <section layout:fragment="conteudo" id="movimentacaoHolter">
 
 	<div class="panel panel-default">
-
+		
+		<div class="panel-heading">
+			<img id="logo_produto" src="/imagens/movimentacao.png" />
+			<h3 class="acq-produto-panel">REGISTRO DE MOVIMENTAÇÃO</h3>
+			<!-- <a class="acq-link-panel" th:href="@{/usuarios}"><button class="btn btn-primary">TODOS OS PRODUTOS</button></a> -->
+			<a id="botao-voltar-form" th:href="@{/movimentacoes/pesquisar}">
+				<span class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span>
+			</a>
+		</div>
+		
 		<div class="panel-body">
 			<fieldset>
 				<!-- <legend>
@@ -108,7 +117,7 @@
 							<div class="form-group">
 								<div class="col-lg-10 col-lg-offset-3">
 								<button  type="submit" class="btn btn-primary">Salvar</button>
-									<button th:href="@{/movimentacoes/pesquisar}" type="button"
+								<button th:href="@{/movimentacoes/pesquisar}" type="button"
 										class="btn btn-default">Voltar</button>
 								</div>
 							</div>
