@@ -2,9 +2,9 @@ body {
 	margin-top: 60px;
 }
 
-.panel-heading img {
-	padding-top: 30%
-}
+/* .panel-heading img {
+	margin-top: 10%
+} */
 
 .row {
 	margin-top: 15%;
@@ -39,6 +39,12 @@ footer {
 	background: #fff;
 }
 
+/* 
+.panel img{
+	margin-top: -70px;
+}
+ */
+
 .msg_erro{
 	width: 100vw;
 	display: flex;
@@ -57,6 +63,11 @@ footer {
 	footer {
 		font-size: 11px;
 	}
+	
+	.panel img{
+		width: 80%;
+	}
+	
 }
 
 /* 
@@ -67,13 +78,17 @@ footer {
 		font-size: 14px;
 	}
 	
-	
+	.panel img{
+		width: auto;
+	}
 }
 
 /* 
  Com uma largura mínima de 992 pixels. Monitores por exemplo.
 */
 @media screen and (min-width: 992px) {
+	
+	
 }
 
 /* 

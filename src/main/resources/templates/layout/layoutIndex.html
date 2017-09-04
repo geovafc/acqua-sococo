@@ -30,14 +30,14 @@
 					src="./imagens/logo-3.jpg" />
 				</a>
 			</div>
-				<ul style="background-color: #d6d6d6;" class="nav navbar-nav navbar-right">
+				<ul style="background-color: #3CB371;" class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">
 						Logado com <span sec:authentication="principal.nome"></span> <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li >
-								<form  action="/logout" method="post">
+								<form  action="/acqua/logout" method="post">
 									<button style="width: 100%; border: none; background-color: white;"  type="submit" class="btn">
 										<span class="glyphicon glyphicon-log-out"></span> Sair
 									</button>

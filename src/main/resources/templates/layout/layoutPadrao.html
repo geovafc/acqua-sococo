@@ -10,14 +10,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<link rel="icon" type="image/png" href="/imagens/icon.png" />
+<link rel="icon" type="image/png" th:href="@{/imagens/icon.png}" />
 <title>Acqua</title>
 
 
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/jasny/jasny-bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/less/datepicker/bootstrap-datetimepicker-build.less}" />
-<link rel="stylesheet" type="text/css" href="/css/acqua.css" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/acqua.css}" />
 
 </head>
 
@@ -32,7 +32,7 @@
 	<div class="container">
 
 		<section layout:fragment="conteudo">
-			<form action="/logout" method="post" class="navbar-form navbar-right">
+			<form action="/acqua/logout" method="post" class="navbar-form navbar-right">
 			<button type="submit" class="btn btn-default">
 				<span class="glyphicon glyphicon-log-out"></span> Sair
 			</button>
