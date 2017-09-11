@@ -11,134 +11,137 @@
 
 <section layout:fragment="conteudo" id="movimentacaoHolter">
 
-	<div class="panel panel-default">
 
-<div class="panel-heading">
-			<img id="logo_produto" th:src="@{/imagens/movimentacao.png}" />
-			<h3 class="acq-produto-panel">REGISTRO DE MOVIMENTAÇÃO</h3>
-			<!-- <a class="acq-link-panel" th:href="@{/usuarios}"><button class="btn btn-primary">TODOS OS PRODUTOS</button></a> -->
-			<a id="botao-voltar-form" th:href="@{/movimentacoes}">
-				<span class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span>
-			</a>
+	<!-- Page Heading -->
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">
+				Movimentações <small>Detalhes</small>
+			</h1>
 		</div>
-		<div class="panel-body">
-			<fieldset>
-				<!-- <legend>
-					<h3 class="acq-produto-panel">Registro de Movimentação</h3>
-					<a class="acq-link-panel" th:href="@{/movimentacoes}">Listar Movimentações</a>
-				</legend> -->
+	</div>
 
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
 
-				<form class="form-horizontal" method="POST"
-					th:object="${movimentacao}" th:action="@{/movimentacoes}">
-
-					<div layout:include="layout/mensagem-geral"></div>
-
-
-					<input type="hidden" th:field="*{id}" /> <input type="hidden"
-						th:field="*{produto}" />
-
+				<div class="panel-heading">
 					<div class="row">
-
-						<div class="col-md-4">
-							<div class="card-img-bottom" style="text-align: center">
-								<img
-									th:src="@{/avatar-prod/load/{id}(id=${movimentacao.produto.avatar.id})}" />
-							</div>
+						<div class="col-xs-3">
+							<i class="fa fa-support fa-5x"></i>
 						</div>
-
-
-						<div class="col-md-8">
-
-
-							<!-- Quando mudar o cursor, fazer uma consulta para obter o produto por codigo e mostrar as infs dele na tela -->
-
-							<div class="form-group">
-								<label for="produto" class="col-lg-3 control-label">Produto</label>
-								<div class="col-lg-9">
-									<input type="text" class="form-control" readonly="readonly"
-										th:field="*{produto.nome}" />
-								</div>
-
-							</div>
-							<div class="form-group">
-								<label for="produto" class="col-lg-3 control-label">Código
-									de Barra</label>
-								<div class="col-lg-9">
-									<input type="text" class="form-control" readonly="readonly"
-										th:field="*{produto.codigoDeBarras}" />
-								</div>
-
-							</div>
-							<div class="form-group">
-								<label for="descricao" class="col-lg-3 control-label">Descrição</label>
-								<div class="col-lg-9">
-									<input type="text" class="form-control" readonly="readonly"
-										th:field="*{produto.descricao}" />
-								</div>
-
-							</div>
-
-							<div class="form-group">
-								<label for="observacao" class="col-lg-3 control-label">Nota
-									Fiscal</label>
-								<div class="col-lg-9">
-
-									<input readonly="readonly" type="text" class="form-control" id="notaFiscal"
-										th:field="*{notaFiscal}" placeholder="Nota Fiscal" />
-
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="observacao" class="col-lg-3 control-label">Observações</label>
-								<div class="col-lg-9">
-									<input readonly="readonly" type="text" class="form-control" id="observacao"
-										placeholder="Observacao" th:field="*{observacao}" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="situacao" class="col-lg-3 control-label">Situação</label>
-								<div class="col-lg-9">
-									<input readonly="readonly" type="text" class="form-control" id="situacao"
-										placeholder="Situação" th:field="*{situacao}" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="lote" class="col-lg-3 control-label">Lote</label>
-								<div class="col-lg-9">
-									<input readonly="readonly" type="text" class="form-control" id="lote"
-										placeholder="Lote" th:field="*{lote}" />
-								</div>
-							</div>
-							
-							<div class="form-group">
-								<label for="dataHora" class="col-lg-3 control-label">Data e hora da movimentação</label>
-								<div class="col-lg-9">
-									<input readonly="readonly" type="text" class="form-control" id="dataHora"
-										placeholder="Data e Hora" th:field="*{dataHora}" />
-								</div>
-							</div>
-
-
-							<!-- <div class="form-group">
-								<div class="col-lg-10 col-lg-offset-3">
-									<button th:href="@{/movimentacoes}" type="button"
-										class="btn btn-default">Voltar</button>
-								</div>
-							</div> -->
-
-						</div>
-
 					</div>
-					<input type="hidden" th:name="${_csrf.parameterName}"
-						th:value="${_csrf.token}" />
-				</form>
+				</div>
+				<div class="panel-body">
+						<form class="form-horizontal" method="POST"
+							th:object="${movimentacao}" th:action="@{/movimentacoes}">
+
+							<div layout:include="layout/mensagem-geral"></div>
 
 
-			</fieldset>
+							<input type="hidden" th:field="*{id}" /> <input type="hidden"
+								th:field="*{produto}" />
+
+							<div class="row">
+
+								<div class="col-lg-4"  style="text-align: center">
+										<img th:src="@{/avatar-prod/load/{id}(id=${movimentacao.produto.avatar.id})}" />					
+								</div>
+
+
+								<div class="col-lg-8">
+									<div class="form-group">
+										<label for="produto" class="col-lg-3 control-label">Produto</label>
+										<div class="col-lg-9">
+											<input type="text" class="form-control" readonly="readonly"
+												th:field="*{produto.nome}" />
+										</div>
+
+									</div>
+									<div class="form-group">
+										<label for="produto" class="col-lg-3 control-label">Código
+											de Barra</label>
+										<div class="col-lg-9">
+											<input type="text" class="form-control" readonly="readonly"
+												th:field="*{produto.codigoDeBarras}" />
+										</div>
+
+									</div>
+									<div class="form-group">
+										<label for="descricao" class="col-lg-3 control-label">Descrição</label>
+										<div class="col-lg-9">
+											<input type="text" class="form-control" readonly="readonly"
+												th:field="*{produto.descricao}" />
+										</div>
+
+									</div>
+
+									<div class="form-group">
+										<label for="observacao" class="col-lg-3 control-label">Nota
+											Fiscal</label>
+										<div class="col-lg-9">
+
+											<input readonly="readonly" type="text" class="form-control"
+												id="notaFiscal" th:field="*{notaFiscal}"
+												placeholder="Nota Fiscal" />
+
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="observacao" class="col-lg-3 control-label">Observações</label>
+										<div class="col-lg-9">
+											<input readonly="readonly" type="text" class="form-control"
+												id="observacao" placeholder="Observacao"
+												th:field="*{observacao}" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="situacao" class="col-lg-3 control-label">Situação</label>
+										<div class="col-lg-9">
+											<input readonly="readonly" type="text" class="form-control"
+												id="situacao" placeholder="Situação" th:field="*{situacao}" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="lote" class="col-lg-3 control-label">Lote</label>
+										<div class="col-lg-9">
+											<input readonly="readonly" type="text" class="form-control"
+												id="lote" placeholder="Lote" th:field="*{lote}" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="dataHora" class="col-lg-3 control-label">Data
+											e hora da movimentação</label>
+										<div class="col-lg-9">
+											<input readonly="readonly" type="text" class="form-control"
+												id="dataHora" placeholder="Data e Hora"
+												th:field="*{dataHora}" />
+										</div>
+									</div>
+
+
+								<div class="form-group">
+									<div class="col-lg-8 col-lg-offset-3">
+										<a  th:href="@{/movimentacoes}"
+											class="col-lg-4 btn btn-warning"><span
+									class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span></a>
+									</div>
+								</div>
+
+							</div>
+
+							</div>
+							<input type="hidden" th:name="${_csrf.parameterName}"
+								th:value="${_csrf.token}" />
+						</form>
+
+
+					
+				</div>
+			</div>
 		</div>
-
 	</div>
 
 

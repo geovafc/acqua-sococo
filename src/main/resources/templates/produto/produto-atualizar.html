@@ -10,58 +10,92 @@
 </head>
 
 <section layout:fragment="conteudo">
+
+
+	<!-- Page Heading -->
 	<div class="row">
-		<main>
-		<div class="col-lg-6 col-md-6 col-lg-offset-3 col-md-offset-3">
+		<div class="col-lg-12">
+			<h1 class="page-header">
+				Movimentações <small>Atualizar Informações</small>
+			</h1>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col-xs-3">
+					<i class="fa fa-support fa-5x"></i>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel-body">
 
 			<form class="form-horizontal" method="POST"
-				th:action="@{/produto/update}" th:object="${produto}">
+				th:action="@{/produtos/}" th:object="${produto}">
 
 				<div layout:include="layout/mensagem-erro"></div>
 				<div layout:include="layout/mensagem-geral"></div>
+
+				<input type="hidden" th:field="*{id}" />
+
+				<div class="row">
+					<div class="text-center col-lg-3 col-lg-offset-1">
+						<div class="fileinput fileinput-new" data-provides="fileinput">
+							<div class="fileinput-new thumbnail"
+								style="width: 238px; height: 218px;">
+								<img th:src="@{/avatar-prod/load/{id}(id=${produto.avatar.id})}" />
+							</div>
+							<div class="fileinput-preview fileinput-exists thumbnail"
+								style="width: 238px; height: 218px;"></div>
+							<div>
+								<span class="btn btn-primary btn-file"> <span
+									class="fileinput-new">Selecione a imagem</span> <span
+									class="fileinput-exists">Trocar</span> <input type="file"
+									name="file" />
+								</span> <a href="#" class="btn btn-danger fileinput-exists"
+									data-dismiss="fileinput">Remover</a>
+							</div>
+						</div>
+					</div>
+
+								
+					<div class="form-cadprod col-lg-8">
+						<div class="form-group col-lg-11" th:classappend="${#fields.hasErrors('codigoDeBarras')} ? has-error">
+							<label for="codigoDeBarras">Código de Barras</label> 
+							<input
+								type="text" class="form-control" id="codigoDeBarras"
+								th:field="*{codigoDeBarras}" autofocus="autofocus"
+								placeholder="Código de Barras" />
+						</div>
+						<div class="form-group col-lg-11"
+							th:classappend="${#fields.hasErrors('nome')} ? has-error">
+							<label for="nome">Nome</label> <input type="text"
+								class="form-control" id="nome" th:field="*{nome}"
+								placeholder="Nome" />
+						</div>
+						<div class="form-group col-lg-11"
+							th:classappend="${#fields.hasErrors('descricao')} ? has-error">
+							<label for="descricao">Descrição</label> <input type="text"
+								class="form-control" id="descricao" th:field="*{descricao}"
+								placeholder="Descrição" />
+						</div>
+						
+						
+						
+						<div class="form-group col-lg-8">
+							 <button  type="submit" class="col-lg-5 btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> ATUALIZAR</button>
+							 <a th:href="@{/produtos}" class="col-lg-5 col-lg-offset-1 btn btn-default"> CANCELAR</a>
+						</div>
+						
 				
-				<input type="hidden" th:field="*{id}" /> 
-
-				<fieldset>
-
-					<legend>
-
-						<h4 class="acq-produto-panel">Editar de Produto</h4>
-
-						<a class="acq-link-panel" th:href="@{/produto}"><h4>Listar
-								Produtos</h4></a>
-
-					</legend>
-
-					<div class="form-group"
-						th:classappend="${#fields.hasErrors('codigoDeBarras')} ? has-error">
-						<label for="codigoDeBarras">Codigo de Barras</label> <input
-							type="text" class="form-control" id="codigoDeBarras"
-							th:field="*{codigoDeBarras}" autofocus="autofocus"
-							placeholder="Codigo de Barras" />
 					</div>
-					<div class="form-group"
-						th:classappend="${#fields.hasErrors('nome')} ? has-error">
-						<label for="nome">Nome</label> <input type="text"
-							class="form-control" id="nome" th:field="*{nome}"
-							placeholder="Nome" />
-					</div>
-					<div class="form-group"
-						th:classappend="${#fields.hasErrors('descricao')} ? has-error">
-						<label for="descricao">Descricao</label> <input type="text"
-							class="form-control" id="descricao" th:field="*{descricao}"
-							placeholder="Descricao" />
-					</div>
-					<div class="form-group">
-						<button type="submit" class="btn btn-primary btn-block">Atualizar</button>
-						<a th:href="@{/produto/perfil/{id}(id=${produto.id})}" class="btn btn-default btn-block">Cancelar</a>
-					</div>
-				</fieldset>
+				</div>
 			</form>
 		</div>
-		<div class="clearfix"></div>
-		</main>
 	</div>
+
+
 
 
 </section>

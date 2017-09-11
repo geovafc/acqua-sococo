@@ -11,59 +11,83 @@
 
 <section layout:fragment="conteudo" id="movimentacaoHolter">
 
-	<div class="panel panel-default">
 
-		<div class="panel-heading">
-			<img id="logo_produto" th:src="@{/imagens/movimentacao.png}" />
-			<h3 class="acq-produto-panel">REGISTRO DE MOVIMENTAÇÃO</h3>
-				<a id="botao-voltar-form" th:href="@{/index}"><span
-				class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span></a>
+
+	<!-- Page Heading -->
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">
+				Movimentações <small>Pesquisar produto</small>
+			</h1>
 		</div>
+	</div>
+
+	<div th:if="${param.codigo}"
+		class="alert alert-danger alert-dismissible col-lg-10 col-lg-offset-1 "
+		role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<strong>Opss!</strong> Produto não encontrado, informe um código válido.
+	</div>
 
 
-		<div class="panel-body">
-			<fieldset>
-				<!-- <legend>
-					<h3 class="acq-produto-panel">REGISTRO DE MOVIMENTAÇÃO</h3>
-					<a class="acq-link-panel"  th:href="@{/movimentacoes}">Listar Movimentações</a>
-				</legend> -->
-
-				<div class="row">
-					<div th:if="${movimentacao == null}">
-						<form method="GET" th:action="@{/movimentacoes/pesquisar/codigo}" th:object="${filtro}">
-				
-				<div th:if="${param.codigo}">
-					<div class="alert alert-danger">Produto não encontrado, informe o código de um produto cadastrado !!!</div>
-				</div>
-				
-							<div class="col-lg-12 text-center">
-								<div id="campoBuscaCodigoBarras" class="col-lg-8 input-group">
-									<input class="form-control color"
-									onblur="obterProdutoPorCodigo(this.value);"
-										placeholder="Informe o código de barras do produto"
-										autofocus="autofocus" th:field="*{codigo}"> </input> <span
-										class="input-group-btn">
-
-
-										<button type="submit" class="btn btn-info">
-											<i class="glyphicon glyphicon-search"></i> PESQUISAR
-										</button>
-
-
-
-									</span>
-								</div>
-							</div>
-						</form>
+	<div class="row">
+		<div class="col-lg-10 col-lg-offset-1 col-sm-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-3">
+							<i class="fa fa-support fa-5x"></i>
+						</div>
 					</div>
 				</div>
 
-				<br /> <br />
+				<div class="panel-body">
 
-			</fieldset>
+					<div style="padding: 12% 50px 12% 50px;" class="row">
+						<div th:if="${movimentacao == null}">
+							<form method="GET" th:action="@{/movimentacoes/pesquisar/codigo}"
+								th:object="${filtro}">
+
+								<div class="col-lg-12 text-center">
+									<div id="campoBuscaCodigoBarras"
+										class="col-lg-10 col-lg-offset-1 input-group">
+										<input class="form-control color"
+											onblur="obterProdutoPorCodigo(this.value);"
+											placeholder="Informe o código de barras do produto"
+											autofocus="autofocus" th:field="*{codigo}"> </input> <span
+											class="input-group-btn">
+
+											<button type="submit" class="btn btn-info">
+												<i class="glyphicon glyphicon-search"></i> PESQUISAR
+											</button>
+
+										</span>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+
+
+
+				</div>
+
+				<a th:href="@{/movimentacoes}">
+					<div class="panel-footer">
+						<span class="pull-left">Ver Detalhes de Movimentações</span> <span
+							class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+						<div class="clearfix"></div>
+					</div>
+				</a>
+			</div>
 		</div>
 
+
 	</div>
+
 
 
 

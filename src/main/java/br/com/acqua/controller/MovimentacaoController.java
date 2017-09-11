@@ -22,7 +22,6 @@ import br.com.acqua.entity.Produto;
 import br.com.acqua.repository.filter.ProdutoFilter;
 import br.com.acqua.service.MovimentacaoService;
 import br.com.acqua.service.ProdutoService;
-import br.com.acqua.service.UsuarioService;
 
 @Controller
 @RequestMapping("/movimentacoes")
@@ -37,9 +36,6 @@ public class MovimentacaoController {
 
 	@Autowired
 	private ProdutoService produtoService;
-
-	@Autowired
-	private UsuarioService userService;
 
 	ModelAndView view;
 
@@ -63,18 +59,16 @@ public class MovimentacaoController {
 		return view;
 	}
 
-	@GetMapping("/novo")
+/*	@GetMapping("/novo")
 	public ModelAndView novo() {
 		this.view = new ModelAndView(CADASTRO_VIEW);
-
-		
 		Produto produto = new Produto();
 		Movimentacao movimentacao = new Movimentacao();
 		movimentacao.setProduto(produto);
 		view.addObject("movimentacao", movimentacao);
 		view.addObject("produto", produto);
 		return view;
-	}
+	}*/
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String salvar(@Validated Movimentacao movimentacao, RedirectAttributes attributes) throws Exception {

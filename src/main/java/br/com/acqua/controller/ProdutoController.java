@@ -25,7 +25,7 @@ import br.com.acqua.service.AvatarProdService;
 import br.com.acqua.service.ProdutoService;
 
 @Controller
-@RequestMapping("/produto")
+@RequestMapping("/produtos")
 public class ProdutoController {
 
 	private static final String CADASTRO_VIEW = "produto/produto-cadastro";
@@ -64,7 +64,7 @@ public class ProdutoController {
 		try {
 			produtoService.salvar(produto);
 			attributes.addFlashAttribute("mensagem", "Produto salvo com sucesso!");
-			return "redirect:/produto";
+			return "redirect:/produtos";
 
 		} catch (IllegalArgumentException e) {
 			erros.rejectValue("dataCadastro", null, e.getMessage());
@@ -72,28 +72,34 @@ public class ProdutoController {
 		}
 	}
 	
-	@GetMapping("/perfil/{id}")
+	@GetMapping("/detalhes/{id}")
 	public ModelAndView perfil(@PathVariable("id") Produto produto){
 		ModelAndView view = new ModelAndView();
-		view.setViewName("produto/produto-perfil");
+		view.setViewName("produto/produto-detalhes");
 		view.addObject("produto",produto);
 		return view;
 	}
 
-	@RequestMapping(value = {"/update/{id}", "/update"}, method = {RequestMethod.GET, RequestMethod.POST})
+	
+	
+
+	@RequestMapping(value = {"/{id}", "/"}, method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView editar(@PathVariable("id") Optional<Long> id, @ModelAttribute("produto") Produto produto) {
 		ModelAndView view = new ModelAndView();
+
 		if (id.isPresent()) {
+					
 			produto = produtoService.findById(id.get());
 			view.addObject("produto", produto);
 			view.setViewName("produto/produto-atualizar");
+			
 			return view;
 		}
 		
 		produtoService.updateNomeAndDescricaoAndCodigoBarra(produto);
 		
-		view.setViewName("redirect:/produto/perfil/" + produto.getId());
-		
+		//view.setViewName("redirect:/produtos/detalhes/" + produto.getId());
+		view.setViewName("redirect:/produtos");
 		return view;
 		
 	}
@@ -104,5 +110,6 @@ public class ProdutoController {
 		attributes.addFlashAttribute("mensagem", "Produto excluido com sucesso!");
 		return "redirect:/produto";
 	}
+	
 
 }
