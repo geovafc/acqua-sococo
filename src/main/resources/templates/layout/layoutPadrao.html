@@ -10,53 +10,57 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<link rel="icon" type="image/png" href="/imagens/icon.png" />
+<link rel="icon" type="image/png" th:href="@{/imagens/icon.png}" />
 <title>Acqua</title>
 
+<!-- Bootstrap Core CSS -->
+<link th:href="@{/css/theme_admin/bootstrap.min.css}" rel="stylesheet" />
 
-<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap/bootstrap.min.css}" />
+<!-- Custom CSS -->
+<link th:href="@{/css/theme_admin/sb-admin.css}" rel="stylesheet" />
+
+<!-- Morris Charts CSS -->
+<link th:href="@{/css/theme_admin/plugins/morris.css}" rel="stylesheet" />
+
+<!-- Custom Fonts -->
+<link th:href="@{/font-awesome/css/font-awesome.min.css}"
+	rel="stylesheet" type="text/css" />
+
+<!-- CSS -->
+<link th:href="@{/css/acqua.css}"
+	rel="stylesheet" type="text/css" />
+	
 <link rel="stylesheet" type="text/css" th:href="@{/css/jasny/jasny-bootstrap.min.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/less/datepicker/bootstrap-datetimepicker-build.less}" />
-<link rel="stylesheet" type="text/css" href="/css/acqua.css" />
 
+	
 </head>
 
 <body>
 
+	<div id="wrapper">
+		<header layout:include="layout/cabecalho"></header>
+		<div id="page-wrapper">
 
+			<div class="container-fluid">
 
-	<header layout:include="layout/cabecalho"></header>
+				<section layout:fragment="conteudo"></section>
 
-	<div id="corpo">
-	
-	<div class="container">
-
-		<section layout:fragment="conteudo">
-			<form action="/logout" method="post" class="navbar-form navbar-right">
-			<button type="submit" class="btn btn-default">
-				<span class="glyphicon glyphicon-log-out"></span> Sair
-			</button>
-
-			<input type="hidden" th:name="${_csrf.parameterName}"
-				th:value="${_csrf.token}" />
-		</form>
-			<p>conteudo principal</p>
-		</section>
-
+			</div>
+		</div>
 	</div>
 
-	</div>
-	<script type="text/javascript" th:src="@{/js/bootstrap/jquery.min.js}"></script>
-	<script type="text/javascript" th:src="@{/js/moment/moment.js}"></script>
-	<script type="text/javascript" th:src="@{/js/moment/locale/pt-br.js}"></script>
-	<script type="text/javascript" th:src="@{/js/bootstrap/transition.js}"></script>
-	<script type="text/javascript" th:src="@{/js/bootstrap/collapse.js}"></script>
-	<script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+	<!-- jQuery -->
+	<script th:src="@{/js/theme_admin/jquery.js}"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script th:src="@{/js/theme_admin/bootstrap.min.js}"></script>
+
+	<!-- Morris Charts JavaScript -->
+	<script th:src="@{/js/theme_admin/plugins/morris/raphael.min.js}"></script>
+	<script th:src="@{/js/theme_admin/plugins/morris/morris.min.js}"></script>
+	<script th:src="@{/js/theme_admin/plugins/morris/morris-data.js}"></script>
 	<script type="text/javascript" th:src="@{/js/jasny/jasny-bootstrap.min.js}"></script>
-	<script type="text/javascript" th:src="@{/js/datepicker/bootstrap-datetimepicker.js}"></script>
-	<script type="text/javascript" th:src="@{/js/holder/jquery.mask.min.js}"></script>
-	<script type="text/javascript" th:src="@{/js/holder/mask.js}"></script>
-	<script type="text/javascript" th:src="@{/js/acqua.js}"></script>
+
 
 </body>
 

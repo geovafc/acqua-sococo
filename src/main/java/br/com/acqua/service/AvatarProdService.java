@@ -21,8 +21,12 @@ public class AvatarProdService {
 	private AvatarProdRepository avatarRepository;
 
 	@Transactional(readOnly = false)
-	public void saveOrUpdate(AvatarProd avatar) {
-		avatarRepository.save(avatar);
+	public AvatarProd saveOrUpdate(AvatarProd avatar) {
+		return avatarRepository.save(avatar);
+	}
+	
+	public AvatarProd buscarPorFile(byte[] avatar){
+		return avatarRepository.findByAvatar(avatar);
 	}
 
 	public AvatarProd getAvatarByUpload(MultipartFile file) {

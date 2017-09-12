@@ -5,10 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +19,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.acqua.entity.Movimentacao;
 import br.com.acqua.entity.Produto;
-import br.com.acqua.entity.Usuario;
 import br.com.acqua.repository.filter.ProdutoFilter;
 import br.com.acqua.service.MovimentacaoService;
 import br.com.acqua.service.ProdutoService;
-import br.com.acqua.service.UsuarioService;
 
 @Controller
 @RequestMapping("/movimentacoes")
@@ -40,9 +36,6 @@ public class MovimentacaoController {
 
 	@Autowired
 	private ProdutoService produtoService;
-
-	@Autowired
-	private UsuarioService userService;
 
 	ModelAndView view;
 
@@ -66,27 +59,12 @@ public class MovimentacaoController {
 		return view;
 	}
 
-	@GetMapping("/novo")
-	public ModelAndView novo() {
-		this.view = new ModelAndView(CADASTRO_VIEW);
-
-		
-		Produto produto = new Produto();
-		Movimentacao movimentacao = new Movimentacao();
-		movimentacao.setProduto(produto);
-		view.addObject("movimentacao", movimentacao);
-		view.addObject("produto", produto);
-		return view;
-	}
-
 	@RequestMapping(method = RequestMethod.POST)
 	public String salvar(@Validated Movimentacao movimentacao, RedirectAttributes attributes) throws Exception {
 
 		try {
 
 			String usernName = SecurityContextHolder.getContext().getAuthentication().getName();
-			
-		      
 
 			movimentacaoService.salvar(movimentacao, usernName);
 

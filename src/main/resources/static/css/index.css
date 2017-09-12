@@ -21,6 +21,9 @@ p{
 	color: #fff
 }
 
+
+
+
 body {
 	margin: auto;
 	font-family: sans-serif;
@@ -28,7 +31,7 @@ body {
 	color: #444;
 	/* line-height: 25px; */
 	height: 100%;
-	background-image: url("/imagens/bg_new.jpg");
+	/* background-image: url("/imagens/bg_new.jpg"); */
 	background-repeat: no-repeat;
 }
 

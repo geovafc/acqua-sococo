@@ -1,5 +1,6 @@
 package br.com.acqua.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,7 @@ import br.com.acqua.service.AvatarProdService;
 import br.com.acqua.service.ProdutoService;
 
 @Controller
-@RequestMapping("/produto")
+@RequestMapping("/produtos")
 public class ProdutoController {
 
 	private static final String CADASTRO_VIEW = "produto/produto-cadastro";
@@ -37,9 +38,9 @@ public class ProdutoController {
 	private AvatarProdService avatarService;
 
 	@GetMapping("/novo")
-	public ModelAndView novo(@ModelAttribute("avatar") AvatarProd avatar) {
+	public ModelAndView novo() {
 		ModelAndView view = new ModelAndView(CADASTRO_VIEW);
-		view.addObject(new Produto());
+		view.addObject("produto", new Produto());
 		return view;
 	}
 
@@ -54,6 +55,7 @@ public class ProdutoController {
 	@PostMapping
 	public String salvar(@Validated Produto produto, Errors erros, RedirectAttributes attributes,
 			@RequestParam(value = "file", required = false) MultipartFile file) {
+
 		AvatarProd avatar = new AvatarProd();
 		if (erros.hasErrors()) {
 			return CADASTRO_VIEW;
@@ -64,40 +66,65 @@ public class ProdutoController {
 		try {
 			produtoService.salvar(produto);
 			attributes.addFlashAttribute("mensagem", "Produto salvo com sucesso!");
-			return "redirect:/produto";
+			return "redirect:/produtos";
 
 		} catch (IllegalArgumentException e) {
 			erros.rejectValue("dataCadastro", null, e.getMessage());
 			return CADASTRO_VIEW;
 		}
 	}
-	
-	@GetMapping("/perfil/{id}")
-	public ModelAndView perfil(@PathVariable("id") Produto produto){
+
+	@GetMapping("/detalhes/{id}")
+	public ModelAndView perfil(@PathVariable("id") Produto produto) {
 		ModelAndView view = new ModelAndView();
-		view.setViewName("produto/produto-perfil");
-		view.addObject("produto",produto);
+		view.setViewName("produto/produto-detalhes");
+		view.addObject("produto", produto);
 		return view;
 	}
 
-	@RequestMapping(value = {"/update/{id}", "/update"}, method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView editar(@PathVariable("id") Optional<Long> id, @ModelAttribute("produto") Produto produto) {
+	@RequestMapping(value = { "/{id}","/update" }, method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView editar(@PathVariable("id") Optional<Long> id, @ModelAttribute("produto") Produto produto,
+			RedirectAttributes attributes,
+			@RequestParam(value = "file", required = false) MultipartFile file) {
 		ModelAndView view = new ModelAndView();
+
 		if (id.isPresent()) {
+
 			produto = produtoService.findById(id.get());
 			view.addObject("produto", produto);
 			view.setViewName("produto/produto-atualizar");
+
 			return view;
 		}
 		
-		produtoService.updateNomeAndDescricaoAndCodigoBarra(produto);
+		view.setViewName("redirect:/produtos");
 		
-		view.setViewName("redirect:/produto/perfil/" + produto.getId());
+		if (file.isEmpty()) {
+			produtoService.updateNomeAndDescricaoAndCodigoBarra(produto);
+			attributes.addFlashAttribute("mensagem", "Produto salvo com sucesso!");
+			return view;
+		}
+		
+		AvatarProd avatar = new AvatarProd();
+		
+		Long idProduto = produto.getAvatar().getId();
+		
+		avatar = avatarService.getAvatarByUpload(file);
+		
+		avatar.setId(idProduto);
+		
+		AvatarProd av = avatarService.saveOrUpdate(avatar);
+
+		produto.setAvatar(av);
+		
+		produtoService.salvar(produto);
+		
+		attributes.addFlashAttribute("mensagem", "Produto salvo com sucesso!");
 		
 		return view;
-		
+
 	}
-	
+
 	@DeleteMapping("{id}")
 	public String excluir(@PathVariable("id") Long id, RedirectAttributes attributes) {
 		produtoService.delete(id);

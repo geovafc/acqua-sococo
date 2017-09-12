@@ -1,5 +1,98 @@
 body {
-  margin-top: 60px;
+	margin-top: 60px;
+}
+
+/* .panel-heading img {
+	margin-top: 10%
+} */
+
+.row {
+	margin-top: 15%;
 }
 
 footer {
+	background-color: #00bc8c;
+	color: white;
+	padding: 20px;
+	bottom: 0px;
+	position: absolute;
+	width: 100%;
+}
+
+.row {
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+.container {
+	width: 100vw;
+	height: 80vh;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center
+}
+
+.panel {
+	padding-top: 50px;
+	/* padding-bottom: 50px; */
+	background: #fff;
+}
+
+/* 
+.panel img{
+	margin-top: -70px;
+}
+ */
+
+.msg_erro{
+	width: 100vw;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: -40px
+	
+}
+
+.panel-heading {
+	background-image: url("imagens/logo.png");
+}
+
+@media screen and (min-width: 400px) {
+	footer {
+		font-size: 11px;
+	}
+	
+	.panel img{
+		width: 80%;
+	}
+	
+}
+
+/* 
+ Pra dispositivos que tem uma largura mínima de 768 pixels. Tablets, por exemplo.
+*/
+@media screen and (min-width: 768px) {
+	footer {
+		font-size: 14px;
+	}
+	
+	.panel img{
+		width: auto;
+	}
+}
+
+/* 
+ Com uma largura mínima de 992 pixels. Monitores por exemplo.
+*/
+@media screen and (min-width: 992px) {
+	
+	
+}
+
+/* 
+ Dispositivos com largura mínima de 1200 pixels. Por exemplo TVs.
+*/
+@media screen and (min-width: 1200px) {
+}

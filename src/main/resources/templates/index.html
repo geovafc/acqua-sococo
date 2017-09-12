@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/layoutIndex"
+	layout:decorator="layout/layoutPadrao"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
@@ -11,84 +11,181 @@
 
 <section layout:fragment="conteudo">
 
-	<div class="container">
-		<div class="page-header">
-			<h1><span sec:authentication="principal.nome"></span>, Bem vindo ao sistema Acqua</h1>
+
+	<!-- Page Heading -->
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">
+				Dashboard <small>Métricas de Movimentações</small>
+			</h1>
 		</div>
-	
-		<form action="/logout" method="post" class="navbar-form navbar-right">
-			<button type="submit" class="btn btn-default">
-				<span class="glyphicon glyphicon-log-out"></span> Sair
-			</button>
+	</div>
+	<!-- /.row -->
 
-			<input type="hidden" th:name="${_csrf.parameterName}"
-				th:value="${_csrf.token}" />
-		</form>
 
-		<main>
-		<div class="wrapper">
-
-			<div class="block">
-				<div class="block-img">
-					<img th:src="@{imagens/prod.png}" alt="Produtos" />
-				</div>
-				<div class="block-desc">
-					<div class="block-link">
-						<a id="btn_cad" th:href="@{/produto/novo}">Cadastro de
-							produtos</a>
-						<!-- 						<button id="btn_cad" class="btn btn-primary" th:href="@{/produto/novo}">Cadastro de produtos</button> -->
-					</div>
-					<div class="block-link">
-						<a id="btn_listar" th:href="@{/produto}">Lista de produtos</a>
-					</div>
-				</div>
-
-			</div>
-
-			<div class="block">
-				<div class="block-img">
-					<img th:src="@{imagens/usuario.png}" alt="usuario" />
-				</div>
-				<div class="block-desc">
-					<div class="block-link">
-						<a id="btn_cad" th:href="@{/usuarios/novo}">Cadastro de
-							operadores</a>
-					</div>
-					<div class="block-link">
-						<a sec:authorize="hasRole('ROLE_ADMIN')" id="btn_listar"
-							th:href="@{/usuarios}"><span>Lista de operadores</span></a>
-					</div>
-				</div>
-				<!-- <div class="block-link">
-					<a href="#">Ver mais</a>
-				</div> -->
-			</div>
-
-			<div class="block">
-				<div class="block-img">
-					<img th:src="@{imagens/mov.png}" alt="movimentacao" />
-				</div>
-				<div class="block-desc">
-					<div class="block-desc">
-						<div class="block-link">
-							<a id="btn_cad" th:href="@{/movimentacoes/pesquisar}">Cadastro
-								de movimentações</a>
+	<div class="row">
+		<div class="col-lg-4 col-md-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-3">
+							<i class="fa fa-support fa-5x"></i>
 						</div>
-						<div class="block-link">
-							<a id="btn_listar" th:href="@{/movimentacoes}">Lista de
-								movimentações</a>
+						<div class="col-xs-9 text-right">
+							<div class="huge"><span >33</span></div>
+							<div>Movimentações do Mês</div>
 						</div>
 					</div>
 				</div>
-				<!-- 				<div class="block-link"> -->
-				<!-- 					<a href="#">Ver mais</a> -->
-				<!-- 				</div> -->
+				<a href="#">
+					<div class="panel-footer">
+						<span class="pull-left">Ver detalhes</span> <span
+							class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+						<div class="clearfix"></div>
+					</div>
+				</a>
 			</div>
-
-
 		</div>
-		</main>
+		
+		<div class="col-lg-4 col-md-6">
+			<div class="panel panel-yellow">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-3">
+							<i class="fa fa-shopping-cart fa-5x"></i>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="huge"><span th:text="${QTDmovimentacoes}"></span></div>
+							<div>Total de Movimentações</div>
+						</div>
+					</div>
+				</div>
+				<a href="#">
+					<div class="panel-footer">
+						<span class="pull-left">Ver Detalhes</span> <span
+							class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+						<div class="clearfix"></div>
+					</div>
+				</a>
+			</div>
+		</div>
+		
+		<div class="col-lg-4 col-md-6">
+			<div class="panel panel-green">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-3">
+							<i class="fa fa-tasks fa-5x"></i>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="huge"><span th:text="${QTDprodutos}"></span></div>
+							<div>Produtos Registrados</div>
+						</div>
+					</div>
+				</div>
+				<a href="#">
+					<div class="panel-footer">
+						<span class="pull-left">Ver Detalhes</span> <span
+							class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+						<div class="clearfix"></div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<!-- /.row -->
 
+
+	<div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Registro de Movimentação</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="morris-area-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+     </div>
+
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<i class="fa fa-folder-open-o" aria-hidden="true"></i> Últimas Movimentações
+				</h3>
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+				
+					<form class="form-inline my-2 my-lg-0 text-right">
+						<input class="form-control mr-sm-2" type="text"
+							placeholder="código de barras"/>
+						<button class="btn btn-default" type="submit">Pesquisar</button>
+					</form>
+					<br/>
+					<table class="table table-bordered table-hover table-striped" id="dataTable" cellspacing="0">
+						<thead>
+								<tr>
+									<th class="text-center col-md-2">Imagem</th>
+									<th class="text-center col-md-1">Código de barras</th>
+									<th class="text-center col-md-1">Nota Fiscal</th>
+									<th class="text-center col-md-1">Operador</th>
+									<th class="text-center col-md-1">Data de registro</th>
+								
+
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr th:each="movimentacao: ${movimentacoes}">
+									<td class="text-center"><img id="avatar"
+										th:src="@{/avatar-prod/load/{id}(id=${movimentacao.produto.avatar.id})}" />
+									</td>
+
+									<td style="padding-top: 15px;" class="text-center"
+										th:text="${movimentacao.produto.codigoDeBarras}"></td>
+
+									<td style="padding-top: 15px;" class="text-center"
+										th:text="${movimentacao.notaFiscal}"></td>
+
+									<td style="padding-top: 15px;" class="text-center"
+										th:text="${movimentacao.usuario.nome}"></td>
+
+									<td style="padding-top: 15px;" class="text-center"
+										th:text="${{movimentacao.dataHora}}"></td>
+
+
+								</tr>
+
+								<tr>
+									<td class="text-center" colspan="7"
+										th:if="${#lists.isEmpty(movimentacoes)}">Nenhuma
+										movimentação foi encontrado</td>
+								</tr>
+
+							</tbody>
+						
+					</table>
+				</div>
+				<nav aria-label="table">
+							<ul class="pagination pagination-sm">
+								<li class="page-item disabled"><a class="page-link"
+									href="#" tabindex="-1">Anterior</a></li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item"><a class="page-link" href="#">Próximo</a>
+								</li>
+							</ul>
+				</nav>
+				<div class="text-right" style="margin-top: -50px">				
+					<a th:href="@{/movimentacoes}">Ver Todas Movimentações <i
+						class="fa fa-arrow-circle-right"></i></a>
+				</div>
+			</div>
+		</div>
 
 	</div>
 

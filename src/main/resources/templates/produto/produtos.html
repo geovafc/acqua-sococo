@@ -10,86 +10,105 @@
 
 <section layout:fragment="conteudo">
 
+
+	<!-- Page Heading -->
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">
+				Produtos <small>Todos os Produtos</small>
+			</h1>
+		</div>
+	</div>
+
 	<div layout:include="layout/mensagem-geral"></div>
 
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<img id="logo_produto" src="/imagens/box_ico.png" />
-			<h3 class="acq-produto-panel">TODOS OS PRODUTOS</h3>
-			<!-- <a class="acq-link-panel" th:href="@{/produto}"><button class="btn btn-primary">TODOS OS PRODUTOS</button></a> -->
-			<a id="botao-voltar-form" th:href="@{/}"><span class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span></a>
-		</div>
-		<div class="panel-body">
-		<a th:href="@{/produto/novo}"> <button class="btn btn-info"><i class="glyphicon glyphicon-plus"></i> Novo produto</button></a> 
-		<p>
-		</p>
-			<div class="table-responsive">
 
-				<table class="table table-bordered table-striped">
-					<fieldset>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-3">
+							<i class="fa fa-support fa-5x"></i>
+						</div>
+					</div>
+				</div>
 
-						<!-- <legend>
-							<h4>Lista de Produtos</h4>
+				<div class="panel-body">
+					<a th:href="@{/produtos/novo}">
+						<button class="btn btn-info">
+							<i class="glyphicon glyphicon-plus"></i> Novo produto
+						</button>
+					</a>
+					<p></p>
+					<div class="table-responsive">
 
-							<a class="acq-link-panel" th:href="@{/produto/novo}"><h4>Novo
-									produto</h4></a>
+						<table class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th class="text-center col-md-1">Imagem</th>
+									<th class="text-center col-md-1">Código</th>
+									<th class="text-center col-md-2">Codigo Barras</th>
+									<th class="text-center col-md-2">Nome</th>
+									<th class="text-center col-md-2">Descrição</th>
+									<th class="text-center col-md-2">Data Cadastro</th>
+									<th class="text-center col-md-2">Operação</th>
 
-						</legend> -->
+								</tr>
+							</thead>
 
-					</fieldset>
+							<tbody>
+								<tr th:each="produto: ${produtos}">
+									<td class="text-center"><img id="avatar"
+										th:src="@{/avatar-prod/load/{id}(id=${produto.avatar.id})}" />
+									</td>
+									<td class="text-center"
+										th:text="${produto.id}">1</td>
+									<td  class="text-center"
+										th:text="${produto.codigoDeBarras}">1</td>
+									<td class="text-center"
+										th:text="${produto.nome}">1</td>
+									<td  class="text-center"
+										th:text="${produto.descricao}">1</td>
+									<td  class="text-center"
+										th:text="${{produto.dataCadastro}}"></td>
+										
+									<td  class="text-center">
+									<a class="btn btn-info btn-xs"
+										th:href="@{/produtos/detalhes/{id}(id=${produto.id})}"
+										title="Visualizar" rel="tooltip" data-placement="top"> <span
+											class="glyphicon glyphicon-eye-open"></span></a>
+									<a class="btn btn-warning btn-xs"
+										th:href="@{/produtos/{id}(id=${produto.id})}"
+										title="Editar" rel="tooltip" data-placement="top"> <span
+											class="glyphicon glyphicon-pencil"></span></a> 
+											
+									<a class="btn btn-danger btn-xs" data-toggle="modal"
+										data-target="#confirmacaoExclusaoModal"
+										th:attr="data-id=${produto.id}, data-nome=${produto.nome}"
+										title="Excluir" rel="tooltip" data-placement="top"> <span
+											class="glyphicon glyphicon-remove"></span></a>
+											
+									</td>
+								</tr>
 
-					<thead>
-						<tr>
-							<th class="text-center col-md-2">Imagem</th>
-							<th class="text-center col-md-1">Código</th>
-							<th class="text-center col-md-2">Codigo Barras</th>
-							<th class="text-center col-md-2">Nome</th>
-							<th class="text-center col-md-2">Descrição</th>
-							<th class="text-center col-md-2">Data Cadastro</th>
-							<th class="text-center col-md-1">Operação</th>
+								<tr>
+									<td class="text-center" colspan="7"
+										th:if="${#lists.isEmpty(produtos)}">Nenhum produto foi
+										encontrado</td>
+								</tr>
 
-						</tr>
-					</thead>
+							</tbody>
 
-					<tbody>
-						<tr th:each="produto: ${produtos}" >
-							<td class="text-center">
-							<img id="avatar" th:src="@{/avatar-prod/load/{id}(id=${produto.avatar.id})}" />
-							</td>
-							<td style="padding-top: 15px;" class="text-center" th:text="${produto.id}">1</td>
-							<td style="padding-top: 15px;" class="text-center" th:text="${produto.codigoDeBarras}">1</td>
-							<td style="padding-top: 15px;" class="text-center" th:text="${produto.nome}">1</td>
-							<td style="padding-top: 15px;" class="text-center" th:text="${produto.descricao}">1</td>
-							<td style="padding-top: 15px;" class="text-center" th:text="${{produto.dataCadastro}}"></td>
-							<td style="padding-top: 15px;" class="text-center">
-							<a class="btn btn-warning btn-xs"
-								th:href="@{/produto/perfil/{id}(id=${produto.id})}" title="Editar"
-								rel="tooltip" data-placement="top"> <span
-									class="glyphicon glyphicon-pencil"></span>
-							</a> 
-							<a class="btn btn-danger btn-xs" data-toggle="modal"
-								data-target="#confirmacaoExclusaoModal"
-								th:attr="data-id=${produto.id}, data-nome=${produto.nome}"
-								title="Excluir" rel="tooltip" data-placement="top"> <span
-									class="glyphicon glyphicon-remove"></span>
-							</a></td>
-						</tr>
+						</table>
 
-						<tr>
-							<td class="text-center" colspan="7"
-								th:if="${#lists.isEmpty(produtos)}">Nenhum produto foi
-								encontrado</td>
-						</tr>
+					</div>
 
-					</tbody>
 
-				</table>
-
+				</div>
+				<div layout:include="produto/dialog-confirmacao-exclusao"></div>
 			</div>
-	
-		
 		</div>
-		<div layout:include="produto/dialog-confirmacao-exclusao"></div>
 	</div>
 
 </section>
