@@ -6,5 +6,5 @@ import br.com.acqua.entity.AvatarProd;
 
 public interface AvatarProdRepository extends JpaRepository<AvatarProd, Long>{
 
-	
+	AvatarProd findByAvatar(byte[] avatar);
 }

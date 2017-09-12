@@ -25,7 +25,8 @@ public class ProdutoService {
 		try {
 			if (produto.getId() == null) {
 				produto.setDataCadastro(Date.valueOf(LocalDate.now()));
-			}
+			} 
+			
 			produtosRepository.save(produto);
 
 		} catch (DataIntegrityViolationException e) {

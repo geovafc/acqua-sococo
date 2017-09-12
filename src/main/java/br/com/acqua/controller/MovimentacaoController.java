@@ -59,25 +59,12 @@ public class MovimentacaoController {
 		return view;
 	}
 
-/*	@GetMapping("/novo")
-	public ModelAndView novo() {
-		this.view = new ModelAndView(CADASTRO_VIEW);
-		Produto produto = new Produto();
-		Movimentacao movimentacao = new Movimentacao();
-		movimentacao.setProduto(produto);
-		view.addObject("movimentacao", movimentacao);
-		view.addObject("produto", produto);
-		return view;
-	}*/
-
 	@RequestMapping(method = RequestMethod.POST)
 	public String salvar(@Validated Movimentacao movimentacao, RedirectAttributes attributes) throws Exception {
 
 		try {
 
 			String usernName = SecurityContextHolder.getContext().getAuthentication().getName();
-			
-		      
 
 			movimentacaoService.salvar(movimentacao, usernName);
 
