@@ -1,10 +1,16 @@
 package br.com.acqua.service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.acqua.entity.Permissao;
@@ -21,21 +27,28 @@ public class UsuarioService {
 	@Autowired
 	private PermissaoRepository permissaoRepository;
 	
-	public List<Usuario> listar() {
-		return usuarioRepository.findAll();
+	public Page<Usuario> findByPagination(int page, int size){
+		Pageable pageable = new PageRequest(page, size);
+		return usuarioRepository.findAllByOrderByIdAsc(pageable);
 	}
-	
 	
 	public void salvar(Usuario usuario){
 		try{
 			
 			List<Permissao> permissaos = new ArrayList<>();
 			
-			permissaos.add(permissaoRepository.findOne(2L));
+			permissaos.add(permissaoRepository.findByNome("ROLE_USER"));
+			
+			if (usuario.getDataCadastro() == null) {
+				usuario.setDataCadastro(Date.valueOf(LocalDate.now()));
+				usuario.setEnabled(Boolean.TRUE);
+			}
 			
 			usuario.setPermissaos(permissaos);
 			
-			usuario.setEnabled(true);
+			String hash = new BCryptPasswordEncoder().encode(usuario.getPassword());
+
+			usuario.setPassword(hash);
 			
 			usuarioRepository.save(usuario);	
 			

@@ -15,7 +15,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header">
-				Usuários <small>Todos os Produtos</small>
+				Usuários <small>Todos os usuarios</small>
 			</h1>
 		</div>
 	</div>
@@ -25,12 +25,12 @@
 	<div class="panel panel-default">
 
 		<div class="panel-heading">
-					<div class="row">
-						<div class="col-xs-3">
-							<i class="fa fa-support fa-5x"></i>
-						</div>
-					</div>
+			<div class="row">
+				<div class="col-xs-3">
+					<i class="fa fa-support fa-5x"></i>
 				</div>
+			</div>
+		</div>
 
 		<div class="row">
 			<div class="col-lg-12">
@@ -40,9 +40,9 @@
 							<i class="glyphicon glyphicon-plus"></i> Novo Usuário
 						</button>
 					</a>
-					
+
 					<p></p>
-					
+
 					<div class="table-responsive">
 						<table class="table table-bordered table-striped">
 							<thead>
@@ -63,7 +63,8 @@
 								<td class="text-center" th:text="${usuario.username}">1</td>
 								<td class="text-center" th:text="${{usuario.dataCadastro}}"></td>
 
-								<td class="text-center" th:each="permissao: ${usuario.permissoes}">
+								<td class="text-center"
+									th:each="permissao: ${usuario.permissoes}">
 									<div class="form-group">
 										<div th:text="${permissao.nome}"></div>
 									</div>
@@ -85,12 +86,55 @@
 							<tbody>
 								<tr>
 									<td class="text-center" colspan="7s"
-										th:if="${#lists.isEmpty(usuarios)}">Nenhum operador foi
+										th:if="${#lists.isEmpty(usuarios)}">Nenhum usuário foi
 										encontrado</td>
 								</tr>
 							</tbody>
 
 						</table>
+
+						<!-- Paginação -->
+
+						<div class="row">
+							<div class="form-group col-md-1">
+								<select class="form-control pagination"
+									id="pageSizeSelectUsuarios">
+									<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+										th:value="${pageSize}"
+										th:selected="${pageSize} == ${selectedPageSize}"></option>
+								</select>
+							</div>
+							<div th:if="${usuarios.totalPages != 1}"
+								class="form-group col-md-11 pagination-centered">
+								<ul class="pagination">
+									<li th:class="${usuarios.number == 0} ? disabled"><a
+										class="pageLink"
+										th:href="@{/usuarios/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+									</li>
+									<li th:class="${usuarios.number == 0} ? disabled"><a
+										class="pageLink"
+										th:href="@{/usuarios/(pageSize=${selectedPageSize}, page=${usuarios.number})}">&larr;</a>
+									</li>
+									<li
+										th:class="${usuarios.number == (page - 1)} ? 'active pointer-disabled'"
+										th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+										<a class="pageLink"
+										th:href="@{/usuarios/(pageSize=${selectedPageSize}, page=${page})}"
+										th:text="${page}"></a>
+									</li>
+									<li
+										th:class="${usuarios.number + 1 == usuarios.totalPages} ? disabled">
+										<a class="pageLink"
+										th:href="@{/usuarios/(pageSize=${selectedPageSize}, page=${usuarios.number + 2})}">&rarr;</a>
+									</li>
+									<li
+										th:class="${usuarios.number + 1 == usuarios.totalPages} ? disabled">
+										<a class="pageLink"
+										th:href="@{/usuarios/(pageSize=${selectedPageSize}, page=${usuarios.totalPages})}">&raquo;</a>
+									</li>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

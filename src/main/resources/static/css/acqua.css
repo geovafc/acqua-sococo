@@ -21,3 +21,9 @@
 .pointer-disabled {
 	pointer-events: none;
 }
+
+.img-produto {
+	width: 25em;
+	padding-bottom: 2em;
+	padding-top: 2em;
+}

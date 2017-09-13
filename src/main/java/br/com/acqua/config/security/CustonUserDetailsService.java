@@ -44,6 +44,7 @@ public class CustonUserDetailsService implements UserDetailsService{
 					username, PERMISSOES_POR_USUARIO);
 			
 			for (GrantedAuthority grantedAuthority : permissoesPorUsuario) {
+				System.out.println("Permissão do Usuario: ");
 				System.out.println(grantedAuthority.getAuthority());
 			}
 

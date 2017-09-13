@@ -102,6 +102,48 @@
 							</tbody>
 
 						</table>
+						
+						<!-- Paginação -->
+						
+						<div class="row">
+							<div class="form-group col-md-1">
+								<select class="form-control pagination" id="pageSizeSelectMovimentacoes">
+									<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+										th:value="${pageSize}"
+										th:selected="${pageSize} == ${selectedPageSize}"></option>
+								</select>
+							</div>
+							<div th:if="${movimentacoes.totalPages != 1}"
+								class="form-group col-md-11 pagination-centered">
+								<ul class="pagination">
+									<li th:class="${movimentacoes.number == 0} ? disabled"><a
+										class="pageLink"
+										th:href="@{/movimentacoes/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+									</li>
+									<li th:class="${movimentacoes.number == 0} ? disabled"><a
+										class="pageLink"
+										th:href="@{/movimentacoes/(pageSize=${selectedPageSize}, page=${movimentacoes.number})}">&larr;</a>
+									</li>
+									<li
+										th:class="${movimentacoes.number == (page - 1)} ? 'active pointer-disabled'"
+										th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+										<a class="pageLink"
+										th:href="@{/movimentacoes/(pageSize=${selectedPageSize}, page=${page})}"
+										th:text="${page}"></a>
+									</li>
+									<li
+										th:class="${movimentacoes.number + 1 == movimentacoes.totalPages} ? disabled">
+										<a class="pageLink"
+										th:href="@{/movimentacoes/(pageSize=${selectedPageSize}, page=${movimentacoes.number + 2})}">&rarr;</a>
+									</li>
+									<li
+										th:class="${movimentacoes.number + 1 == movimentacoes.totalPages} ? disabled">
+										<a class="pageLink"
+										th:href="@{/movimentacoes/(pageSize=${selectedPageSize}, page=${movimentacoes.totalPages})}">&raquo;</a>
+									</li>
+								</ul>
+							</div>
+						</div>
 
 					</div>
 

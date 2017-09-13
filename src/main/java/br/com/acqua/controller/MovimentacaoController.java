@@ -1,10 +1,10 @@
 package br.com.acqua.controller;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.acqua.entity.Movimentacao;
 import br.com.acqua.entity.Produto;
+import br.com.acqua.entity.paginator.Pager;
 import br.com.acqua.repository.filter.ProdutoFilter;
 import br.com.acqua.service.MovimentacaoService;
 import br.com.acqua.service.ProdutoService;
@@ -26,6 +28,11 @@ import br.com.acqua.service.ProdutoService;
 @Controller
 @RequestMapping("/movimentacoes")
 public class MovimentacaoController {
+	
+	private static final int BUTTONS_TO_SHOW = 5;
+	private static final int INITIAL_PAGE = 0;
+	private static final int INITIAL_PAGE_SIZE = 5;
+	private static final int[] PAGE_SIZES = { 5, 10, 20 };
 
 	private static final String CADASTRO_VIEW = "movimentacao/movimentacao-cadastro";
 	private static final String DETALHES_VIEW = "movimentacao/movimentacao-detalhes";
@@ -38,8 +45,28 @@ public class MovimentacaoController {
 	private ProdutoService produtoService;
 
 	ModelAndView view;
-
+	
 	@GetMapping
+	public ModelAndView showPersonsPage(@RequestParam("pageSize") Optional<Integer> pageSize,
+			@RequestParam("page") Optional<Integer> page) {
+		
+		ModelAndView modelAndView = new ModelAndView("movimentacao/movimentacoes");
+
+		int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+
+		int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+
+		Page<Movimentacao> movimentacoes = movimentacaoService.findByPagination(evalPage, evalPageSize);
+		Pager pager = new Pager(movimentacoes.getTotalPages(), movimentacoes.getNumber(), BUTTONS_TO_SHOW);
+
+		modelAndView.addObject("movimentacoes", movimentacoes);
+		modelAndView.addObject("selectedPageSize", evalPageSize);
+		modelAndView.addObject("pageSizes", PAGE_SIZES);
+		modelAndView.addObject("pager", pager);
+		return modelAndView;
+	}
+
+	/*@GetMapping
 	public ModelAndView listar() {
 
 		this.view = new ModelAndView("movimentacao/movimentacoes");
@@ -49,7 +76,7 @@ public class MovimentacaoController {
 		this.view.addObject("movimentacoes", movimentacoes);
 
 		return view;
-	}
+	}*/
 
 	@GetMapping("/pesquisar")
 	public ModelAndView pesquisar(@ModelAttribute("filtro") ProdutoFilter filtro) {
@@ -120,33 +147,6 @@ public class MovimentacaoController {
 	 		attributes.addFlashAttribute("mensagem", "Movimentação excluída com sucesso!");	
 	 		return "redirect:/movimentacoes";
 		}
-
-//	 @GetMapping("/produtoPorCodigo/{codigo}")
-//	 public String obterProdutoPorCodigo(@PathVariable String codigo, ModelMap
-//	 model) {
-//	
-//	
-//	 Movimentacao movimentacao = new Movimentacao();
-//		 this.view = new ModelAndView("movimentacao/movimentacao-cadastro-beta");
-//		 		
-//		 		ProdutoFilter filtro = new ProdutoFilter();
-//		 		filtro.setCodigo(codigo);
-//	
-//	 Produto produto = produtoService.findByCodigo(filtro);
-//	 movimentacao = new Movimentacao();
-//	 movimentacao.setProduto(produto);
-//
-//	 //view.addObject("movimentacao", movimentacao );
-//	
-//	 //model.addAttribute("produto", produtoService.findByCodigo(codigo));
-//	 //view.addObject("produto",produto);
-//	 //model.addAttribute("produto", produto);
-//	 //model.addAttribute("movimentacao", movimentacao);
-//	 model.addAttribute("movimentacao", movimentacao);
-//	
-//	
-//	 return view.getViewName();
-//	 }
 
 	@GetMapping("/pesquisar/codigo")
 	public ModelAndView pesquisarProdutoPorCodigo(@ModelAttribute("filtro") ProdutoFilter filtro) {

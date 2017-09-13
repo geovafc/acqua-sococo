@@ -40,14 +40,14 @@
 							<input type="hidden" th:field="*{id}" /> <input type="hidden" th:field="*{produto}" />
 
 							<div class="row">
-								<div class="col-lg-4">
-									<div class="card-img-bottom" style="text-align: center">
-										<img th:src="@{/avatar-prod/load/{id}(id=${movimentacao.produto.avatar.id})}" />
+								<div class="col-lg-3">
+									<div class="card-img-bottom" style="text-align: center;">
+										<img class="img-produto" th:src="@{/avatar-prod/load/{id}(id=${movimentacao.produto.avatar.id})}" />
 									</div>
 								</div>
 
 
-								<div class="col-lg-8">
+								<div class="col-lg-9">
 									<!-- Quando mudar o cursor, fazer uma consulta para obter o produto por codigo e mostrar as infs dele na tela -->
 									<div class="form-group">
 										<label for="produto" class="col-lg-3 control-label">Produto</label>

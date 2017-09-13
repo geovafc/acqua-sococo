@@ -1,8 +1,10 @@
 package br.com.acqua.repository;
 
-import br.com.acqua.entity.Movimentacao;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import org.springframework.data.jpa.repository.*;
+import br.com.acqua.entity.Movimentacao;
 
 
 /**
@@ -11,4 +13,5 @@ import org.springframework.data.jpa.repository.*;
 
 public interface MovimentacaoRepository extends JpaRepository<Movimentacao,Long> {
 
+	Page<Movimentacao> findAllByOrderByIdAsc(Pageable pageable);
 }

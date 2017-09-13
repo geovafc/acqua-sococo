@@ -1,11 +1,13 @@
 package br.com.acqua.service;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.acqua.entity.Movimentacao;
@@ -29,16 +31,16 @@ public class MovimentacaoService {
 		try {
 			movimentacao.setUsuario(user);
 			movimentacao.setDataHora(new Date(System.currentTimeMillis()));
-			System.out.println("data hora "+LocalDate.now());
-
-			System.out.println("data hora1 "+Date.valueOf(LocalDate.now()));
-
-			System.out.println("data hora"+movimentacao.getDataHora());
 			movimentacaoRepository.save(movimentacao);
 
 		} catch (DataIntegrityViolationException e) {
 			throw new IllegalArgumentException("Formato de data inválido");
 		}
+	}
+	
+	public Page<Movimentacao> findByPagination(int page, int size){
+		Pageable pageable = new PageRequest(page, size);
+		return movimentacaoRepository.findAllByOrderByIdAsc(pageable);
 	}
 
 	public List<Movimentacao> listar() {
