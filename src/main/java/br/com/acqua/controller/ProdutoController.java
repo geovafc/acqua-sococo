@@ -1,10 +1,10 @@
 package br.com.acqua.controller;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -22,12 +22,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.acqua.entity.AvatarProd;
 import br.com.acqua.entity.Produto;
+import br.com.acqua.entity.paginator.Pager;
 import br.com.acqua.service.AvatarProdService;
 import br.com.acqua.service.ProdutoService;
 
 @Controller
 @RequestMapping("/produtos")
 public class ProdutoController {
+	
+	private static final int BUTTONS_TO_SHOW = 3;
+	private static final int INITIAL_PAGE = 0;
+	private static final int INITIAL_PAGE_SIZE = 2;
+	private static final int[] PAGE_SIZES = { 5, 10, 20 };
 
 	private static final String CADASTRO_VIEW = "produto/produto-cadastro";
 
@@ -36,6 +42,26 @@ public class ProdutoController {
 
 	@Autowired
 	private AvatarProdService avatarService;
+	
+	@GetMapping
+	public ModelAndView showPersonsPage(@RequestParam("pageSize") Optional<Integer> pageSize,
+			@RequestParam("page") Optional<Integer> page) {
+		
+		ModelAndView modelAndView = new ModelAndView("produto/produtos");
+
+		int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+
+		int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+
+		Page<Produto> produtos = produtoService.findByPagination(evalPage, evalPageSize);
+		Pager pager = new Pager(produtos.getTotalPages(), produtos.getNumber(), BUTTONS_TO_SHOW);
+
+		modelAndView.addObject("produtos", produtos);
+		modelAndView.addObject("selectedPageSize", evalPageSize);
+		modelAndView.addObject("pageSizes", PAGE_SIZES);
+		modelAndView.addObject("pager", pager);
+		return modelAndView;
+	}
 
 	@GetMapping("/novo")
 	public ModelAndView novo() {
@@ -44,13 +70,13 @@ public class ProdutoController {
 		return view;
 	}
 
-	@GetMapping
+	/*@GetMapping
 	public ModelAndView listar() {
 		ModelAndView view = new ModelAndView("produto/produtos");
 		List<Produto> produtos = produtoService.findAll();
 		view.addObject("produtos", produtos);
 		return view;
-	}
+	}*/
 
 	@PostMapping
 	public String salvar(@Validated Produto produto, Errors erros, RedirectAttributes attributes,

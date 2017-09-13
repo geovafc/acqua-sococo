@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +35,11 @@ public class ProdutoService {
 		} catch (DataIntegrityViolationException e) {
 			throw new IllegalArgumentException("Formato de data inválido");
 		}
+	}
+	
+	public Page<Produto> findByPagination(int page, int size){
+		Pageable pageable = new PageRequest(page, size);
+		return produtosRepository.findAllByOrderByIdAsc(pageable);
 	}
 
 	public List<Produto> findAll() {

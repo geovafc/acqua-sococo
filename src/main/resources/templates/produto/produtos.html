@@ -62,34 +62,25 @@
 									<td class="text-center"><img id="avatar"
 										th:src="@{/avatar-prod/load/{id}(id=${produto.avatar.id})}" />
 									</td>
-									<td class="text-center"
-										th:text="${produto.id}">1</td>
-									<td  class="text-center"
-										th:text="${produto.codigoDeBarras}">1</td>
-									<td class="text-center"
-										th:text="${produto.nome}">1</td>
-									<td  class="text-center"
-										th:text="${produto.descricao}">1</td>
-									<td  class="text-center"
-										th:text="${{produto.dataCadastro}}"></td>
-										
-									<td  class="text-center">
-									<a class="btn btn-info btn-xs"
+									<td class="text-center" th:text="${produto.id}">1</td>
+									<td class="text-center" th:text="${produto.codigoDeBarras}">1</td>
+									<td class="text-center" th:text="${produto.nome}">1</td>
+									<td class="text-center" th:text="${produto.descricao}">1</td>
+									<td class="text-center" th:text="${{produto.dataCadastro}}"></td>
+
+									<td class="text-center"><a class="btn btn-info btn-xs"
 										th:href="@{/produtos/detalhes/{id}(id=${produto.id})}"
 										title="Visualizar" rel="tooltip" data-placement="top"> <span
-											class="glyphicon glyphicon-eye-open"></span></a>
-									<a class="btn btn-warning btn-xs"
-										th:href="@{/produtos/{id}(id=${produto.id})}"
-										title="Editar" rel="tooltip" data-placement="top"> <span
-											class="glyphicon glyphicon-pencil"></span></a> 
-											
-									<a class="btn btn-danger btn-xs" data-toggle="modal"
+											class="glyphicon glyphicon-eye-open"></span></a> <a
+										class="btn btn-warning btn-xs"
+										th:href="@{/produtos/{id}(id=${produto.id})}" title="Editar"
+										rel="tooltip" data-placement="top"> <span
+											class="glyphicon glyphicon-pencil"></span></a> <a
+										class="btn btn-danger btn-xs" data-toggle="modal"
 										data-target="#confirmacaoExclusaoModal"
 										th:attr="data-id=${produto.id}, data-nome=${produto.nome}"
 										title="Excluir" rel="tooltip" data-placement="top"> <span
-											class="glyphicon glyphicon-remove"></span></a>
-											
-									</td>
+											class="glyphicon glyphicon-remove"></span></a></td>
 								</tr>
 
 								<tr>
@@ -101,6 +92,44 @@
 							</tbody>
 
 						</table>
+
+
+						<!-- Paginação -->
+
+						<div class="row">
+							
+							<div th:if="${produtos.totalPages != 1}"
+								class="form-group col-md-11 pagination-centered">
+								<ul class="pagination">
+									<li th:class="${produtos.number == 0} ? disabled"><a
+										class="pageLink"
+										th:href="@{/produtos/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+									</li>
+									<li th:class="${produtos.number == 0} ? disabled"><a
+										class="pageLink"
+										th:href="@{/produtos/(pageSize=${selectedPageSize}, page=${produtos.number})}">&larr;</a>
+									</li>
+									<li
+										th:class="${produtos.number == (page - 1)} ? 'active pointer-disabled'"
+										th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+										<a class="pageLink"
+										th:href="@{/produtos/(pageSize=${selectedPageSize}, page=${page})}"
+										th:text="${page}"></a>
+									</li>
+									<li
+										th:class="${produtos.number + 1 == produtos.totalPages} ? disabled">
+										<a class="pageLink"
+										th:href="@{/produtos/(pageSize=${selectedPageSize}, page=${produtos.number + 2})}">&rarr;</a>
+									</li>
+									<li
+										th:class="${produtos.number + 1 == produtos.totalPages} ? disabled">
+										<a class="pageLink"
+										th:href="@{/produtos/(pageSize=${selectedPageSize}, page=${produtos.totalPages})}">&raquo;</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+
 
 					</div>
 

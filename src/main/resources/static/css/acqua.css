@@ -8,3 +8,16 @@
 	width: 36px;
 	height: 36px;
 }
+
+.pagination-centered {
+	text-align: center;
+}
+
+.disabled {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.pointer-disabled {
+	pointer-events: none;
+}
