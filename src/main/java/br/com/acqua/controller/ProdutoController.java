@@ -1,6 +1,5 @@
 package br.com.acqua.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +29,9 @@ import br.com.acqua.service.ProdutoService;
 @RequestMapping("/produtos")
 public class ProdutoController {
 	
-	private static final int BUTTONS_TO_SHOW = 3;
+	private static final int BUTTONS_TO_SHOW = 5;
 	private static final int INITIAL_PAGE = 0;
-	private static final int INITIAL_PAGE_SIZE = 2;
+	private static final int INITIAL_PAGE_SIZE = 5;
 	private static final int[] PAGE_SIZES = { 5, 10, 20 };
 
 	private static final String CADASTRO_VIEW = "produto/produto-cadastro";
@@ -69,14 +68,6 @@ public class ProdutoController {
 		view.addObject("produto", new Produto());
 		return view;
 	}
-
-	/*@GetMapping
-	public ModelAndView listar() {
-		ModelAndView view = new ModelAndView("produto/produtos");
-		List<Produto> produtos = produtoService.findAll();
-		view.addObject("produtos", produtos);
-		return view;
-	}*/
 
 	@PostMapping
 	public String salvar(@Validated Produto produto, Errors erros, RedirectAttributes attributes,

@@ -97,7 +97,13 @@
 						<!-- Paginação -->
 
 						<div class="row">
-							
+							<div class="form-group col-md-1">
+								<select class="form-control pagination" id="pageSizeSelectProduto">
+									<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+										th:value="${pageSize}"
+										th:selected="${pageSize} == ${selectedPageSize}"></option>
+								</select>
+							</div>
 							<div th:if="${produtos.totalPages != 1}"
 								class="form-group col-md-11 pagination-centered">
 								<ul class="pagination">
