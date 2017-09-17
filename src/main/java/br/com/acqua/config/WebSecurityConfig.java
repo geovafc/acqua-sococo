@@ -6,12 +6,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import br.com.acqua.config.security.CustonUserDetailsService;
+import br.com.acqua.config.security.MyAccessDeniedHandler;
 
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	private CustonUserDetailsService userDetailsService;
+	
+	@Autowired
+	private MyAccessDeniedHandler accessDeniedHandler;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -35,7 +39,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.permitAll()
 			.and()
 				.rememberMe()
-				.userDetailsService(userDetailsService);
+				.userDetailsService(userDetailsService)
+			.and()
+				.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 
 	}
 }
