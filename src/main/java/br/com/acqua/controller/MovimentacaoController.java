@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.acqua.entity.Movimentacao;
 import br.com.acqua.entity.Produto;
 import br.com.acqua.entity.paginator.Pager;
+import br.com.acqua.repository.filter.MovimentacaoFilter;
 import br.com.acqua.repository.filter.ProdutoFilter;
 import br.com.acqua.service.MovimentacaoService;
 import br.com.acqua.service.ProdutoService;
@@ -66,18 +67,27 @@ public class MovimentacaoController {
 		return modelAndView;
 	}
 
-	/*@GetMapping
-	public ModelAndView listar() {
+	@GetMapping("/pesquisar/periodo")
+	public ModelAndView pesquisarPorPeriodo(@ModelAttribute("filtro") MovimentacaoFilter filtro,
+			@RequestParam("pageSize") Optional<Integer> pageSize,
+			@RequestParam("page") Optional<Integer> page) {
 
-		this.view = new ModelAndView("movimentacao/movimentacoes");
+		ModelAndView modelAndView = new ModelAndView("movimentacao/movimentacoes");
 
-		List<Movimentacao> movimentacoes = movimentacaoService.listar();
+		int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
 
-		this.view.addObject("movimentacoes", movimentacoes);
+		int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
-		return view;
-	}*/
+		Page<Movimentacao> movimentacoes = movimentacaoService.findByDataHoraBetween(filtro, evalPage, evalPageSize);
+		Pager pager = new Pager(movimentacoes.getTotalPages(), movimentacoes.getNumber(), BUTTONS_TO_SHOW);
 
+		modelAndView.addObject("movimentacoes", movimentacoes);
+		modelAndView.addObject("selectedPageSize", evalPageSize);
+		modelAndView.addObject("pageSizes", PAGE_SIZES);
+		modelAndView.addObject("pager", pager);
+		return modelAndView;
+	}
+	
 	@GetMapping("/pesquisar")
 	public ModelAndView pesquisar(@ModelAttribute("filtro") ProdutoFilter filtro) {
 

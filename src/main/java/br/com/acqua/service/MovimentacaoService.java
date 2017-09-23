@@ -14,6 +14,7 @@ import br.com.acqua.entity.Movimentacao;
 import br.com.acqua.entity.Usuario;
 import br.com.acqua.repository.MovimentacaoRepository;
 import br.com.acqua.repository.UserRepository;
+import br.com.acqua.repository.filter.MovimentacaoFilter;
 
 @Service
 public class MovimentacaoService {
@@ -37,10 +38,15 @@ public class MovimentacaoService {
 			throw new IllegalArgumentException("Formato de data inválido");
 		}
 	}
-	
-	public Page<Movimentacao> findByPagination(int page, int size){
+
+	public Page<Movimentacao> findByPagination(int page, int size) {
 		Pageable pageable = new PageRequest(page, size);
 		return movimentacaoRepository.findAllByOrderByIdAsc(pageable);
+	}
+
+	public Page<Movimentacao> findByDataHoraBetween(MovimentacaoFilter filter, int page, int size) {
+		Pageable pageable = new PageRequest(page, size);
+		return movimentacaoRepository.findByDataHoraBetween(filter.getInicio(),filter.getFim(),pageable);
 	}
 
 	public List<Movimentacao> listar() {
