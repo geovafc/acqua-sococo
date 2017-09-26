@@ -18,6 +18,7 @@ import br.com.acqua.entity.Movimentacao;
 import br.com.acqua.entity.Usuario;
 import br.com.acqua.repository.MovimentacaoRepository;
 import br.com.acqua.repository.UserRepository;
+import br.com.acqua.repository.filter.MovimentacaoFilter;
 
 @Service
 public class MovimentacaoService {
@@ -41,31 +42,31 @@ public class MovimentacaoService {
 			throw new IllegalArgumentException("Formato de data inválido");
 		}
 	}
-	
-	public List<MovimentacaoMesAnoDTO> getListaDeProjetosAtivosEPropostasMesAno() {
+	//Ta pegando so pelo ano de 2017
+	public List<MovimentacaoMesAnoDTO> getCountMovimentacoesByMesAno() {
 		MovimentacaoMesAnoDTO objeto;
 		List<MovimentacaoMesAnoDTO> projetosAtivos = new ArrayList<>();
-
+		Integer ano = 2017;
 		HashMap<Integer, String> mesPorNumero = new HashMap<>();
-		mesPorNumero.put(1, "JANEIRO");
-		mesPorNumero.put(2, "FEVEREIRO");
-		mesPorNumero.put(3, "MARÇO");
-		mesPorNumero.put(4, "ABRIL");
-		mesPorNumero.put(5, "MAIO");
-		mesPorNumero.put(6, "JUNHO");
-		mesPorNumero.put(7, "JULHO");
-		mesPorNumero.put(8, "AGOSTO");
-		mesPorNumero.put(9, "SETEMBRO");
-		mesPorNumero.put(10, "OUTUBRO");
-		mesPorNumero.put(11, "NOVEMBRO");
-		mesPorNumero.put(12, "DEZEMBRO");
+		mesPorNumero.put(1, "01");
+		mesPorNumero.put(2, "02");
+		mesPorNumero.put(3, "03");
+		mesPorNumero.put(4, "04");
+		mesPorNumero.put(5, "05");
+		mesPorNumero.put(6, "06");
+		mesPorNumero.put(7, "07");
+		mesPorNumero.put(8, "08");
+		mesPorNumero.put(9, "09");
+		mesPorNumero.put(10, "10");
+		mesPorNumero.put(11, "11");
+		mesPorNumero.put(12, "12");
 
 		for (int i = 1; i < 13; i++) {
 
 			objeto = new MovimentacaoMesAnoDTO();
-			Long quantidadeMovimentacoes = movimentacaoRepository.countByMovimentacoesFromMesAno(i);
+			Long quantidadeMovimentacoes = movimentacaoRepository.countByMovimentacoesFromMesAno(i,ano);
 
-			objeto.setMes(mesPorNumero.get(i));
+			objeto.setMes(ano.toString()+"-"+mesPorNumero.get(i));
 			objeto.setQuantidadeMovimentacoes(quantidadeMovimentacoes);
 			objeto.setAno(Calendar.YEAR+"");
 			projetosAtivos.add(objeto);
@@ -76,9 +77,15 @@ public class MovimentacaoService {
 
 	}
 	
-	public Page<Movimentacao> findByPagination(int page, int size){
+
+	public Page<Movimentacao> findByPagination(int page, int size) {
 		Pageable pageable = new PageRequest(page, size);
 		return movimentacaoRepository.findAllByOrderByIdAsc(pageable);
+	}
+
+	public Page<Movimentacao> findByDataHoraBetween(MovimentacaoFilter filter, int page, int size) {
+		Pageable pageable = new PageRequest(page, size);
+		return movimentacaoRepository.findByDataHoraBetween(filter.getInicio(),filter.getFim(),pageable);
 	}
 
 	public List<Movimentacao> listar() {

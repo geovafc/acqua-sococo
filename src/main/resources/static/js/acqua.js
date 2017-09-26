@@ -46,7 +46,6 @@ function obterProdutoPorCodigo(codigo) {
 	});
 };
 
-// FIM DOS JAVASCRIPTS RELACIONADOS A MOVIMENTACAO
 
 
 //Call the dataTables jQuery plugin
