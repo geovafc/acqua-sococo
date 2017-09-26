@@ -1,7 +1,12 @@
 $(function() {
-	$('#dataHora').datetimepicker({
-		format: "DD/MM/YYYY HH:mm:ss"
+	$('#datetimepicker1').datetimepicker({
+		showClose: true,
 		
+	});
+});
+$(function() {
+	$('#datetimepicker2').datetimepicker({
+		showClose: true,
 	});
 });
 
@@ -13,12 +18,12 @@ $('#confirmacaoExclusaoModal').on(
 		'show.bs.modal',
 		function(event) {
 			var button = $(event.relatedTarget);
-			
+
 			var codigo = button.data('id');
 			var nome = button.data('nome');
-			//sempre quando o nome for undefined, é por que está sendo 
-			//chamado o dialog para excluir movimentação
-			if (nome == undefined){
+			// sempre quando o nome for undefined, é por que está sendo
+			// chamado o dialog para excluir movimentação
+			if (nome == undefined) {
 				nome = "a movimentação";
 			}
 
@@ -48,9 +53,7 @@ function obterProdutoPorCodigo(codigo) {
 
 // FIM DOS JAVASCRIPTS RELACIONADOS A MOVIMENTACAO
 
-
-//Call the dataTables jQuery plugin
+// Call the dataTables jQuery plugin
 $(document).ready(function() {
-  $('#dataTable').DataTable();
+	$('#dataTable').DataTable();
 });
-

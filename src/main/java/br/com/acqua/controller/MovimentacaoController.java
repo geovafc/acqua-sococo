@@ -49,7 +49,7 @@ public class MovimentacaoController {
 	
 	@GetMapping
 	public ModelAndView showPersonsPage(@RequestParam("pageSize") Optional<Integer> pageSize,
-			@RequestParam("page") Optional<Integer> page) {
+			@ModelAttribute("filtro") MovimentacaoFilter filtro, @RequestParam("page") Optional<Integer> page) {
 		
 		ModelAndView modelAndView = new ModelAndView("movimentacao/movimentacoes");
 
@@ -79,6 +79,7 @@ public class MovimentacaoController {
 		int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
 		Page<Movimentacao> movimentacoes = movimentacaoService.findByDataHoraBetween(filtro, evalPage, evalPageSize);
+		
 		Pager pager = new Pager(movimentacoes.getTotalPages(), movimentacoes.getNumber(), BUTTONS_TO_SHOW);
 
 		modelAndView.addObject("movimentacoes", movimentacoes);

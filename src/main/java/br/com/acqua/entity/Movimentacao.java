@@ -20,7 +20,7 @@ public class Movimentacao implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_hora", nullable = false)
 	private Date dataHora;
@@ -50,8 +50,6 @@ public class Movimentacao implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
 
 	public Usuario getUsuario() {
 		return usuario;
