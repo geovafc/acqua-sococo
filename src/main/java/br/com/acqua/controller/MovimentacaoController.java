@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +45,7 @@ public class MovimentacaoController {
 
 	private static final String CADASTRO_VIEW = "movimentacao/movimentacao-cadastro";
 	private static final String DETALHES_VIEW = "movimentacao/movimentacao-detalhes";
+	private static final String CADASTRO_LISTVIEW = "movimentacao/movimentacoes";
 
 
 	@Autowired
@@ -57,8 +59,7 @@ public class MovimentacaoController {
 	@GetMapping
 	public ModelAndView showPersonsPage(@RequestParam("pageSize") Optional<Integer> pageSize,
 			@ModelAttribute("filtro") MovimentacaoFilter filtro, @RequestParam("page") Optional<Integer> page) {
-		
-		ModelAndView modelAndView = new ModelAndView("movimentacao/movimentacoes");
+		ModelAndView modelAndView = new ModelAndView(CADASTRO_LISTVIEW);
 
 		int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
 
@@ -78,7 +79,7 @@ public class MovimentacaoController {
 	public ModelAndView pesquisarPorPeriodo(@ModelAttribute("filtro") MovimentacaoFilter filtro,
 			@RequestParam("pageSize") Optional<Integer> pageSize,
 			@RequestParam("page") Optional<Integer> page) {
-
+				
 		ModelAndView modelAndView = new ModelAndView("movimentacao/movimentacoes");
 
 		int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);

@@ -19,8 +19,6 @@ public class ErrorController {
         logger.error("Exceção durante a execução do aplicativo", throwable);
         String errorMessage = (throwable != null ? throwable.getMessage() : "Erro desconhecido");
         model.addAttribute("errorMessage", errorMessage);
-        
-        System.out.println("passou aqui");
         return "error";
     }
 

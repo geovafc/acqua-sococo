@@ -1,8 +1,9 @@
 package br.com.acqua.service;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,7 +43,8 @@ public class MovimentacaoService {
 			throw new IllegalArgumentException("Formato de data inválido");
 		}
 	}
-	//Ta pegando so pelo ano de 2017
+
+	// Ta pegando so pelo ano de 2017
 	public List<MovimentacaoMesAnoDTO> getCountMovimentacoesByMesAno() {
 		MovimentacaoMesAnoDTO objeto;
 		List<MovimentacaoMesAnoDTO> projetosAtivos = new ArrayList<>();
@@ -64,11 +66,11 @@ public class MovimentacaoService {
 		for (int i = 1; i < 13; i++) {
 
 			objeto = new MovimentacaoMesAnoDTO();
-			Long quantidadeMovimentacoes = movimentacaoRepository.countByMovimentacoesFromMesAno(i,ano);
+			Long quantidadeMovimentacoes = movimentacaoRepository.countByMovimentacoesFromMesAno(i, ano);
 
-			objeto.setMes(ano.toString()+"-"+mesPorNumero.get(i));
+			objeto.setMes(ano.toString() + "-" + mesPorNumero.get(i));
 			objeto.setQuantidadeMovimentacoes(quantidadeMovimentacoes);
-			objeto.setAno(Calendar.YEAR+"");
+			objeto.setAno(Calendar.YEAR + "");
 			projetosAtivos.add(objeto);
 
 		}
@@ -76,7 +78,6 @@ public class MovimentacaoService {
 		return projetosAtivos;
 
 	}
-	
 
 	public Page<Movimentacao> findByPagination(int page, int size) {
 		Pageable pageable = new PageRequest(page, size);
@@ -84,19 +85,13 @@ public class MovimentacaoService {
 	}
 
 	public Page<Movimentacao> findByDataHoraBetween(MovimentacaoFilter filter, int page, int size) {
-		
+
+		Date inicio = filter.getInicio() == "" ? new Date(System.currentTimeMillis()) : new Date(filter.getInicio());
+		Date fim = filter.getFim() == "" ? new Date(System.currentTimeMillis()) : new Date(filter.getFim());
+
 		Pageable pageable = new PageRequest(page, size);
-		
-		System.out.println(filter.getInicio());
 
-//		Date inicio = new Date(filter.getInicio().getYear(),filter.getInicio().getMonth(), filter.getInicio().getDay() );
-//
-//		Date fim = new Date(filter.getFim().getYear(), filter.getFim().getMonth(), filter.getFim().getDay());
-
-//		System.out.println("Inicio: " + inicio);
-//		System.out.println("Fim: " + fim);
-		
-		return movimentacaoRepository.findByDataHoraBetween(filter.getInicio(), filter.getFim(), pageable);
+		return movimentacaoRepository.findByDataHoraBetween(inicio, fim, pageable);
 	}
 
 	public List<Movimentacao> listar() {

@@ -1,26 +1,24 @@
 package br.com.acqua.repository.filter;
 
-import java.util.Date;
-
 public class MovimentacaoFilter {
 
-	private Date inicio;
-	private Date fim;
+	private String inicio;
+	private String fim;
 	private String codigo;
 
-	public Date getInicio() {
+	public String getInicio() {
 		return inicio;
 	}
 
-	public void setInicio(Date inicio) {
+	public void setInicio(String inicio) {
 		this.inicio = inicio;
 	}
 
-	public Date getFim() {
+	public String getFim() {
 		return fim;
 	}
 
-	public void setFim(Date fim) {
+	public void setFim(String fim) {
 		this.fim = fim;
 	}
 
