@@ -1,10 +1,16 @@
 package br.com.acqua.controller;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -18,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.acqua.dto.MovimentacaoMesAnoDTO;
 import br.com.acqua.entity.Movimentacao;
 import br.com.acqua.entity.Produto;
 import br.com.acqua.entity.paginator.Pager;
+import br.com.acqua.repository.filter.MovimentacaoFilter;
 import br.com.acqua.repository.filter.ProdutoFilter;
 import br.com.acqua.service.MovimentacaoService;
 import br.com.acqua.service.ProdutoService;
@@ -48,7 +56,7 @@ public class MovimentacaoController {
 	
 	@GetMapping
 	public ModelAndView showPersonsPage(@RequestParam("pageSize") Optional<Integer> pageSize,
-			@RequestParam("page") Optional<Integer> page) {
+			@ModelAttribute("filtro") MovimentacaoFilter filtro, @RequestParam("page") Optional<Integer> page) {
 		
 		ModelAndView modelAndView = new ModelAndView("movimentacao/movimentacoes");
 
@@ -66,18 +74,28 @@ public class MovimentacaoController {
 		return modelAndView;
 	}
 
-	/*@GetMapping
-	public ModelAndView listar() {
+	@GetMapping("/pesquisar/periodo")
+	public ModelAndView pesquisarPorPeriodo(@ModelAttribute("filtro") MovimentacaoFilter filtro,
+			@RequestParam("pageSize") Optional<Integer> pageSize,
+			@RequestParam("page") Optional<Integer> page) {
 
-		this.view = new ModelAndView("movimentacao/movimentacoes");
+		ModelAndView modelAndView = new ModelAndView("movimentacao/movimentacoes");
 
-		List<Movimentacao> movimentacoes = movimentacaoService.listar();
+		int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
 
-		this.view.addObject("movimentacoes", movimentacoes);
+		int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
-		return view;
-	}*/
+		Page<Movimentacao> movimentacoes = movimentacaoService.findByDataHoraBetween(filtro, evalPage, evalPageSize);
+		
+		Pager pager = new Pager(movimentacoes.getTotalPages(), movimentacoes.getNumber(), BUTTONS_TO_SHOW);
 
+		modelAndView.addObject("movimentacoes", movimentacoes);
+		modelAndView.addObject("selectedPageSize", evalPageSize);
+		modelAndView.addObject("pageSizes", PAGE_SIZES);
+		modelAndView.addObject("pager", pager);
+		return modelAndView;
+	}
+	
 	@GetMapping("/pesquisar")
 	public ModelAndView pesquisar(@ModelAttribute("filtro") ProdutoFilter filtro) {
 
@@ -147,7 +165,17 @@ public class MovimentacaoController {
 	 		attributes.addFlashAttribute("mensagem", "Movimentação excluída com sucesso!");	
 	 		return "redirect:/movimentacoes";
 		}
-
+	
+	@GetMapping("/countMesAno")
+	public ResponseEntity<List<MovimentacaoMesAnoDTO>> getCountMovimentacoesByMesAno(){
+		//ModelAndView view = new ModelAndView("index");
+		
+		
+		//view.addObject("countMovimentacoesByMesAno", movimentacaoService.getCountMovimentacoesByMesAno() );
+			return ResponseEntity.status(HttpStatus.OK).body(movimentacaoService.getCountMovimentacoesByMesAno()) ;
+	}
+	
+	
 	@GetMapping("/pesquisar/codigo")
 	public ModelAndView pesquisarProdutoPorCodigo(@ModelAttribute("filtro") ProdutoFilter filtro) {
 
@@ -177,5 +205,7 @@ public class MovimentacaoController {
 		}
 
 	}
+	
+	
 
 }

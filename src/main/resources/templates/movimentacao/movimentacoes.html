@@ -40,6 +40,51 @@
 						</button>
 					</a>
 					<p></p>
+
+					<form method="GET" class="form-horizontal"
+						th:action="@{/movimentacoes/pesquisar/periodo}"
+						th:object="${filtro}">
+						<div class="form-group">
+
+							<div class="container">
+								<div class="row">
+									<div class='col-sm-6'>
+										<div class="form-group">
+											<div class='input-group date' id='datetimepicker1'>
+												<input type='text' class="form-control" th:field="*{inicio}" /> <span
+													class="input-group-addon"> <span
+													class="glyphicon glyphicon-calendar"></span>
+												</span>
+											</div>
+											<div class='input-group date' id='datetimepicker2'>
+												<input type='text' class="form-control" th:field="*{fim}" /> <span
+													class="input-group-addon"> <span
+													class="glyphicon glyphicon-calendar"></span>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-5">
+								<input class="form-control color"
+									placeholder="Informe o código de barras do produto que esta procurando?"
+									autofocus="autofocus" th:field="*{codigo}"></input>
+							</div>
+							<div class="col-sm-3">
+								<button type="submit" class="btn color">
+									Pesquisar <i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+
+					<script type="text/javascript">
+						$(function() {
+							$('#datetimepicker').datetimepicker();
+						});
+					</script>
 					<div class="table-responsive">
 						<table class="table table-bordered table-striped">
 							<thead>
@@ -62,14 +107,11 @@
 									<td class="text-center"
 										th:text="${movimentacao.produto.codigoDeBarras}"></td>
 
-									<td  class="text-center"
-										th:text="${movimentacao.notaFiscal}"></td>
+									<td class="text-center" th:text="${movimentacao.notaFiscal}"></td>
 
-									<td  class="text-center"
-										th:text="${movimentacao.usuario.nome}"></td>
+									<td class="text-center" th:text="${movimentacao.usuario.nome}"></td>
 
-									<td  class="text-center"
-										th:text="${{movimentacao.dataHora}}"></td>
+									<td class="text-center" th:text="${{movimentacao.dataHora}}"></td>
 
 
 									<td class="text-center"><a class="btn btn-info btn-xs"
@@ -102,12 +144,13 @@
 							</tbody>
 
 						</table>
-						
+
 						<!-- Paginação -->
-						
+
 						<div class="row">
 							<div class="form-group col-md-1">
-								<select class="form-control pagination" id="pageSizeSelectMovimentacoes">
+								<select class="form-control pagination"
+									id="pageSizeSelectMovimentacoes">
 									<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
 										th:value="${pageSize}"
 										th:selected="${pageSize} == ${selectedPageSize}"></option>
@@ -152,6 +195,8 @@
 			</div>
 		</div>
 	</div>
+
+
 </section>
 
 
