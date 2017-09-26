@@ -1,6 +1,7 @@
 package br.com.acqua.repository;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,4 +25,6 @@ public interface MovimentacaoRepository extends JpaRepository<Movimentacao,Long>
 	
 	// Buscar onde a data cadastro está dentro de um período.
     Page<Movimentacao> findByDataHoraBetween(Date inicio, Date fim, Pageable pageable);
+    
+    List<Movimentacao> findByDataHoraBetween(Date inicio, Date fim);
 }

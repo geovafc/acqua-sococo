@@ -84,8 +84,19 @@ public class MovimentacaoService {
 	}
 
 	public Page<Movimentacao> findByDataHoraBetween(MovimentacaoFilter filter, int page, int size) {
+		
 		Pageable pageable = new PageRequest(page, size);
-		return movimentacaoRepository.findByDataHoraBetween(filter.getInicio(),filter.getFim(),pageable);
+		
+		System.out.println(filter.getInicio());
+
+//		Date inicio = new Date(filter.getInicio().getYear(),filter.getInicio().getMonth(), filter.getInicio().getDay() );
+//
+//		Date fim = new Date(filter.getFim().getYear(), filter.getFim().getMonth(), filter.getFim().getDay());
+
+//		System.out.println("Inicio: " + inicio);
+//		System.out.println("Fim: " + fim);
+		
+		return movimentacaoRepository.findByDataHoraBetween(filter.getInicio(), filter.getFim(), pageable);
 	}
 
 	public List<Movimentacao> listar() {
