@@ -1,12 +1,17 @@
 package br.com.acqua.service;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
+import org.mockito.internal.stubbing.answers.ThrowsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -84,14 +89,56 @@ public class MovimentacaoService {
 		return movimentacaoRepository.findAllByOrderByIdAsc(pageable);
 	}
 
-	public Page<Movimentacao> findByDataHoraBetween(MovimentacaoFilter filter, int page, int size) {
+	public Page<Movimentacao> findByDataHoraBetween(MovimentacaoFilter filter, int page, int size) throws Throwable {
 
-		Date inicio = filter.getInicio() == "" ? new Date(System.currentTimeMillis()) : new Date(filter.getInicio());
-		Date fim = filter.getFim() == "" ? new Date(System.currentTimeMillis()) : new Date(filter.getFim());
+		// Date inicio = filter.getInicio().toString() == "" ?
+		// convertStringToTimestamp(System.currentTimeMillis()) :
+		// convertStringToTimestamp(filter.getInicio().getTime());
+		// Date fim = filter.getFim().toString() == "" ?
+		// convertStringToTimestamp(System.currentTimeMillis()) :
+		// convertStringToTimestamp(filter.getFim().getTime());
+
+		Date inicio = converterStringDateInicio(filter.getInicio());
+		Date fim = converterStringDateFim(filter.getFim());
 
 		Pageable pageable = new PageRequest(page, size);
 
 		return movimentacaoRepository.findByDataHoraBetween(inicio, fim, pageable);
+	}
+
+	public static Date converterStringDateInicio(String date) throws Throwable {
+		
+		DateFormat f = DateFormat.getDateInstance();
+		
+		Date data = f.parse(date);
+		
+		String timestamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(data);
+		System.out.println("Data timestamp " + timestamp);
+		
+		data = f.parse(timestamp);
+		System.out.println("Data Convertida Inicio" + data);
+		return data;
+	}
+	
+	public static Date converterStringDateFim(String date) throws Throwable {
+		DateFormat f = DateFormat.getDateInstance();
+		
+		Date data = f.parse(date);
+		
+		data.setDate(data.getDate() + 1);
+		
+		String timestamp = new SimpleDateFormat("dd/MM/yyyy").format(data);
+		data = f.parse(timestamp);
+		System.out.println("Data Convertida fim" + data);
+		return data;
+	}
+	
+	public static Date convertLongToDate(long currentTimeMillis) throws Throwable {
+		Calendar c = Calendar.getInstance();
+		Date date = new Date(currentTimeMillis - 43282800000l);
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
+		df.setTimeZone(TimeZone.getTimeZone("GMT"));
+		return df.parse(df.format(date));
 	}
 
 	public List<Movimentacao> listar() {

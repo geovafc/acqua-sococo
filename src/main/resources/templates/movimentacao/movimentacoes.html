@@ -46,25 +46,16 @@
 						th:object="${filtro}">
 						<div class="form-group">
 
-							<div class="container">
-								<div class="row">
-									<div class='col-sm-6'>
-										<div class="form-group">
-											<div class='input-group date' id='datetimepicker1'>
-												<input type='text' class="form-control" th:field="*{inicio}" /> <span
-													class="input-group-addon"> <span
-													class="glyphicon glyphicon-calendar"></span>
-												</span>
-											</div>
-											<div class='input-group date' id='datetimepicker2'>
-												<input type='text' class="form-control" th:field="*{fim}" /> <span
-													class="input-group-addon"> <span
-													class="glyphicon glyphicon-calendar"></span>
-												</span>
-											</div>
-										</div>
-									</div>
-								</div>
+							<div class="input-group input-daterange">
+								<input type="text" class="form-control" th:field="*{inicio}"
+									data-provide="datepicker" data-date-format="dd/mm/yyyy"
+									data-date-language="pt-BR" data-date-autoclose="true"
+									data-date-today-highlight="true" data-date-orientation="bottom" />
+								<div class="input-group-addon">até</div>
+								<input type="text" class="form-control" th:field="*{fim}"
+									data-provide="datepicker" data-date-format="dd/mm/yyyy"
+									data-date-language="pt-BR" data-date-autoclose="true"
+									data-date-today-highlight="true" data-date-orientation="bottom" />
 							</div>
 
 							<div class="col-sm-5">
@@ -73,7 +64,7 @@
 									autofocus="autofocus" th:field="*{codigo}"></input>
 							</div>
 							<div class="col-sm-3">
-								<button type="submit" class="btn color" >
+								<button type="submit" class="btn color">
 									Pesquisar <i class="glyphicon glyphicon-search"></i>
 								</button>
 							</div>

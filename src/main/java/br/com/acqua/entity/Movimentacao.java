@@ -20,7 +20,7 @@ public class Movimentacao implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_hora", nullable = false)
 	private Date dataHora;

@@ -1,7 +1,8 @@
 package br.com.acqua;
 
-import java.time.LocalDate;
-import java.sql.Date;
+import java.util.Date;
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +38,13 @@ public class AcquaSococoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Date inicio = Date.valueOf(LocalDate.of(2017, 8, 19));
+		Calendar c = Calendar.getInstance();
+		c.set(2017, 9, 26, 0, 0, 0);
+		Date data = c.getTime();
+		DateFormat f = DateFormat.getDateInstance();
+		Locale brasil = new Locale("pt", "BR"); 
 		
-		Date fim = Date.valueOf(LocalDate.of(2017, 8, 19));
-		
-		System.out.println(inicio);
-		
-		repository.findByDataHoraBetween(inicio, fim).forEach(System.out::println);
-
+		DateFormat f2 = DateFormat.getDateInstance(DateFormat.FULL, brasil);
+		System.out.println("Data e hora brasileira: "+f2.format(data));
 	}
 }

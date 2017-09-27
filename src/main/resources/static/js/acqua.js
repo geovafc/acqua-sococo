@@ -1,14 +1,4 @@
-$(function() {
-	$('#datetimepicker1').datetimepicker({
-		showClose: true,
-		
-	});
-});
-$(function() {
-	$('#datetimepicker2').datetimepicker({
-		showClose: true,
-	});
-});
+
 
 $('.fileinput').fileinput();
 
