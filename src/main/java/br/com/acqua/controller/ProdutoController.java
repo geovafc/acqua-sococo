@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,7 +28,7 @@ import br.com.acqua.service.ProdutoService;
 @Controller
 @RequestMapping("/produtos")
 public class ProdutoController {
-	
+
 	private static final int BUTTONS_TO_SHOW = 5;
 	private static final int INITIAL_PAGE = 0;
 	private static final int INITIAL_PAGE_SIZE = 5;
@@ -41,11 +41,11 @@ public class ProdutoController {
 
 	@Autowired
 	private AvatarProdService avatarService;
-	
+
 	@GetMapping
 	public ModelAndView showPersonsPage(@RequestParam("pageSize") Optional<Integer> pageSize,
 			@RequestParam("page") Optional<Integer> page) {
-		
+
 		ModelAndView modelAndView = new ModelAndView("produto/produtos");
 
 		int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
@@ -77,8 +77,8 @@ public class ProdutoController {
 		if (erros.hasErrors()) {
 			return CADASTRO_VIEW;
 		}
-			avatar = avatarService.getAvatarByUpload(file);
-			produto.setAvatar(avatar);
+		avatar = avatarService.getAvatarByUpload(file);
+		produto.setAvatar(avatar);
 
 		try {
 			produtoService.salvar(produto);
@@ -99,21 +99,25 @@ public class ProdutoController {
 		return view;
 	}
 
-	@RequestMapping(value = { "/{id}","/update" }, method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView editar(@PathVariable("id") Optional<Long> id, @ModelAttribute("produto") Produto produto,
+	@GetMapping("/{id}")
+	public ModelAndView editar(@PathVariable("id") Optional<Long> id, @ModelAttribute("produto") Produto produto) {
+
+		ModelAndView view = new ModelAndView();
+
+		produto = produtoService.findById(id.get());
+		view.addObject("produto", produto);
+		view.setViewName("produto/produto-atualizar");
+
+		return view;
+
+	}
+	
+	@PostMapping("/update")
+	public ModelAndView editar(@Validated @ModelAttribute("produto") Produto produto,
 			RedirectAttributes attributes,
 			@RequestParam(value = "file", required = false) MultipartFile file) {
 		ModelAndView view = new ModelAndView();
 
-		if (id.isPresent()) {
-
-			produto = produtoService.findById(id.get());
-			view.addObject("produto", produto);
-			view.setViewName("produto/produto-atualizar");
-
-			return view;
-		}
-		
 		view.setViewName("redirect:/produtos");
 		
 		if (file.isEmpty()) {

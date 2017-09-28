@@ -91,15 +91,12 @@ public class MovimentacaoService {
 
 	public Page<Movimentacao> findByDataHoraBetween(MovimentacaoFilter filter, int page, int size) throws Throwable {
 
-		// Date inicio = filter.getInicio().toString() == "" ?
-		// convertStringToTimestamp(System.currentTimeMillis()) :
-		// convertStringToTimestamp(filter.getInicio().getTime());
-		// Date fim = filter.getFim().toString() == "" ?
-		// convertStringToTimestamp(System.currentTimeMillis()) :
-		// convertStringToTimestamp(filter.getFim().getTime());
-
-		Date inicio = converterStringDateInicio(filter.getInicio());
-		Date fim = converterStringDateFim(filter.getFim());
+		Date inicio = filter.getInicio() == "" ?
+				converterStringDateInicio("01/01/2000") :
+			 converterStringDateInicio(filter.getInicio());
+		Date fim = filter.getFim() == "" ?
+				convertLongToDate(System.currentTimeMillis()) :
+					converterStringDateFim(filter.getFim());
 
 		Pageable pageable = new PageRequest(page, size);
 
@@ -113,10 +110,9 @@ public class MovimentacaoService {
 		Date data = f.parse(date);
 		
 		String timestamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(data);
-		System.out.println("Data timestamp " + timestamp);
 		
 		data = f.parse(timestamp);
-		System.out.println("Data Convertida Inicio" + data);
+
 		return data;
 	}
 	
