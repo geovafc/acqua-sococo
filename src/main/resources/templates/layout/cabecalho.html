@@ -6,77 +6,90 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 
-		<!-- Navigation -->
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-ex1-collapse">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" th:href="@{/index}"> <img
-					th:src="@{/imagens/logo.png}" />
-				</a>
-			</div>
-			<!-- Top Menu Items -->
-			<ul class="nav navbar-right top-nav">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target=".navbar-ex1-collapse">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" th:href="@{/index}"> <img
+				th:src="@{/imagens/logo.png}" />
+			</a>
+		</div>
+
+
+
+
+
+
+		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			<ul class="nav navbar-nav">
+				<li><a th:href="@{/index}"><i class="fa fa-fw fa-dashboard"></i>
+						Dashboard <span class="sr-only">(current)</span> </a></li>
+
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"><i class="fa fa-user"></i> <span sec:authentication="principal.nome"> </span>  <b
-						class="caret"></b></a>
+					data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expanded="false"><i class="fa fa-fw fa-table"></i>
+						Movimentações <span class="caret"></span> </a>
 					<ul class="dropdown-menu">
-						<li><a href="#"><i class="fa fa-fw fa-gear"></i>
-								Configurações</a></li>
-						<li class="divider"></li>
-						<li>
-							<form  action="/logout" method="post">
-								<button style="width: 100%; border: none; background-color: white;"  type="submit" class="btn">
-									<span style="float: left; padding: 3px 12px; clear: both; font-weight: 400;" 
-									class="fa fa-fw fa-power-off"></span>Sair
-								</button>
-								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-							</form>	
-						<!-- <a href="#"><i class="fa fa-fw fa-power-off"></i> Sair</a> -->
-						</li>	
-					</ul>
-				</li>
+						<li><a th:href="@{/movimentacoes/registrar}">Registrar </a></li>
+						<li role="separator" class="divider"></li>
+						<li><a th:href="@{/movimentacoes}">Pesquisar </a></li>
+					</ul></li>
+
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expanded="false"><i class="fa fa-fw fa-bell"></i> Produtos
+						<span class="caret"></span> </a>
+					<ul class="dropdown-menu">
+						<li><a th:href="@{/produtos/novo}">Registrar </a></li>
+						<li role="separator" class="divider"></li>
+						<li><a th:href="@{/produtos}">Pesquisar </a></li>
+					</ul></li>
+
+
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expanded="false"><i class="fa fa-user"></i>
+						Usuários<span class="caret"></span> </a>
+					<ul class="dropdown-menu">
+						<li><a th:href="@{/usuarios/novo}">Registrar </a></li>
+						<li role="separator" class="divider"></li>
+						<li><a th:href="@{/usuarios}">Pesquisar </a></li>
+					</ul></li>
 			</ul>
-			<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-			<div class="collapse navbar-collapse navbar-ex1-collapse">
-				<ul class="nav navbar-nav side-nav">
-					<li class="active"><a th:href="@{/index}"><i
-							class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
 
-					<li><a href="javascript:;" data-toggle="collapse"
-						data-target="#movimentacoes"><i class="fa fa-fw fa-table"></i>
-							Movimentações <i class="fa fa-fw fa-caret-down"></i></a>
-						<ul id="movimentacoes" class="collapse">
-							<li><a th:href="@{/movimentacoes/pesquisar}">Registrar </a></li>
-							
-							<li><a th:href="@{/movimentacoes}">Pesquisar </a></li>
-						</ul></li>
+			<!-- Top Menu Items -->
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expanded="false"> <i class="fa fa-fw fa-sign-out"></i> <span
+						sec:authentication="principal.nome"> </span> <span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li>
+							<form action="/logout" method="post">
+								<button
+									style="width: 100%; border: none; background-color: white;"
+									type="submit" class="btn">
+									<!-- <span style="float: left; padding: 3px 12px; clear: both; font-weight: 400;"
+										class="fa fa-fw fa-power-off"></span> -->
+										Sair
+								</button>
+								<input type="hidden" th:name="${_csrf.parameterName}"
+									th:value="${_csrf.token}" />
+							</form>
+						</li>
+					</ul></li>
+			</ul>
 
-					<li><a href="javascript:;" data-toggle="collapse"
-						data-target="#produtos"><i class="fa fa-fw fa-bell"></i>
-							Produtos <i class="fa fa-fw fa-caret-down"></i></a>
-						<ul id="produtos" class="collapse">
-							<li><a th:href="@{/produtos/novo}">Registrar </a></li>
-							<li><a th:href="@{/produtos}">Pesquisar </a></li>
-						</ul></li>
-
-					<li><a href="javascript:;" data-toggle="collapse"
-						data-target="#usuarios"><i class="fa fa-fw fa-sign-out"></i>
-							Usuários <i class="fa fa-fw fa-caret-down"></i></a>
-						<ul id="usuarios" class="collapse">
-							<li><a th:href="@{/usuarios/novo}">Registrar </a></li>
-							<li><a th:href="@{/usuarios}">Pesquisar </a></li>
-						</ul></li>
-
-
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</nav>
+		</div>
+	</div>
+</nav>
 
 </html>

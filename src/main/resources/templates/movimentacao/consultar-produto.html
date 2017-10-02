@@ -14,13 +14,13 @@
 
 
 	<!-- Page Heading -->
-	<div class="row">
+	<!--  <div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header">
 				Movimentações <small>Pesquisar produto</small>
 			</h1>
 		</div>
-	</div>
+	</div>  -->
 
 	<div th:if="${param.codigo}"
 		class="alert alert-danger alert-dismissible col-lg-10 col-lg-offset-1 "
@@ -33,12 +33,18 @@
 
 
 	<div class="row">
-		<div class="col-lg-10 col-lg-offset-1 col-sm-12">
+		<div class="col-lg-8 col-lg-offset-2 col-sm-12">
+		<ol class="breadcrumb">
+				  <li><a th:href="@{/index}">Dashboard</a></li>
+				  <li class="active">Movimentações</li>
+				  <li class="active">Registrar</li>
+			</ol>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-support fa-5x"></i>
+							<!-- <i class="fa fa-support fa-5x"></i> -->
+							<img class="imagem_acao" th:src="@{/imagens/movimentacao.png}"/>
 						</div>
 					</div>
 				</div>
@@ -47,14 +53,14 @@
 
 					<div style="padding: 12% 50px 12% 50px;" class="row">
 						<div th:if="${movimentacao == null}">
-							<form method="GET" th:action="@{/movimentacoes/pesquisar/codigo}"
+							<form method="GET" th:action="@{/movimentacoes/registrar/codigo}"
 								th:object="${filtro}">
 
 								<div class="col-lg-12 text-center">
 									<div id="campoBuscaCodigoBarras"
 										class="col-lg-10 col-lg-offset-1 input-group">
 										<input class="form-control color"
-											onblur="obterProdutoPorCodigo(this.value);"
+											
 											placeholder="Informe o código de barras do produto"
 											autofocus="autofocus" th:field="*{codigo}"> </input> <span
 											class="input-group-btn">
@@ -62,7 +68,7 @@
 											<button type="submit" class="btn btn-info">
 												<i class="glyphicon glyphicon-search"></i> PESQUISAR
 											</button>
-
+<!-- onblur="obterProdutoPorCodigo(this.value);" -->
 										</span>
 									</div>
 								</div>

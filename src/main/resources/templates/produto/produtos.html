@@ -12,19 +12,19 @@
 
 
 	<!-- Page Heading -->
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header">
 				Produtos <small>Todos os Produtos</small>
 			</h1>
 		</div>
-	</div>
-
+	</div>-->
+	
 	<div layout:include="layout/mensagem-geral"></div>
 
 
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-8 col-lg-offset-2 col-sm-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="row">
@@ -100,7 +100,7 @@
 						
 
 						<div class="row">
-							<div class="form-group col-md-1">
+							<div class="form-group col-lg-2">
 								<select class="form-control pagination" id="pageSizeSelectProduto">
 									<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
 										th:value="${pageSize}"

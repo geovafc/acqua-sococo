@@ -11,6 +11,16 @@ body {
     background-color: #fff;
 }
 
+/* Itens modificados  */
+.navbar-default{
+	background-color: #00bc8c;
+}
+.navbar-default .navbar-nav>li>a{
+	color: white;
+}
+
+/* Fim itens modificados  */
+
 @media(min-width:768px) {
     body {
         margin-top: 50px;
@@ -34,7 +44,7 @@ body {
 
 @media(min-width:768px) {
     #wrapper {
-        padding-left: 225px;
+	/* padding-left: 225px; */
     }
 
     #page-wrapper {

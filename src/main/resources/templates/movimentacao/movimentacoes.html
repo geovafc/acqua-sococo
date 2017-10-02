@@ -11,30 +11,35 @@
 <section layout:fragment="conteudo">
 
 	<!-- Page Heading -->
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header">
 				Movimentações <small>Todos os Registros</small>
 			</h1>
 		</div>
 	</div>
-
+ -->
 
 	<div layout:include="layout/mensagem-geral"></div>
 
 
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-8 col-lg-offset-2 col-sm-12">
+		<ol class="breadcrumb">
+				  <li><a th:href="@{/index}">Dashboard</a></li>
+				  <li class="active">Movimentações</li>
+			</ol>
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-support fa-5x"></i>
+							<!-- <i class="fa fa-support fa-5x"></i> -->
+							<img class="imagem_acao" th:src="@{/imagens/movimentacao.png}"/>
 						</div>
 					</div>
 				</div>
 				<div class="panel-body">
-					<a th:href="@{/movimentacoes/pesquisar}">
+					<a th:href="@{/movimentacoes/registrar}">
 						<button class="btn btn-info">
 							<i class="glyphicon glyphicon-plus"></i> Nova movimentação
 						</button>
@@ -44,9 +49,9 @@
 					<form method="GET" class="form-horizontal"
 						th:action="@{/movimentacoes/pesquisar/periodo}"
 						th:object="${filtro}">
-						<div class="form-group">
+						<div class="form-group camposPesquisa">
 
-							<div class="input-group input-daterange">
+							<div class="col-lg-5 input-group input-daterange calendarioFiltro">
 								<input type="text" class="form-control" th:field="*{inicio}"
 									data-provide="datepicker" data-date-format="dd/mm/yyyy"
 									data-date-language="pt-BR" data-date-autoclose="true"
@@ -58,12 +63,12 @@
 									data-date-today-highlight="true" data-date-orientation="bottom" />
 							</div>
 
-							<div class="col-sm-5">
+							<div class="col-lg-4 InputFiltro">
 								<input class="form-control color"
 									placeholder="Informe o código de barras do produto que esta procurando?"
 									autofocus="autofocus" th:field="*{codigo}"></input>
 							</div>
-							<div class="col-sm-3">
+							<div class="col-lg-3 botaoPesquisarFilto">
 								<button type="submit" class="btn color">
 									Pesquisar <i class="glyphicon glyphicon-search"></i>
 								</button>

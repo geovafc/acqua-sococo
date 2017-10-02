@@ -92,7 +92,7 @@ public class MovimentacaoController {
 		return modelAndView;
 	}
 
-	@GetMapping("/pesquisar")
+	@GetMapping("/registrar")
 	public ModelAndView pesquisar(@ModelAttribute("filtro") ProdutoFilter filtro) {
 
 		this.view = new ModelAndView("movimentacao/consultar-produto");
@@ -168,7 +168,7 @@ public class MovimentacaoController {
 		return ResponseEntity.status(HttpStatus.OK).body(movimentacaoService.getCountMovimentacoesByMesAno());
 	}
 
-	@GetMapping("/pesquisar/codigo")
+	@GetMapping("/registrar/codigo")
 	public ModelAndView pesquisarProdutoPorCodigo(@ModelAttribute("filtro") ProdutoFilter filtro) {
 
 		this.view = new ModelAndView(CADASTRO_VIEW);
