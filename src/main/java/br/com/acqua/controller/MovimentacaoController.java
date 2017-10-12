@@ -70,7 +70,7 @@ public class MovimentacaoController {
 		return modelAndView;
 	}
 
-	@GetMapping("/pesquisar/periodo")
+	@GetMapping("/pesquisar")
 	public ModelAndView pesquisarPorPeriodo(@ModelAttribute("filtro") MovimentacaoFilter filtro,
 			@RequestParam("pageSize") Optional<Integer> pageSize, @RequestParam("page") Optional<Integer> page)
 			throws Throwable {

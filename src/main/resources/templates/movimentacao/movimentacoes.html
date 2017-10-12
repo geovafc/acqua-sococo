@@ -47,7 +47,7 @@
 					<p></p>
 
 					<form method="GET" class="form-horizontal"
-						th:action="@{/movimentacoes/pesquisar/periodo}"
+						th:action="@{/movimentacoes/pesquisar}"
 						th:object="${filtro}">
 						<div class="form-group camposPesquisa">
 
@@ -67,6 +67,11 @@
 								<input class="form-control color"
 									placeholder="Informe o código de barras do produto que esta procurando?"
 									autofocus="autofocus" th:field="*{codigo}"></input>
+							</div>
+							<div class="col-lg-4 InputFiltro">
+								<input class="form-control color"
+									placeholder="Informe a nota fiscal da movimentação"
+									autofocus="autofocus" th:field="*{notaFiscal}"></input>
 							</div>
 							<div class="col-lg-3 botaoPesquisarFilto">
 								<button type="submit" class="btn color">

@@ -1,6 +1,5 @@
 package br.com.acqua.service;
 
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,18 +10,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
 
-import org.mockito.internal.stubbing.answers.ThrowsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import br.com.acqua.dto.MovimentacaoMesAnoDTO;
 import br.com.acqua.entity.Movimentacao;
+import br.com.acqua.entity.Produto;
 import br.com.acqua.entity.Usuario;
 import br.com.acqua.repository.MovimentacaoRepository;
+import br.com.acqua.repository.ProdutoRepository;
 import br.com.acqua.repository.UserRepository;
 import br.com.acqua.repository.filter.MovimentacaoFilter;
 
@@ -31,6 +32,8 @@ public class MovimentacaoService {
 
 	@Autowired
 	private MovimentacaoRepository movimentacaoRepository;
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -91,54 +94,64 @@ public class MovimentacaoService {
 
 	public Page<Movimentacao> findByDataHoraBetween(MovimentacaoFilter filter, int page, int size) throws Throwable {
 
-		Date inicio = filter.getInicio() == "" ?
-				converterStringDateInicio("01/01/2000") :
-			 converterStringDateInicio(filter.getInicio());
-		Date fim = filter.getFim() == "" ?
-				convertLongToDate(System.currentTimeMillis()) :
-					converterStringDateFim(filter.getFim());
+		if (!StringUtils.isEmpty(filter.getCodigo())) {
+			
+		}
+		
+		Date inicio = filter.getInicio() != null ? converterStringDateInicio(filter.getInicio())
+				: converterStringDateInicio(new Date("01/01/2000"));
+		Date fim = filter.getFim() != null ? converterStringDateFim(filter.getFim())
+				: new Date(System.currentTimeMillis());
 
 		Pageable pageable = new PageRequest(page, size);
 
 		return movimentacaoRepository.findByDataHoraBetween(inicio, fim, pageable);
-	}
 
-	public static Date converterStringDateInicio(String date) throws Throwable {
-		
-		DateFormat f = DateFormat.getDateInstance();
-		
-		Date data = f.parse(date);
-		
-		String timestamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(data);
-		
-		data = f.parse(timestamp);
-
-		return data;
 	}
 	
-	public static Date converterStringDateFim(String date) throws Throwable {
+	public static Date converterStringDateInicio(Date date) throws Throwable {
+
 		DateFormat f = DateFormat.getDateInstance();
-		
-		Date data = f.parse(date);
-		
-		data.setDate(data.getDate() + 1);
-		
-		String timestamp = new SimpleDateFormat("dd/MM/yyyy").format(data);
-		data = f.parse(timestamp);
-		System.out.println("Data Convertida fim" + data);
-		return data;
+
+		// Date data = f.parse(date);
+
+		String timestamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);
+
+		date = f.parse(timestamp);
+
+		return date;
+
 	}
-	
-	public static Date convertLongToDate(long currentTimeMillis) throws Throwable {
-		Calendar c = Calendar.getInstance();
-		Date date = new Date(currentTimeMillis - 43282800000l);
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
-		df.setTimeZone(TimeZone.getTimeZone("GMT"));
-		return df.parse(df.format(date));
+
+	public static Date converterStringDateFim(Date date) throws Throwable {
+		DateFormat f = DateFormat.getDateInstance();
+
+		// Date data = f.parse(date);
+
+		date.setDate(date.getDate() + 1);
+
+		String timestamp = new SimpleDateFormat("dd/MM/yyyy").format(date);
+		date = f.parse(timestamp);
+		return date;
 	}
 
 	public List<Movimentacao> listar() {
 		return movimentacaoRepository.findAll();
+	}
+
+	public Page<Movimentacao> pesquisar(MovimentacaoFilter filter, int page, int size) throws Throwable {
+
+		Produto produto = new Produto();
+
+		produto = produtoRepository.findByCodigoDeBarras(filter.getCodigo());
+
+		filter.setProduto(produto);
+		// filter.setInicio(converterDateParaTimestamp(filter.getInicio()));
+		// filter.setFim(converterDateParaTimestamp(filter.getFim()));
+
+		Pageable pageable = new PageRequest(page, size);
+
+		return movimentacaoRepository.filtrar(filter, pageable);
 	}
 
 	public void excluir(Long id) {
@@ -147,6 +160,16 @@ public class MovimentacaoService {
 
 	public Movimentacao buscar(Long id) {
 		return movimentacaoRepository.findOne(id);
+	}
+
+	public static Date converterDateParaTimestamp(Date date) throws Throwable {
+		DateFormat f = DateFormat.getDateInstance();
+
+		String timestamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);
+
+		date = f.parse(timestamp);
+
+		return date;
 	}
 
 }
