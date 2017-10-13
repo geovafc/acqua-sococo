@@ -21,8 +21,10 @@ import org.springframework.stereotype.Service;
 
 import br.com.acqua.dto.MovimentacaoMesAnoDTO;
 import br.com.acqua.entity.Movimentacao;
+import br.com.acqua.entity.Produto;
 import br.com.acqua.entity.Usuario;
 import br.com.acqua.repository.MovimentacaoRepository;
+import br.com.acqua.repository.ProdutoRepository;
 import br.com.acqua.repository.UserRepository;
 import br.com.acqua.repository.filter.MovimentacaoFilter;
 
@@ -31,6 +33,9 @@ public class MovimentacaoService {
 
 	@Autowired
 	private MovimentacaoRepository movimentacaoRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -41,7 +46,9 @@ public class MovimentacaoService {
 
 		try {
 			movimentacao.setUsuario(user);
-			movimentacao.setDataHora(new Date(System.currentTimeMillis()));
+			if (movimentacao.getId() == null) {
+				movimentacao.setDataHora(new Date(System.currentTimeMillis()));
+			}
 			movimentacaoRepository.save(movimentacao);
 
 		} catch (DataIntegrityViolationException e) {
@@ -91,6 +98,8 @@ public class MovimentacaoService {
 
 	public Page<Movimentacao> findByDataHoraBetween(MovimentacaoFilter filter, int page, int size) throws Throwable {
 
+		Produto produto = produtoRepository.findByCodigoDeBarras(filter.getCodigo());
+		
 		Date inicio = filter.getInicio() == "" ?
 				converterStringDateInicio("01/01/2000") :
 			 converterStringDateInicio(filter.getInicio());
@@ -100,7 +109,7 @@ public class MovimentacaoService {
 
 		Pageable pageable = new PageRequest(page, size);
 
-		return movimentacaoRepository.findByDataHoraBetween(inicio, fim, pageable);
+		return movimentacaoRepository.findByDataHoraBetweenAndProduto(inicio, fim, produto, pageable);
 	}
 
 	public static Date converterStringDateInicio(String date) throws Throwable {

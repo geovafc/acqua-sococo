@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import br.com.acqua.entity.Movimentacao;
+import br.com.acqua.entity.Produto;
 
 
 /**
@@ -26,5 +27,5 @@ public interface MovimentacaoRepository extends JpaRepository<Movimentacao,Long>
 	// Buscar onde a data cadastro está dentro de um período.
     Page<Movimentacao> findByDataHoraBetween(Date inicio, Date fim, Pageable pageable);
     
-    List<Movimentacao> findByDataHoraBetween(Date inicio, Date fim);
+    Page<Movimentacao> findByDataHoraBetweenAndProduto(Date inicio, Date fim,Produto produto, Pageable pageable);
 }

@@ -5,6 +5,7 @@ public class MovimentacaoFilter {
 	private String inicio;
 	private String fim;
 	private String codigo;
+	private String notaFilcal;
 
 	public String getInicio() {
 		return inicio;
@@ -28,6 +29,14 @@ public class MovimentacaoFilter {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public String getNotaFilcal() {
+		return notaFilcal;
+	}
+
+	public void setNotaFilcal(String notaFilcal) {
+		this.notaFilcal = notaFilcal;
 	}
 
 }
