@@ -1,14 +1,10 @@
 package br.com.acqua.service;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import br.com.acqua.dto.MovimentacaoMesAnoDTO;
 import br.com.acqua.entity.Movimentacao;
@@ -44,7 +39,9 @@ public class MovimentacaoService {
 
 		try {
 			movimentacao.setUsuario(user);
-			movimentacao.setDataHora(new Date(System.currentTimeMillis()));
+			if(movimentacao.getDataHora() == null){
+				movimentacao.setDataHora(new Date(System.currentTimeMillis()));
+			}
 			movimentacaoRepository.save(movimentacao);
 
 		} catch (DataIntegrityViolationException e) {
@@ -92,47 +89,12 @@ public class MovimentacaoService {
 		return movimentacaoRepository.findAllByOrderByIdAsc(pageable);
 	}
 
-	public Page<Movimentacao> findByDataHoraBetween(MovimentacaoFilter filter, int page, int size) throws Throwable {
-
-		if (!StringUtils.isEmpty(filter.getCodigo())) {
-			
-		}
-		
-		Date inicio = filter.getInicio() != null ? converterStringDateInicio(filter.getInicio())
-				: converterStringDateInicio(new Date("01/01/2000"));
-		Date fim = filter.getFim() != null ? converterStringDateFim(filter.getFim())
-				: new Date(System.currentTimeMillis());
-
-		Pageable pageable = new PageRequest(page, size);
-
-		return movimentacaoRepository.findByDataHoraBetween(inicio, fim, pageable);
-
-	}
-	
-	public static Date converterStringDateInicio(Date date) throws Throwable {
-
-		DateFormat f = DateFormat.getDateInstance();
-
-		// Date data = f.parse(date);
-
-		String timestamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);
-
-		date = f.parse(timestamp);
-
-		return date;
-
-	}
-
-	public static Date converterStringDateFim(Date date) throws Throwable {
-		DateFormat f = DateFormat.getDateInstance();
-
-		// Date data = f.parse(date);
-
-		date.setDate(date.getDate() + 1);
-
-		String timestamp = new SimpleDateFormat("dd/MM/yyyy").format(date);
-		date = f.parse(timestamp);
-		return date;
+	public static Date converterDateFim(Date date) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.HOUR, 23);
+		c.add(Calendar.MINUTE, 59);
+		return c.getTime();
 	}
 
 	public List<Movimentacao> listar() {
@@ -142,12 +104,9 @@ public class MovimentacaoService {
 	public Page<Movimentacao> pesquisar(MovimentacaoFilter filter, int page, int size) throws Throwable {
 
 		Produto produto = new Produto();
-
 		produto = produtoRepository.findByCodigoDeBarras(filter.getCodigo());
-
-		filter.setProduto(produto);
-		// filter.setInicio(converterDateParaTimestamp(filter.getInicio()));
-		// filter.setFim(converterDateParaTimestamp(filter.getFim()));
+		
+		filter.setFim(filter.getFim() == null ? null : converterDateFim(filter.getFim()));
 
 		Pageable pageable = new PageRequest(page, size);
 
@@ -162,14 +121,5 @@ public class MovimentacaoService {
 		return movimentacaoRepository.findOne(id);
 	}
 
-	public static Date converterDateParaTimestamp(Date date) throws Throwable {
-		DateFormat f = DateFormat.getDateInstance();
-
-		String timestamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);
-
-		date = f.parse(timestamp);
-
-		return date;
-	}
 
 }

@@ -10,15 +10,6 @@
 </head>
 
 <section layout:fragment="conteudo" id="movimentacaoHolter">
-
-	<!-- Page Heading -->
-	<!-- <div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header">
-				Movimentações <small>Registrar</small>
-			</h1>
-		</div>
-	</div> -->
 	
 	<div layout:include="layout/mensagem-geral"></div>
 	
@@ -44,7 +35,9 @@
 						<form class="form-horizontal" method="POST"
 							th:object="${movimentacao}" th:action="@{/movimentacoes}">
 
-							<input type="hidden" th:field="*{id}" /> <input type="hidden" th:field="*{produto}" />
+							<input type="hidden" th:field="*{id}" /> 
+							<input type="hidden" th:field="*{produto}" />
+							<input type="hidden" th:field="*{dataHora}" />
 
 							<div class="row">
 								<div class="col-lg-3">

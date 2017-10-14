@@ -10,4 +10,5 @@ public interface MovimentacaoRepositoryQuery {
 	
 	public Page<Movimentacao> filtrar(MovimentacaoFilter movimentacaoFilter, Pageable pageable);
 
+	public Page<Movimentacao> buscaTodos(Pageable pageable);
 }
