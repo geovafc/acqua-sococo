@@ -95,6 +95,13 @@ public class MovimentacaoRepositoryImpl implements MovimentacaoRepositoryQuery {
 				predicates.add(builder.equal(root.get(Movimentacao_.produto), 0));
 			}
 		}
+		if (!StringUtils.isEmpty(movimentacaoFilter.getUsuario())) {
+			if (movimentacaoFilter.getUsuario() != null) {
+				predicates.add(builder.equal(root.get(Movimentacao_.usuario), movimentacaoFilter.getUsuario().getId()));
+			}else{
+				predicates.add(builder.equal(root.get(Movimentacao_.usuario), 0));
+			}
+		}
 
 		if (!StringUtils.isEmpty(movimentacaoFilter.getNotaFiscal())) {
 			predicates.add(builder.like(builder.lower(root.get(Movimentacao_.notaFiscal)),

@@ -29,6 +29,8 @@ public class MovimentacaoService {
 	private MovimentacaoRepository movimentacaoRepository;
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	@Autowired
+	private UserRepository usuarioRepositorio;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -103,8 +105,11 @@ public class MovimentacaoService {
 
 	public Page<Movimentacao> pesquisar(MovimentacaoFilter filter, int page, int size) throws Throwable {
 
-		Produto produto = new Produto();
-		produto = produtoRepository.findByCodigoDeBarras(filter.getCodigo());
+		Produto produto = produtoRepository.findByCodigoDeBarras(filter.getCodigo());
+		
+		Usuario usuario = userRepository.findByNome(filter.getNomeUsuario().toLowerCase());
+		
+		filter.setUsuario(usuario);
 		
 		filter.setFim(filter.getFim() == null ? null : converterDateFim(filter.getFim()));
 

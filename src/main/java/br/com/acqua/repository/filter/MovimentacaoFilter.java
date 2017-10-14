@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.acqua.entity.Produto;
+import br.com.acqua.entity.Usuario;
 
 public class MovimentacaoFilter {
 
@@ -15,7 +16,8 @@ public class MovimentacaoFilter {
 	private Produto produto;
 	private String codigo;
 	private String notaFiscal;
-	private String usuario;
+	private String nomeUsuario;
+	private Usuario usuario;
 
 	public Date getInicio() {
 		return inicio;
@@ -49,11 +51,19 @@ public class MovimentacaoFilter {
 		this.notaFiscal = notaFiscal;
 	}
 
-	public String getUsuario() {
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
+	}
+
+	public Usuario getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(String usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
