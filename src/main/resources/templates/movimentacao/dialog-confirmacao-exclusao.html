@@ -7,7 +7,7 @@
 <div class="modal fade" id="confirmacaoExclusaoModal" tabindex="-1"
 	data-keyboard="false" data-backdrop="static">
 	<div class="modal-dialog">
-	
+
 		<form th:attr="data-url-base=@{/movimentacoes}" method="POST">
 			<input type="hidden" name="_method" value="DELETE" />
 
@@ -29,7 +29,8 @@
 					<button type="submit" class="btn btn-primary">Excluir</button>
 				</div>
 			</div>
-			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+			<input type="hidden" th:name="${_csrf.parameterName}"
+				th:value="${_csrf.token}" />
 		</form>
 	</div>
 </div>

@@ -14,19 +14,24 @@
 	<div layout:include="layout/mensagem-geral"></div>
 
 	<div class="row">
-		<div class="col-lg-8 col-lg-offset-2 col-sm-12">
+		<div class="col-lg-10 col-lg-offset-1 col-sm-12">
 			<ol class="breadcrumb">
 				<li><a th:href="@{/index}">Dashboard</a></li>
 				<li class="active">Movimentações</li>
-				<li><a th:href="@{/movimentacoes/registrar}">Registrar</a></li>
-				<li class="active">Salvar</li>
+				<li class="active">Registrar</li>
+				<li class="active">Finalizar</li>
 			</ol>
-			<div class="panel panel-primary">
+			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="row">
-						<div class="col-xs-3">
+						<div class="col-lg-1">
 							<!-- <i class="fa fa-support fa-5x"></i> -->
 							<img class="imagem_acao" th:src="@{/imagens/movimentacao.png}" />
+						</div>
+						<div class="col-lg-6">
+							<h3 class="page-header">
+								Movimentações <small>Registro de movimentação</small>
+							</h3>
 						</div>
 					</div>
 				</div>
@@ -35,9 +40,9 @@
 					<form class="form-horizontal" method="POST"
 						th:object="${movimentacao}" th:action="@{/movimentacoes}">
 
-						<input type="hidden" th:field="*{id}" /> 
-						<input type="hidden" th:field="*{produto}" /> 
-						<input type="hidden" th:field="*{dataHora}" />
+						<input type="hidden" th:field="*{id}" /> <input type="hidden"
+							th:field="*{produto}" /> <input type="hidden"
+							th:field="*{dataHora}" />
 
 						<div class="row">
 							<div class="col-lg-5">

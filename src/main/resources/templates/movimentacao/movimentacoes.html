@@ -9,22 +9,27 @@
 </head>
 
 <section layout:fragment="conteudo">
-	<div class="col-lg-8 col-lg-offset-2 col-sm-12">
-		<div layout:include="layout/mensagem-geral"></div>
-	</div>
 
-	<div class="col-lg-8 col-lg-offset-2 col-sm-12">
+	<div class="col-lg-10 col-lg-offset-1 col-sm-12">
 		<ol class="breadcrumb">
 			<li><a th:href="@{/index}">Dashboard</a></li>
 			<li class="active">Movimentações</li>
 		</ol>
+		
+		<div layout:include="layout/mensagem-geral"></div>
+		
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<div class="row">
-					<div class="col-xs-3">
-						<!-- <i class="fa fa-support fa-5x"></i> -->
-						<img class="imagem_acao" th:src="@{/imagens/movimentacao.png}" />
-					</div>
+					<div class="col-lg-1">
+							<!-- <i class="fa fa-support fa-5x"></i> -->
+							<img class="imagem_acao" th:src="@{/imagens/movimentacao.png}" />
+						</div>
+						<div class="col-lg-6">
+							<h3 class="page-header">
+								Movimentações <small>Todos as movimentações</small>
+							</h3>
+						</div>
 				</div>
 			</div>
 			<div class="panel-body">
@@ -71,10 +76,14 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="col-lg-3">
-								<button type="submit" class="btn btn-primary">
-									Pesquisar <i class="glyphicon glyphicon-search"></i>
+							<div class="col-lg-8 col-lg-offset-2">
+								<button type="submit" class="col-lg-4 col-lg-offset-1 btn btn-primary">
+									PESQUISAR <i class="glyphicon glyphicon-search"></i>
 								</button>
+								<a th:href="@{/movimentacoes}"
+											class="col-lg-4 col-lg-offset-2  btn btn-warning"><span
+											class="glyphicon glyphicon-remove"> LIMPAR</span></a>
+								
 							</div>
 						</div>
 					</form>
@@ -84,9 +93,9 @@
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th class="text-center col-md-2">Imagem</th>
-								<th class="text-center col-md-1">Código de barras</th>
-								<th class="text-center col-md-1">Nota Fiscal</th>
+								<th class="text-center col-md-1">Imagem</th>
+								<th class="text-center col-md-2">Código de barras</th>
+								<th class="text-center col-md-2">Nota Fiscal</th>
 								<th class="text-center col-md-1">Operador</th>
 								<th class="text-center col-md-1">Data de registro</th>
 								<th class="text-center col-md-1">Operação</th>
@@ -142,8 +151,8 @@
 
 					<!-- Paginação -->
 
-					<div class="row" th:if="${!#lists.isEmpty(movimentacoes.content)}">
-						<div class="form-group col-md-2">
+					<div class="paginacao" th:if="${!#lists.isEmpty(movimentacoes.content)}">
+						<div class="form-group col-lg-1">
 							<select class="form-control pagination"
 								id="pageSizeSelectMovimentacoes">
 								<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
@@ -152,7 +161,7 @@
 							</select>
 						</div>
 						<div th:if="${movimentacoes.totalPages != 1}"
-							class="form-group col-md-11 pagination-centered">
+							class="form-group col-lg-11 pagination-centered">
 							<ul class="pagination">
 								<li th:class="${movimentacoes.number == 0} ? disabled"><a
 									class="pageLink"

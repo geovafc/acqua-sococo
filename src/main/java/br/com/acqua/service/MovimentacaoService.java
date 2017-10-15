@@ -30,9 +30,6 @@ public class MovimentacaoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	@Autowired
-	private UserRepository usuarioRepositorio;
-
-	@Autowired
 	private UserRepository userRepository;
 
 	public void salvar(Movimentacao movimentacao, String userName) {

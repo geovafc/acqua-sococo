@@ -12,21 +12,32 @@
 <section layout:fragment="conteudo">
 
 	<!-- Page Heading -->
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header">
 				Produtos <small>Detalhes</small>
 			</h1>
 		</div>
-	</div>
-	
+	</div> -->
+
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-10 col-lg-offset-1 col-sm-12">
+			<ol class="breadcrumb">
+				<li><a th:href="@{/index}">Dashboard</a></li>
+				<li class="active">Produtos</li>
+				<li class="active">Detalhes</li>
+			</ol>
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="row">
-						<div class="col-xs-3">
-							<i class="fa fa-support fa-5x"></i>
+						<div class="col-lg-1">
+							<!-- <i class="fa fa-support fa-5x"></i> -->
+							<img class="imagem_acao" th:src="@{/imagens/ic_produtos.png}" />
+						</div>
+						<div class="col-lg-6">
+							<h3 class="page-header">
+								Produtos <small>Detalhe de produto</small>
+							</h3>
 						</div>
 					</div>
 				</div>
@@ -47,7 +58,7 @@
 								<label>Data do Cadastro: </label> <span class="card-text"
 									th:text="${{produto.dataCadastro}}"></span>
 							</div>
-							
+
 							<!-- <a class="btn btn-primary" style="margin-right: 5px"
 								th:href="@{/produto/update/{id}(id=${produto.id})}"
 								title="Editar" rel="tooltip" data-placement="top"> <span
@@ -66,10 +77,10 @@
 
 
 						</div>
-						
+
 						<div class=" col-lg-offset-10">
-								<a th:href="@{/produtos}" class="btn btn-warning"><span
-									class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span></a>
+							<a th:href="@{/produtos}" class="btn btn-warning"><span
+								class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span></a>
 						</div>
 					</div>
 				</div>

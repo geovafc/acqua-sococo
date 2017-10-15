@@ -32,8 +32,9 @@
 .imagem_acao{
 	width: 70px;
 	height: 70px;
+	margin-top: 15px;
 }
 
 .inputFiltro{
-	margin-bottom: 20px;
+	/* margin-bottom: 20px; */
 }

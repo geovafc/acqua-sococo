@@ -8,8 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Fetch;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -20,7 +18,6 @@ import org.springframework.util.StringUtils;
 
 import br.com.acqua.entity.Movimentacao;
 import br.com.acqua.entity.Movimentacao_;
-import br.com.acqua.entity.Produto;
 import br.com.acqua.repository.filter.MovimentacaoFilter;
 
 public class MovimentacaoRepositoryImpl implements MovimentacaoRepositoryQuery {
