@@ -70,7 +70,7 @@ public class MovimentacaoController {
 		return modelAndView;
 	}
 
-	@GetMapping("/pesquisar/periodo")
+	@GetMapping("/pesquisar")
 	public ModelAndView pesquisarPorPeriodo(@ModelAttribute("filtro") MovimentacaoFilter filtro,
 			@RequestParam("pageSize") Optional<Integer> pageSize, @RequestParam("page") Optional<Integer> page)
 			throws Throwable {
@@ -81,7 +81,7 @@ public class MovimentacaoController {
 
 		int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
-		Page<Movimentacao> movimentacoes = movimentacaoService.findByDataHoraBetween(filtro, evalPage, evalPageSize);
+		Page<Movimentacao> movimentacoes = movimentacaoService.pesquisar(filtro, evalPage, evalPageSize);
 
 		Pager pager = new Pager(movimentacoes.getTotalPages(), movimentacoes.getNumber(), BUTTONS_TO_SHOW);
 

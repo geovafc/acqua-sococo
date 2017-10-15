@@ -1,7 +1,6 @@
 package br.com.acqua.repository;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,13 +10,14 @@ import org.springframework.data.repository.query.Param;
 
 import br.com.acqua.entity.Movimentacao;
 import br.com.acqua.entity.Produto;
+import br.com.acqua.repository.movimentacao.MovimentacaoRepositoryQuery;
 
 
 /**
  * Spring Data JPA repository for the Movimentacao entity.
  */
 
-public interface MovimentacaoRepository extends JpaRepository<Movimentacao,Long> {
+public interface MovimentacaoRepository extends JpaRepository<Movimentacao,Long>, MovimentacaoRepositoryQuery {
 
 	Page<Movimentacao> findAllByOrderByIdAsc(Pageable pageable);
 	//Falta fazer para contar po ano
