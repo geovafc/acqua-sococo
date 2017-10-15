@@ -9,9 +9,9 @@
 </head>
 
 <section layout:fragment="conteudo">
-
-	<div layout:include="layout/mensagem-geral"></div>
-
+	<div class="col-lg-8 col-lg-offset-2 col-sm-12">
+		<div layout:include="layout/mensagem-geral"></div>
+	</div>
 
 	<div class="col-lg-8 col-lg-offset-2 col-sm-12">
 		<ol class="breadcrumb">
@@ -39,44 +39,43 @@
 					<form method="GET" class="form-horizontal"
 						th:action="@{/movimentacoes/pesquisar}" th:object="${filtro}">
 						<div class="form-group camposPesquisa">
-							<div
-								class="col-lg-6 input-group input-daterange calendarioFiltro">
+							<div class="col-lg-6 input-group input-daterange inputFiltro">
 								<input type="text" class="form-control" th:field="*{inicio}"
 									data-provide="datepicker" data-date-format="dd/mm/yyyy"
 									data-date-language="pt-BR" data-date-autoclose="true"
-									data-date-today-highlight="true" data-date-orientation="bottom" 
-									placeholder="Data de Inicio"/>
+									data-date-today-highlight="true" data-date-orientation="bottom"
+									placeholder="Data de Inicio" />
 								<div class="input-group-addon">até</div>
 								<input type="text" class="form-control" th:field="*{fim}"
 									data-provide="datepicker" data-date-format="dd/mm/yyyy"
 									data-date-language="pt-BR" data-date-autoclose="true"
-									data-date-today-highlight="true" data-date-orientation="bottom" 
-									placeholder="Data Final"/>
+									data-date-today-highlight="true" data-date-orientation="bottom"
+									placeholder="Data Final" />
 							</div>
-							<div class="col-lg-6 InputFiltro">
+							<div class="col-lg-6">
 								<input class="form-control color"
 									placeholder="Informe o código de barras do produto que esta procurando?"
 									autofocus="autofocus" th:field="*{codigo}"></input>
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="col-lg-6 InputFiltro">
+							<div class="col-lg-6 inputFiltro">
 								<input class="form-control color"
 									placeholder="Informe a nota fiscal da movimentação"
 									autofocus="autofocus" th:field="*{notaFiscal}"></input>
 							</div>
-							<div class="col-lg-6 InputFiltro">
+							<div class="col-lg-6">
 								<input class="form-control color"
-									placeholder="Informe o nome do usuário"
-									autofocus="autofocus" th:field="*{nomeUsuario}"></input>
+									placeholder="Informe o nome do usuário" autofocus="autofocus"
+									th:field="*{nomeUsuario}"></input>
 							</div>
 						</div>
 						<div class="form-group">
-						<div class="col-lg-3">
-							<button type="submit" class="btn btn-primary">
-								Pesquisar <i class="glyphicon glyphicon-search"></i>
-							</button>
-						</div>
+							<div class="col-lg-3">
+								<button type="submit" class="btn btn-primary">
+									Pesquisar <i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
 						</div>
 					</form>
 				</div>
@@ -144,7 +143,7 @@
 					<!-- Paginação -->
 
 					<div class="row" th:if="${!#lists.isEmpty(movimentacoes.content)}">
-						<div class="form-group col-md-1">
+						<div class="form-group col-md-2">
 							<select class="form-control pagination"
 								id="pageSizeSelectMovimentacoes">
 								<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"

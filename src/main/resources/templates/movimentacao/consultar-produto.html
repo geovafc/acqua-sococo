@@ -10,41 +10,34 @@
 </head>
 
 <section layout:fragment="conteudo" id="movimentacaoHolter">
-
-
-
-	<!-- Page Heading -->
-	<!--  <div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header">
-				Movimentações <small>Pesquisar produto</small>
-			</h1>
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-sm-12">
+			<div th:if="${param.codigo}"
+				class="alert alert-danger alert-dismissible col-lg-10 col-lg-offset-1 "
+				role="alert">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<strong>Opss!</strong> Produto não encontrado, informe um código
+				válido.
+			</div>
 		</div>
-	</div>  -->
-
-	<div th:if="${param.codigo}"
-		class="alert alert-danger alert-dismissible col-lg-10 col-lg-offset-1 "
-		role="alert">
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-		<strong>Opss!</strong> Produto não encontrado, informe um código válido.
 	</div>
-
 
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2 col-sm-12">
-		<ol class="breadcrumb">
-				  <li><a th:href="@{/index}">Dashboard</a></li>
-				  <li class="active">Movimentações</li>
-				  <li class="active">Registrar</li>
+			<ol class="breadcrumb">
+				<li><a th:href="@{/index}">Dashboard</a></li>
+				<li class="active">Movimentações</li>
+				<li class="active">Registrar</li>
 			</ol>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
 							<!-- <i class="fa fa-support fa-5x"></i> -->
-							<img class="imagem_acao" th:src="@{/imagens/movimentacao.png}"/>
+							<img class="imagem_acao" th:src="@{/imagens/movimentacao.png}" />
 						</div>
 					</div>
 				</div>
@@ -60,15 +53,13 @@
 									<div id="campoBuscaCodigoBarras"
 										class="col-lg-10 col-lg-offset-1 input-group">
 										<input class="form-control color"
-											
 											placeholder="Informe o código de barras do produto"
-											autofocus="autofocus" th:field="*{codigo}"> </input> <span
-											class="input-group-btn">
-
+											autofocus="autofocus" th:field="*{codigo}"> 
+										</input> 
+										<span class="input-group-btn">
 											<button type="submit" class="btn btn-info">
 												<i class="glyphicon glyphicon-search"></i> PESQUISAR
-											</button>
-<!-- onblur="obterProdutoPorCodigo(this.value);" -->
+											</button> <!-- onblur="obterProdutoPorCodigo(this.value);" -->
 										</span>
 									</div>
 								</div>

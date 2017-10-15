@@ -22,11 +22,6 @@
 			</a>
 		</div>
 
-
-
-
-
-
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<ul class="nav navbar-nav">
 				<li><a th:href="@{/index}"><i class="fa fa-fw fa-dashboard"></i>
@@ -53,7 +48,7 @@
 					</ul></li>
 
 
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
+				<li class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false"><i class="fa fa-user"></i>
 						Usuários<span class="caret"></span> </a>

@@ -105,6 +105,15 @@ public class MovimentacaoService {
 
 	public Page<Movimentacao> pesquisar(MovimentacaoFilter filter, int page, int size) throws Throwable {
 
+		filter = atualizarFilter(filter);
+
+		Pageable pageable = new PageRequest(page, size);
+
+		return movimentacaoRepository.filtrar(filter, pageable);
+	}
+
+	private MovimentacaoFilter atualizarFilter(MovimentacaoFilter filter) {
+		
 		Produto produto = produtoRepository.findByCodigoDeBarras(filter.getCodigo());
 
 		filter.setProduto(produto);
@@ -114,10 +123,8 @@ public class MovimentacaoService {
 		Usuario usuario = userRepository.findByNome(filter.getNomeUsuario().toLowerCase());
 		
 		filter.setUsuario(usuario);
-
-		Pageable pageable = new PageRequest(page, size);
-
-		return movimentacaoRepository.filtrar(filter, pageable);
+		
+		return filter;
 	}
 
 	public void excluir(Long id) {

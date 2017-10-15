@@ -47,30 +47,29 @@
 						<table class="table table-bordered table-striped">
 							<thead>
 								<tr>
+									<th class="text-center col-md-1">Codigo</th>
 									<th class="text-center col-md-2">Operador</th>
-									<th class="text-center col-md-2">Codigo</th>
 									<th class="text-center col-md-2">Username</th>
 									<th class="text-center col-md-2">Data de Cadastro</th>
-									<th class="text-center col-md-2" colspan="2">Perfil</th>
-									<th class="text-center col-md-2">Status</th>
+									<th class="text-center col-md-2">Perfil</th>
+									<th class="text-center col-md-1">Status</th>
 									<th class="text-center col-md-2">Operação</th>
 								</tr>
 							</thead>
 
 							<tr th:each="usuario: ${usuarios}">
-								<td class="text-center" th:text="${usuario.nome}">1</td>
 								<td class="text-center" th:text="${usuario.codigo}">1</td>
+								<td class="text-center" th:text="${usuario.nome}">1</td>
 								<td class="text-center" th:text="${usuario.username}">1</td>
 								<td class="text-center" th:text="${{usuario.dataCadastro}}"></td>
 
-								<td class="text-center"
-									th:each="permissao: ${usuario.permissoes}">
-									<div class="form-group">
-										<div th:text="${permissao.nome}"></div>
-									</div>
+								<td class="text-center">
+									<span th:each="permissao: ${usuario.permissoes}"
+									th:text="|${permissao.nome == 'ROLE_ADMIN' ? 'ADMIN,' : 'USER'}|">
+									</span>
 								</td>
 
-								<td class="text-center" th:text="${{usuario.enabled}}"></td>
+								<td class="text-center" th:text="${{usuario.enabled == true ? 'ATIVO' : 'INATIVO'}}"></td>
 
 								<td class="text-center"><a class="btn btn-warning btn-xs"
 									th:href="@{/usuarios/{id}(id=${usuario.id})}" title="Editar"

@@ -68,7 +68,7 @@ public class Usuario implements Serializable {
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "usuario_permissoes",joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "permissao_id", referencedColumnName = "id"))
 	private List<Permissao> permissoes;
-
+	
 	public Long getId() {
 		return id;
 	}
