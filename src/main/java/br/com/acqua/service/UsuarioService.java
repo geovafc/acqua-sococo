@@ -44,7 +44,6 @@ public class UsuarioService {
 
 				if (usuario.getDataCadastro() == null) {
 					usuario.setDataCadastro(Date.valueOf(LocalDate.now()));
-					usuario.setEnabled(Boolean.TRUE);
 				}
 
 			} else {
