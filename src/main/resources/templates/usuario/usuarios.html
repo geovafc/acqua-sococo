@@ -12,134 +12,147 @@
 
 
 	<!-- Page Heading -->
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header">
 				Usuários <small>Todos os usuarios</small>
 			</h1>
 		</div>
-	</div>
+	</div> -->
 
 	<div layout:include="layout/mensagem-geral"></div>
 
-	<div class="panel panel-default">
+	<div class="row">
+		<div class="col-lg-10 col-lg-offset-1 col-sm-12">
+			<ol class="breadcrumb">
+				<li><a th:href="@{/index}">Dashboard</a></li>
+				<li class="active">Usuários</li>
+			</ol>
+			<div class="panel panel-default">
 
-		<div class="panel-heading">
-			<div class="row">
-				<div class="col-xs-3">
-					<i class="fa fa-support fa-5x"></i>
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-lg-1">
+							<!-- <i class="fa fa-support fa-5x"></i> -->
+							<img class="imagem_acao" th:src="@{/imagens/ic_operador.png}" />
+						</div>
+						<div class="col-lg-6">
+							<h3 class="page-header">
+								Usuários <small>Todos os usuarios</small>
+							</h3>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
 
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="panel-body">
-					<a th:href="@{/usuarios/novo}">
-						<button class="btn btn-info">
-							<i class="glyphicon glyphicon-plus"></i> Novo Usuário
-						</button>
-					</a>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel-body">
+							<a th:href="@{/usuarios/novo}">
+								<button class="btn btn-info">
+									<i class="glyphicon glyphicon-plus"></i> Novo Usuário
+								</button>
+							</a>
 
-					<p></p>
+							<p></p>
 
-					<div class="table-responsive">
-						<table class="table table-bordered table-striped">
-							<thead>
-								<tr>
-									<th class="text-center col-md-2">Operador</th>
-									<th class="text-center col-md-2">Codigo</th>
-									<th class="text-center col-md-2">Username</th>
-									<th class="text-center col-md-2">Data de Cadastro</th>
-									<th class="text-center col-md-2" colspan="2">Perfil</th>
-									<th class="text-center col-md-2">Status</th>
-									<th class="text-center col-md-2">Operação</th>
-								</tr>
-							</thead>
+							<div class="table-responsive">
+								<table class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th class="text-center col-md-1">Codigo</th>
+											<th class="text-center col-md-2">Operador</th>
+											<th class="text-center col-md-2">Username</th>
+											<th class="text-center col-md-2">Data de Cadastro</th>
+											<th class="text-center col-md-2">Perfil</th>
+											<th class="text-center col-md-1">Status</th>
+											<th class="text-center col-md-2">Operação</th>
+										</tr>
+									</thead>
 
-							<tr th:each="usuario: ${usuarios}">
-								<td class="text-center" th:text="${usuario.nome}">1</td>
-								<td class="text-center" th:text="${usuario.codigo}">1</td>
-								<td class="text-center" th:text="${usuario.username}">1</td>
-								<td class="text-center" th:text="${{usuario.dataCadastro}}"></td>
+									<tr th:each="usuario: ${usuarios}">
+										<td class="text-center" th:text="${usuario.codigo}">1</td>
+										<td class="text-center" th:text="${usuario.nome}">1</td>
+										<td class="text-center" th:text="${usuario.username}">1</td>
+										<td class="text-center" th:text="${{usuario.dataCadastro}}"></td>
 
-								<td class="text-center"
-									th:each="permissao: ${usuario.permissoes}">
-									<div class="form-group">
-										<div th:text="${permissao.nome}"></div>
+										<td class="text-center"><span
+											th:each="permissao: ${usuario.permissoes}"
+											th:text="|${permissao.nome == 'ROLE_ADMIN' ? 'ADMIN,' : 'USER'}|">
+										</span></td>
+
+										<td class="text-center"
+											th:text="${{usuario.enabled == true ? 'ATIVO' : 'INATIVO'}}"></td>
+
+										<td class="text-center"><a class="btn btn-warning btn-xs"
+											th:href="@{/usuarios/{id}(id=${usuario.id})}" title="Editar"
+											rel="tooltip" data-placement="top"> <span
+												class="glyphicon glyphicon-pencil"></span>
+										</a> <a class="btn btn-danger btn-xs" data-toggle="modal"
+											data-target="#confirmacaoExclusaoModal"
+											th:attr="data-id=${usuario.id}, data-nome=${usuario.nome}"
+											title="Excluir" rel="tooltip" data-placement="top"> <span
+												class="glyphicon glyphicon-remove"></span>
+										</a></td>
+									</tr>
+									<tbody>
+										<tr>
+											<td class="text-center" colspan="7s"
+												th:if="${#lists.isEmpty(usuarios)}">Nenhum usuário foi
+												encontrado</td>
+										</tr>
+									</tbody>
+
+								</table>
+
+								<!-- Paginação -->
+
+								<div class="paginacao">
+									<div class="form-group col-md-1">
+										<select class="form-control pagination"
+											id="pageSizeSelectUsuarios">
+											<option th:each="pageSize : ${pageSizes}"
+												th:text="${pageSize}" th:value="${pageSize}"
+												th:selected="${pageSize} == ${selectedPageSize}"></option>
+										</select>
 									</div>
-								</td>
-
-								<td class="text-center" th:text="${{usuario.enabled}}"></td>
-
-								<td class="text-center"><a class="btn btn-warning btn-xs"
-									th:href="@{/usuarios/{id}(id=${usuario.id})}" title="Editar"
-									rel="tooltip" data-placement="top"> <span
-										class="glyphicon glyphicon-pencil"></span>
-								</a> <a class="btn btn-danger btn-xs" data-toggle="modal"
-									data-target="#confirmacaoExclusaoModal"
-									th:attr="data-id=${usuario.id}, data-nome=${usuario.nome}"
-									title="Excluir" rel="tooltip" data-placement="top"> <span
-										class="glyphicon glyphicon-remove"></span>
-								</a></td>
-							</tr>
-							<tbody>
-								<tr>
-									<td class="text-center" colspan="7s"
-										th:if="${#lists.isEmpty(usuarios)}">Nenhum usuário foi
-										encontrado</td>
-								</tr>
-							</tbody>
-
-						</table>
-
-						<!-- Paginação -->
-
-						<div class="row">
-							<div class="form-group col-md-1">
-								<select class="form-control pagination"
-									id="pageSizeSelectUsuarios">
-									<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
-										th:value="${pageSize}"
-										th:selected="${pageSize} == ${selectedPageSize}"></option>
-								</select>
-							</div>
-							<div th:if="${usuarios.totalPages != 1}"
-								class="form-group col-md-11 pagination-centered">
-								<ul class="pagination">
-									<li th:class="${usuarios.number == 0} ? disabled"><a
-										class="pageLink"
-										th:href="@{/usuarios/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
-									</li>
-									<li th:class="${usuarios.number == 0} ? disabled"><a
-										class="pageLink"
-										th:href="@{/usuarios/(pageSize=${selectedPageSize}, page=${usuarios.number})}">&larr;</a>
-									</li>
-									<li
-										th:class="${usuarios.number == (page - 1)} ? 'active pointer-disabled'"
-										th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
-										<a class="pageLink"
-										th:href="@{/usuarios/(pageSize=${selectedPageSize}, page=${page})}"
-										th:text="${page}"></a>
-									</li>
-									<li
-										th:class="${usuarios.number + 1 == usuarios.totalPages} ? disabled">
-										<a class="pageLink"
-										th:href="@{/usuarios/(pageSize=${selectedPageSize}, page=${usuarios.number + 2})}">&rarr;</a>
-									</li>
-									<li
-										th:class="${usuarios.number + 1 == usuarios.totalPages} ? disabled">
-										<a class="pageLink"
-										th:href="@{/usuarios/(pageSize=${selectedPageSize}, page=${usuarios.totalPages})}">&raquo;</a>
-									</li>
-								</ul>
+									<div th:if="${usuarios.totalPages != 1}"
+										class="form-group col-md-11 pagination-centered">
+										<ul class="pagination">
+											<li th:class="${usuarios.number == 0} ? disabled"><a
+												class="pageLink"
+												th:href="@{/usuarios/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+											</li>
+											<li th:class="${usuarios.number == 0} ? disabled"><a
+												class="pageLink"
+												th:href="@{/usuarios/(pageSize=${selectedPageSize}, page=${usuarios.number})}">&larr;</a>
+											</li>
+											<li
+												th:class="${usuarios.number == (page - 1)} ? 'active pointer-disabled'"
+												th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+												<a class="pageLink"
+												th:href="@{/usuarios/(pageSize=${selectedPageSize}, page=${page})}"
+												th:text="${page}"></a>
+											</li>
+											<li
+												th:class="${usuarios.number + 1 == usuarios.totalPages} ? disabled">
+												<a class="pageLink"
+												th:href="@{/usuarios/(pageSize=${selectedPageSize}, page=${usuarios.number + 2})}">&rarr;</a>
+											</li>
+											<li
+												th:class="${usuarios.number + 1 == usuarios.totalPages} ? disabled">
+												<a class="pageLink"
+												th:href="@{/usuarios/(pageSize=${selectedPageSize}, page=${usuarios.totalPages})}">&raquo;</a>
+											</li>
+										</ul>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<div layout:include="usuario/dialog-confirmacao-exclusao"></div>
 			</div>
 		</div>
-		<div layout:include="usuario/dialog-confirmacao-exclusao"></div>
 	</div>
 
 </section>

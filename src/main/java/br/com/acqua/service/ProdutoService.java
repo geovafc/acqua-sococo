@@ -1,9 +1,12 @@
 package br.com.acqua.service;
 
+import static org.assertj.core.api.Assertions.catchThrowable;
+
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -28,16 +31,16 @@ public class ProdutoService {
 		try {
 			if (produto.getId() == null) {
 				produto.setDataCadastro(Date.valueOf(LocalDate.now()));
-			} 
-			
+			}
+
 			produtosRepository.save(produto);
 
 		} catch (DataIntegrityViolationException e) {
-			throw new IllegalArgumentException("Formato de data inválido");
+			throw new IllegalArgumentException("Código de barra já existente");
 		}
 	}
-	
-	public Page<Produto> findByPagination(int page, int size){
+
+	public Page<Produto> findByPagination(int page, int size) {
 		Pageable pageable = new PageRequest(page, size);
 		return produtosRepository.findAllByOrderByIdAsc(pageable);
 	}

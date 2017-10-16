@@ -30,6 +30,7 @@ public class AvatarProdService {
 	}
 
 	public AvatarProd getAvatarByUpload(MultipartFile file) {
+		
 		AvatarProd avatar = new AvatarProd();
 
 		if (file != null && file.getSize() > 0) {

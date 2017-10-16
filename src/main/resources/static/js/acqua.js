@@ -34,7 +34,7 @@ $('#confirmacaoExclusaoModal').on(
 // INICIO JAVASCRIPT RELACIONADOS A MOVIMENTACAO
 function obterProdutoPorCodigo(codigo) {
 	$.ajax({
-		url : "/movimentacoes/pesquisar/codigo/" + codigo,
+		url : "/movimentacoes/registrar/codigo/" + codigo,
 		success : function(data) {
 			$("#movimentacaoHolter").html(data);
 		}

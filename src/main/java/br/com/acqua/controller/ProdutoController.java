@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -74,6 +73,7 @@ public class ProdutoController {
 			@RequestParam(value = "file", required = false) MultipartFile file) {
 
 		AvatarProd avatar = new AvatarProd();
+		
 		if (erros.hasErrors()) {
 			return CADASTRO_VIEW;
 		}
@@ -99,49 +99,49 @@ public class ProdutoController {
 		return view;
 	}
 
-	@RequestMapping(value = { "/{id}", "/update" }, method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView editar(@PathVariable("id") Optional<Long> id, @ModelAttribute("produto") Produto produto,
-			RedirectAttributes attributes, @RequestParam(value = "file", required = false) MultipartFile file,
-			Errors erros) {
+	@GetMapping("/{id}")
+	public ModelAndView preeditar(@PathVariable("id") Optional<Long> id, @ModelAttribute("produto") Produto produto) {
+
 		ModelAndView view = new ModelAndView();
-		
-		if (id.isPresent()) {
-			if (erros.hasErrors()) {
-				view.setViewName("produto/produto-atualizar");
-				return view;
-			}
 
-			produto = produtoService.findById(id.get());
-			view.addObject("produto", produto);
-			view.setViewName("produto/produto-atualizar");
+		produto = produtoService.findById(id.get());
+		view.addObject("produto", produto);
+		view.setViewName("produto/produto-atualizar");
 
-			return view;
-		}
+		return view;
+
+	}
+	
+	@PostMapping("/update")
+	public ModelAndView editar(@Validated @ModelAttribute("produto") Produto produto,
+			RedirectAttributes attributes,
+			@RequestParam(value = "file", required = false) MultipartFile file) {
+		ModelAndView view = new ModelAndView();
 
 		view.setViewName("redirect:/produtos");
-
+		
 		if (file.isEmpty()) {
 			produtoService.updateNomeAndDescricaoAndCodigoBarra(produto);
 			attributes.addFlashAttribute("mensagem", "Produto salvo com sucesso!");
 			return view;
 		}
-
+		
 		AvatarProd avatar = new AvatarProd();
-
+		
 		Long idProduto = produto.getAvatar().getId();
-
+		
 		avatar = avatarService.getAvatarByUpload(file);
-
+		
 		avatar.setId(idProduto);
-
+		
 		AvatarProd av = avatarService.saveOrUpdate(avatar);
 
 		produto.setAvatar(av);
-
+		
 		produtoService.salvar(produto);
-
+		
 		attributes.addFlashAttribute("mensagem", "Produto salvo com sucesso!");
-
+		
 		return view;
 
 	}

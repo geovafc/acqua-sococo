@@ -12,24 +12,36 @@
 
 
 	<!-- Page Heading -->
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header">
 				Produtos <small>Todos os Produtos</small>
 			</h1>
 		</div>
-	</div>
+	</div>-->
 
-	<div layout:include="layout/mensagem-geral"></div>
+	
 
 
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-10 col-lg-offset-1 col-sm-12">
+			<ol class="breadcrumb">
+				<li><a th:href="@{/index}">Dashboard</a></li>
+				<li class="active">Produtos</li>
+			</ol>
+			
+			<div layout:include="layout/mensagem-geral"></div>
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="row">
-						<div class="col-xs-3">
-							<i class="fa fa-support fa-5x"></i>
+						<div class="col-lg-1">
+							<!-- <i class="fa fa-support fa-5x"></i> -->
+							<img class="imagem_acao" th:src="@{/imagens/ic_produtos.png}" />
+						</div>
+						<div class="col-lg-6">
+							<h3 class="page-header">
+								Produtos <small>Todos os produtos</small>
+							</h3>
 						</div>
 					</div>
 				</div>
@@ -47,7 +59,7 @@
 							<thead>
 								<tr>
 									<th class="text-center col-md-1">Imagem</th>
-									<th class="text-center col-md-1">Código</th>
+									<th class="text-center col-md-2">Código</th>
 									<th class="text-center col-md-2">Codigo Barras</th>
 									<th class="text-center col-md-2">Nome</th>
 									<th class="text-center col-md-2">Descrição</th>
@@ -56,7 +68,7 @@
 
 								</tr>
 							</thead>
-							
+
 
 							<tbody>
 								<tr th:each="produto: ${produtos}">
@@ -96,19 +108,19 @@
 
 
 						<!-- Paginação -->
-						
-						
 
-						<div class="row">
-							<div class="form-group col-md-1">
-								<select class="form-control pagination" id="pageSizeSelectProduto">
+
+
+						<div class="paginacao">
+							<div class="form-group col-lg-1">
+								<select class="form-control pagination"
+									id="pageSizeSelectProduto">
 									<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
 										th:value="${pageSize}"
 										th:selected="${pageSize} == ${selectedPageSize}"></option>
 								</select>
 							</div>
-							<div th:if="${produtos.totalPages != 1}"
-								class="form-group col-md-11 pagination-centered">
+							<div class="form-group col-lg-11 pagination-centered" th:if="${produtos.totalPages != 1}" >
 								<ul class="pagination">
 									<li th:class="${produtos.number == 0} ? disabled"><a
 										class="pageLink"
