@@ -38,17 +38,19 @@
 
 				<div class="panel-body">
 					<form class="form-horizontal" method="POST"
-						th:object="${movimentacao}" th:action="@{/movimentacoes}">
+						th:object="${movimentacao}" th:action="@{/movimentacoes}"
+						 autocomplete="off">
 
-						<input type="hidden" th:field="*{id}" /> <input type="hidden"
-							th:field="*{produto}" /> <input type="hidden"
-							th:field="*{dataHora}" />
+						<input type="hidden" th:field="*{id}" /> 
+						<input type="hidden" th:field="*{produto}" /> 
+						<input type="hidden" th:field="*{dataHora}" />
+						<input type="hidden" th:field="*{avatar}" />
 
 						<div class="row">
 							<div class="col-lg-5">
 								<div class="card-img-bottom" style="text-align: center;">
 									<img class="img-produto"
-										th:src="@{/avatar-prod/load/{id}(id=${movimentacao.produto.avatar.id})}" />
+										th:src="@{/avatar-prod/load/{id}(id=${movimentacao.avatar.id})}" />
 								</div>
 							</div>
 

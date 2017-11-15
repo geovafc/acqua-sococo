@@ -4,22 +4,12 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout/layoutPadrao">
 
-
 <head>
 <title>Cadastro de Produto</title>
 </head>
 
 <section layout:fragment="conteudo">
 
-
-	<!-- Page Heading -->
-	<!-- <div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header">
-				Produto <small>Atualizar Informações</small>
-			</h1>
-		</div>
-	</div> -->
 	<div class="row">
 		<div class="col-lg-10 col-lg-offset-1 col-sm-12">
 			<ol class="breadcrumb">
@@ -51,9 +41,9 @@
 						<div layout:include="layout/mensagem-erro"></div>
 						<div layout:include="layout/mensagem-geral"></div>
 
-						<input type="hidden" th:field="*{id}" /> <input type="hidden"
-							th:field="*{dataCadastro}" /> <input type="hidden"
-							th:field="*{avatar}" />
+						<input type="hidden" th:field="*{id}" /> 
+						<input type="hidden" th:field="*{dataCadastro}" /> 
+						<input type="hidden" th:field="*{avatar}" />
 
 						<div class="row">
 							<div class="text-center col-lg-3 col-lg-offset-1">

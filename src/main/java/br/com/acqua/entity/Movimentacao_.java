@@ -15,6 +15,7 @@ public abstract class Movimentacao_ {
 	public static volatile SingularAttribute<Movimentacao, String> lote;
 	public static volatile SingularAttribute<Movimentacao, Usuario> usuario;
 	public static volatile SingularAttribute<Movimentacao, Long> id;
+	public static volatile SingularAttribute<Movimentacao, AvatarProd> avatar;
 	public static volatile SingularAttribute<Movimentacao, String> notaFiscal;
 	public static volatile SingularAttribute<Movimentacao, Date> dataHora;
 

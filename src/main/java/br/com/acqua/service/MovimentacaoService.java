@@ -30,20 +30,18 @@ public class MovimentacaoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	@Autowired
-	private UserRepository usuarioRepositorio;
-
-	@Autowired
 	private UserRepository userRepository;
 
 	public void salvar(Movimentacao movimentacao, String userName) {
 
 		Usuario user = userRepository.findByUsername(userName);
 
+		movimentacao.setUsuario(user);
 		try {
-			movimentacao.setUsuario(user);
 			if (movimentacao.getDataHora() == null) {
 				movimentacao.setDataHora(new Date(System.currentTimeMillis()));
 			}
+			System.out.println("Movimentação Avatar: " + movimentacao.getAvatar().getTitulo());
 			movimentacaoRepository.save(movimentacao);
 
 		} catch (DataIntegrityViolationException e) {

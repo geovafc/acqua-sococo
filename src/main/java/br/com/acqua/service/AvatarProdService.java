@@ -28,6 +28,10 @@ public class AvatarProdService {
 	public AvatarProd buscarPorFile(byte[] avatar){
 		return avatarRepository.findByAvatar(avatar);
 	}
+	
+	public AvatarProd buscarTitulo(String titulo){
+		return avatarRepository.findByTitulo(titulo);
+	}
 
 	public AvatarProd getAvatarByUpload(MultipartFile file) {
 		

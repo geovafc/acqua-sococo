@@ -100,6 +100,37 @@ public class MovimentacaoController {
 		return view;
 	}
 
+	@GetMapping("/registrar/codigo")
+	public ModelAndView pesquisarProdutoPorCodigo(@ModelAttribute("filtro") ProdutoFilter filtro) {
+
+		this.view = new ModelAndView(CADASTRO_VIEW);
+
+		if (filtro.getCodigo() == "") {
+			return this.pesquisar(filtro);
+		}
+		try {
+			Produto produto = new Produto();
+			produto = produtoService.findByCodigo(filtro);
+
+			if (produto == null) {
+				return this.pesquisar(filtro);
+			}
+
+			Movimentacao movimentacao = new Movimentacao();
+			movimentacao.setDataHora(new Date(System.currentTimeMillis()));
+			movimentacao.setProduto(produto);
+			movimentacao.setAvatar(produto.avatar);
+
+			view.addObject(movimentacao);
+
+			return view;
+
+		} catch (Exception e) {
+			return this.pesquisar(filtro);
+		}
+
+	}
+
 	@RequestMapping(method = RequestMethod.POST)
 	public String salvar(@Validated Movimentacao movimentacao, RedirectAttributes attributes) throws Exception {
 
@@ -166,36 +197,6 @@ public class MovimentacaoController {
 		// view.addObject("countMovimentacoesByMesAno",
 		// movimentacaoService.getCountMovimentacoesByMesAno() );
 		return ResponseEntity.status(HttpStatus.OK).body(movimentacaoService.getCountMovimentacoesByMesAno());
-	}
-
-	@GetMapping("/registrar/codigo")
-	public ModelAndView pesquisarProdutoPorCodigo(@ModelAttribute("filtro") ProdutoFilter filtro) {
-
-		this.view = new ModelAndView(CADASTRO_VIEW);
-
-		if (filtro.getCodigo() == "") {
-			return this.pesquisar(filtro);
-		}
-		try {
-			Produto produto = new Produto();
-			produto = produtoService.findByCodigo(filtro);
-
-			if (produto == null) {
-				return this.pesquisar(filtro);
-			}
-
-			Movimentacao movimentacao = new Movimentacao();
-			movimentacao.setDataHora(new Date(System.currentTimeMillis()));
-			movimentacao.setProduto(produto);
-
-			view.addObject(movimentacao);
-
-			return view;
-
-		} catch (Exception e) {
-			return this.pesquisar(filtro);
-		}
-
 	}
 
 }
