@@ -1,12 +1,9 @@
 package br.com.acqua.service;
 
-import static org.assertj.core.api.Assertions.catchThrowable;
-
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
