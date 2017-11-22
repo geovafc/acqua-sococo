@@ -5,12 +5,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.acqua.entity.AvatarProd;
 import br.com.acqua.entity.Produto;
@@ -23,16 +23,24 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository produtosRepository;
 
-	public void salvar(Produto produto) {
+	@Autowired
+	private AvatarProdService avatarService;
+
+	public void salvar(Produto produto, MultipartFile file) {
+
+		AvatarProd avatar = new AvatarProd();
 
 		try {
 			if (produto.getId() == null) {
 				produto.setDataCadastro(Date.valueOf(LocalDate.now()));
 			}
+			avatar = avatarService.getAvatarByUpload(file);
+			System.out.println("Tipo: " + avatar.getTipo());
+			produto.setAvatar(avatar);
 
 			produtosRepository.save(produto);
 
-		} catch (DataIntegrityViolationException e) {
+		} catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException("Código de barra já existente");
 		}
 	}
@@ -60,10 +68,27 @@ public class ProdutoService {
 	}
 
 	@Transactional(readOnly = false)
-	public void updateNomeAndDescricaoAndCodigoBarra(Produto produto) {
-		System.out.println(produto.getNome() + produto.getDescricao() + produto.getCodigoDeBarras() + produto.getId());
-		produtosRepository.updateNomeAndDescricaoAndCodigoBarra(produto.getNome(), produto.getDescricao(),
-				produto.getCodigoDeBarras(), produto.getId());
+	public void update(Produto produto, MultipartFile file) {
+
+		AvatarProd avatar = avatarService.getAvatarByUpload(file);
+
+		System.out.println("Titulo: " + avatar.getTitulo());
+		System.out.println("tipo: " + avatar.getTipo());
+
+		try {
+			if (avatar.getTitulo().equals("default.png")) {
+				produtosRepository.updateNomeAndDescricaoAndCodigoBarra(produto.getNome(), produto.getDescricao(),
+						produto.getCodigoDeBarras(), produto.getId());
+			} else {
+				AvatarProd avatarSave = avatarService.saveOrUpdate(avatar);
+				produto.setAvatar(avatarSave);
+				produtosRepository.save(produto);
+			}
+
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Falha em Atualizar o produto");
+		}
+
 	}
 
 	public Produto findByAvatar(AvatarProd avatar) {

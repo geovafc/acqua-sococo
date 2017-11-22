@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.acqua.entity.AvatarProd;
 import br.com.acqua.entity.Produto;
 import br.com.acqua.entity.paginator.Pager;
 import br.com.acqua.service.AvatarProdService;
@@ -34,12 +33,11 @@ public class ProdutoController {
 	private static final int[] PAGE_SIZES = { 5, 10, 20 };
 
 	private static final String CADASTRO_VIEW = "produto/produto-cadastro";
+	private static final String ATUALIZAR_VIEW = "produto/produto-atualizar";
+	private static final String PRODUTOS_VIEW = "redirect:/produtos";
 
 	@Autowired
 	private ProdutoService produtoService;
-
-	@Autowired
-	private AvatarProdService avatarService;
 
 	@GetMapping
 	public ModelAndView showPersonsPage(@RequestParam("pageSize") Optional<Integer> pageSize,
@@ -72,21 +70,17 @@ public class ProdutoController {
 	public String salvar(@Validated Produto produto, Errors erros, RedirectAttributes attributes,
 			@RequestParam(value = "file", required = false) MultipartFile file) {
 
-		AvatarProd avatar = new AvatarProd();
-		
 		if (erros.hasErrors()) {
 			return CADASTRO_VIEW;
 		}
-		avatar = avatarService.getAvatarByUpload(file);
-		produto.setAvatar(avatar);
 
 		try {
-			produtoService.salvar(produto);
+			produtoService.salvar(produto, file);
 			attributes.addFlashAttribute("mensagem", "Produto salvo com sucesso!");
 			return "redirect:/produtos";
 
 		} catch (IllegalArgumentException e) {
-			erros.rejectValue("dataCadastro", null, e.getMessage());
+			erros.rejectValue("Erro no cadastro", null, e.getMessage());
 			return CADASTRO_VIEW;
 		}
 	}
@@ -100,50 +94,31 @@ public class ProdutoController {
 	}
 
 	@GetMapping("/{id}")
-	public ModelAndView preeditar(@PathVariable("id") Optional<Long> id, @ModelAttribute("produto") Produto produto) {
-
-		ModelAndView view = new ModelAndView();
-
-		produto = produtoService.findById(id.get());
-		view.addObject("produto", produto);
-		view.setViewName("produto/produto-atualizar");
-
+	public ModelAndView preeditar(@PathVariable("id") Produto produto) {
+		ModelAndView view = new ModelAndView(ATUALIZAR_VIEW);
+		view.addObject(produto);
 		return view;
-
 	}
 	
 	@PostMapping("/update")
 	public ModelAndView editar(@Validated @ModelAttribute("produto") Produto produto,
-			RedirectAttributes attributes,
+			Errors erros, RedirectAttributes attributes,
 			@RequestParam(value = "file", required = false) MultipartFile file) {
-		ModelAndView view = new ModelAndView();
-
-		view.setViewName("redirect:/produtos");
 		
-		if (file.isEmpty()) {
-			produtoService.updateNomeAndDescricaoAndCodigoBarra(produto);
+		ModelAndView view = new ModelAndView(PRODUTOS_VIEW);
+		
+		try {
+			System.out.println("Existe File: " + file.isEmpty());
+			System.out.println("Produto avatar ID: " + produto.avatar.getId());
+			produtoService.update(produto, file);
 			attributes.addFlashAttribute("mensagem", "Produto salvo com sucesso!");
+			
+			return view;
+		} catch (IllegalArgumentException e) {
+			erros.rejectValue("Erro no cadastro", null, e.getMessage());
 			return view;
 		}
 		
-		AvatarProd avatar = new AvatarProd();
-		
-		Long idProduto = produto.getAvatar().getId();
-		
-		avatar = avatarService.getAvatarByUpload(file);
-		
-		avatar.setId(idProduto);
-		
-		AvatarProd av = avatarService.saveOrUpdate(avatar);
-
-		produto.setAvatar(av);
-		
-		produtoService.salvar(produto);
-		
-		attributes.addFlashAttribute("mensagem", "Produto salvo com sucesso!");
-		
-		return view;
-
 	}
 
 	@DeleteMapping("{id}")
