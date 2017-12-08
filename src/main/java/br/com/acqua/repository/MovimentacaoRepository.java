@@ -1,6 +1,7 @@
 package br.com.acqua.repository;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,4 +29,7 @@ public interface MovimentacaoRepository extends JpaRepository<Movimentacao,Long>
     Page<Movimentacao> findByDataHoraBetween(Date inicio, Date fim, Pageable pageable);
     
     Page<Movimentacao> findByDataHoraBetweenAndProduto(Date inicio, Date fim,Produto produto, Pageable pageable);
+
+    List<Movimentacao> findTop10ByOrderByIdDesc();
+
 }

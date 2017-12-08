@@ -98,7 +98,7 @@ public class MovimentacaoService {
 	}
 
 	public List<Movimentacao> listar() {
-		return movimentacaoRepository.findAll();
+		return movimentacaoRepository.findTop10ByOrderByIdDesc();
 	}
 
 	public Page<Movimentacao> pesquisar(MovimentacaoFilter filter, int page, int size) throws Throwable {
