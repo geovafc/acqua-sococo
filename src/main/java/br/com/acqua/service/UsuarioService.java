@@ -37,23 +37,16 @@ public class UsuarioService {
 			
 			List<Permissao> permissaos = new ArrayList<>();
 
-
+		
 			if (usuario.getId() == null) {
-
-				permissaos.add(permissaoRepository.findByNome("ROLE_USER"));
 
 				if (usuario.getDataCadastro() == null) {
 					usuario.setDataCadastro(Date.valueOf(LocalDate.now()));
 				}
-
-			} else {
-				
-				System.out.println(usuarioRepository.findByUsername(usuario.getUsername()).getPermissoes().size());
-				permissaos.addAll(usuarioRepository.findByUsername(usuario.getUsername()).getPermissoes());
-
-			}
+			} 
 			
-			usuario.setEnabled(Boolean.TRUE);
+			permissaos.add(permissaoRepository.findByNome(usuario.getPerfil()));
+			
 
 			usuario.setPermissaos(permissaos);
 			

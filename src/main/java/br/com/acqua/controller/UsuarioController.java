@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.acqua.entity.Permissao;
 import br.com.acqua.entity.Usuario;
 import br.com.acqua.entity.paginator.Pager;
 import br.com.acqua.service.UsuarioService;
@@ -38,9 +39,10 @@ public class UsuarioController {
 	
 	@GetMapping("/novo")
 	public ModelAndView novo(){
-		Usuario usuario = new Usuario();	
+		Usuario usuario = new Usuario();
+	
 		ModelAndView view = new ModelAndView(CADASTRO_VIEW);
-		view.addObject("usuario", usuario);	
+		view.addObject("usuario", usuario);
 		return view;
 	}
 	
@@ -88,11 +90,9 @@ public class UsuarioController {
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
 		if(id.isPresent()){
 			usuario = usuarioService.findById(id.get());
+			usuario.setPerfil(usuario.getPermissoes().get(0).getNome());
 			mv.addObject("usuario", usuario);
-			
-			System.out.println("OBJETO " + usuario.getNome());
 		}
-		
 		return mv;
 	}
 	

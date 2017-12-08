@@ -3,6 +3,8 @@ $(function(){
 	$('.fileinput').fileinput();
 	
 	$('[rel="tooltip"]').tooltip();
+	
+	$('#dataTable') //.DataTable();
 	  
  });
 
@@ -74,7 +76,13 @@ function obterProdutoPorCodigo(codigo) {
 };
 
 
-// Call the dataTables jQuery plugin
+
+/* Este método foi colocado dentro da função function no inicio.
+//Call the dataTables jQuery plugin
 $(document).ready(function() {
-	$('#dataTable')
+	$('#dataTable').DataTable();	
 });
+*/
+
+
+
