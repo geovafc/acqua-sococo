@@ -66,6 +66,10 @@ public class Produto implements Serializable {
 
 	@OneToMany(mappedBy = "produto", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Movimentacao> movimentacoes = new ArrayList<>();
+	
+	public boolean isAtivo() {
+		return this.enabled;
+	}
 
 	public Long getId() {
 		return id;

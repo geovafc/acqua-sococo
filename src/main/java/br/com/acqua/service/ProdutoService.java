@@ -47,7 +47,7 @@ public class ProdutoService {
 
 	public Page<Produto> findByPagination(int page, int size) {
 		Pageable pageable = new PageRequest(page, size);
-		return produtosRepository.findAllByOrderByIdAsc(pageable);
+		return produtosRepository.findByEnabledOrderByIdDesc(Boolean.TRUE, pageable);
 	}
 
 	public List<Produto> findAll() {
