@@ -1,5 +1,6 @@
 package br.com.acqua.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -53,7 +54,12 @@ public class MovimentacaoService {
 	public List<MovimentacaoMesAnoDTO> getCountMovimentacoesByMesAno() {
 		MovimentacaoMesAnoDTO objeto;
 		List<MovimentacaoMesAnoDTO> projetosAtivos = new ArrayList<>();
-		Integer ano = 2017;
+		//Integer ano = 2017;
+		
+		Date data = new Date();
+		SimpleDateFormat formatador = new SimpleDateFormat("yyyy");
+		String ano = formatador.format( data );
+		
 		HashMap<Integer, String> mesPorNumero = new HashMap<>();
 		mesPorNumero.put(1, "01");
 		mesPorNumero.put(2, "02");
@@ -71,9 +77,9 @@ public class MovimentacaoService {
 		for (int i = 1; i < 13; i++) {
 
 			objeto = new MovimentacaoMesAnoDTO();
-			Long quantidadeMovimentacoes = movimentacaoRepository.countByMovimentacoesFromMesAno(i, ano);
+			Long quantidadeMovimentacoes = movimentacaoRepository.countByMovimentacoesFromMesAno(i, Integer.valueOf(ano.toString()));
 
-			objeto.setMes(ano.toString() + "-" + mesPorNumero.get(i));
+			objeto.setMes(ano + "-" + mesPorNumero.get(i));
 			objeto.setQuantidadeMovimentacoes(quantidadeMovimentacoes);
 			objeto.setAno(Calendar.YEAR + "");
 			projetosAtivos.add(objeto);
@@ -98,6 +104,7 @@ public class MovimentacaoService {
 	}
 
 	public List<Movimentacao> listar() {
+		
 		return movimentacaoRepository.findAll();
 	}
 

@@ -81,6 +81,7 @@ public class UsuarioController {
 			return CADASTRO_VIEW;
 		}
 	}
+
 	
 	@GetMapping(value = {"{id}"})
 	public ModelAndView editar(@PathVariable("id") Optional<Long> id, @ModelAttribute("usuario") Usuario usuario) {

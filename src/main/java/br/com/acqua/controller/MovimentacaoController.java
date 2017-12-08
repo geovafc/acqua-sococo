@@ -1,5 +1,6 @@
 package br.com.acqua.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -55,6 +56,7 @@ public class MovimentacaoController {
 	public ModelAndView showPersonsPage(@RequestParam("pageSize") Optional<Integer> pageSize,
 			@ModelAttribute("filtro") MovimentacaoFilter filtro, @RequestParam("page") Optional<Integer> page) {
 		ModelAndView modelAndView = new ModelAndView(CADASTRO_LISTVIEW);
+		
 
 		int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
 

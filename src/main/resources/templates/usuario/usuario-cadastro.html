@@ -96,6 +96,8 @@
 										</label>
 									</div>
 								</div>
+															
+								
 								<div class="form-group"
 									th:classappend="${#fields.hasErrors('password')} ? has-error">
 									<label for="password" class="col-lg-3 control-label">Password</label>
@@ -104,6 +106,110 @@
 											th:field="*{password}" placeholder="Senha" autocomplete="off"/>
 									</div>
 								</div>
+								
+																<!-- Lista Roles -->
+		<div class="panel panel-default panel-primary">
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title pde-detalhe-panel">Autorizações</h1>
+					<a class="btn btn-link pde-link-panel-detalhe" data-toggle="modal"
+						data-target="#addPerfilModal"
+						>Adicionar Perfil</a>
+				</div>
+			</div>
+
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<th class="text-center col-md-1">#</th>
+						<th class="text-center col-md-2">Perfil</th>
+						<th class="text-center col-md-2">Ação</th>
+					</thead>
+
+					<tbody>
+						<tr th:each="perfil : ${usuario.permissoes}">
+							<td class="text-center" th:text="${perfil.id}"></td>
+							<td class="text-center" th:text="${perfil.nome}"></td>
+
+							<td class="text-center"><a class="btn btn-link btn-xs"
+								th:href="@{/perfil/excluir/{id}(id=${perfil.id})}"
+								title="Excluir" rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-remove"></span>
+							</a></td>
+						</tr>
+
+						<tr>
+							<td th:if="${#lists.isEmpty(usuario.permissoes)}" class="text-center"
+								colspan="12">Nenhum Perfil cadastrado</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+		
+				<!-- Modal adicionar Perfil -->
+		<!-- Modal -->
+		<div class="modal fade" id="addPerfilModal" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">Adicionar Perfil</h4>
+					</div>
+					<div class="modal-body">
+
+						<form method="POST" th:action="@{/usuarios/adc-perfil}"
+							th:object="${usuario}">
+
+							<div class="panel panel-default">
+
+
+								<div class="panel-body">
+
+									<input type="hidden"  /> <input type="hidden"
+										
+ />
+
+									<div class="row">
+
+										<div class="form-group col-sm-10">
+											<label for="operadora">Perfil</label>
+											 <select
+												class="form-control" name="perfil" >
+ 												 <option value="ROLE_ADMIN">ADMIN</option>
+ 												 <option value="ROLE_USER">USER</option>
+
+											</select>
+										</div>
+
+
+									</div>
+
+
+									<hr />
+
+									<div class="form-group">
+										<div>
+											<button type="submit" class="btn btn-primary">Salvar</button>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</form>
+
+
+					</div>
+
+				</div>
+			</div>
+		</div>
 
 								<div class="form-group">
 									<div class="col-lg-6 col-lg-offset-3">

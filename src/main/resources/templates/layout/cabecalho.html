@@ -48,16 +48,16 @@
 					</ul></li>
 
 
-				<li class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false"><i class="fa fa-user"></i>
-						Usuários<span class="caret"></span> </a>
+				<li class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')"><a
+					href="#" class="dropdown-toggle" data-toggle="dropdown"
+					role="button" aria-haspopup="true" aria-expanded="false"><i
+						class="fa fa-user"></i> Usuários<span class="caret"></span> </a>
 					<ul class="dropdown-menu">
 						<li><a th:href="@{/usuarios/novo}">Registrar </a></li>
 						<li role="separator" class="divider"></li>
 						<li><a th:href="@{/usuarios}">Pesquisar </a></li>
-					</ul></li>
 			</ul>
+			
 
 			<!-- Top Menu Items -->
 			<ul class="nav navbar-nav navbar-right">
@@ -74,7 +74,7 @@
 									type="submit" class="btn">
 									<!-- <span style="float: left; padding: 3px 12px; clear: both; font-weight: 400;"
 										class="fa fa-fw fa-power-off"></span> -->
-										Sair
+									Sair
 								</button>
 								<input type="hidden" th:name="${_csrf.parameterName}"
 									th:value="${_csrf.token}" />
