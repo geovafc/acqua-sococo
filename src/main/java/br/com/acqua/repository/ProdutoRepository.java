@@ -1,5 +1,7 @@
 package br.com.acqua.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +18,8 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 	Page<Produto> findAllByOrderByIdAsc(Pageable pageable);
 	
 	Page<Produto> findByEnabledOrderByIdDesc(boolean enaled, Pageable pageable);
+	
+	List<Produto> findByEnabledOrderByIdDesc(boolean enaled);
 	
 	Produto findByCodigoDeBarras(String codigoDeBarras);
 	

@@ -100,6 +100,10 @@ public class MovimentacaoService {
 	public List<Movimentacao> listar() {
 		return movimentacaoRepository.findTop10ByOrderByIdDesc();
 	}
+	
+	public List<Movimentacao> findAll() {
+		return movimentacaoRepository.findAll();
+	}
 
 	public Page<Movimentacao> pesquisar(MovimentacaoFilter filter, int page, int size) throws Throwable {
 
