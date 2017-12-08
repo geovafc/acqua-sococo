@@ -88,6 +88,7 @@
 											rel="tooltip" data-placement="top"> <span
 												class="glyphicon glyphicon-pencil"></span>
 										</a> <a class="btn btn-danger btn-xs" data-toggle="modal"
+											sec:authorize="hasRole('ADMIN')"
 											data-target="#confirmacaoExclusaoModal"
 											th:attr="data-id=${usuario.id}, data-nome=${usuario.nome}"
 											title="Excluir" rel="tooltip" data-placement="top"> <span

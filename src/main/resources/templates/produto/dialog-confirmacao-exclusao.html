@@ -8,8 +8,11 @@
 	data-keyboard="false" data-backdrop="static">
 	<div class="modal-dialog">
 	
-		<form th:attr="data-url-base=@{/produto}" method="POST">
+		<form th:attr="data-url-base=@{/produtos}" method="POST">
 			<input type="hidden" name="_method" value="DELETE" />
+			
+			<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}" />
 
 			<div class="modal-content">
 				<div class="modal-header">

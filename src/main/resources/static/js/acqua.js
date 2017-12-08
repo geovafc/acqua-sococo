@@ -1,8 +1,11 @@
+//quando carregar a pagina excuta essa função
+$(function(){
+	$('.fileinput').fileinput();
+	
+	$('[rel="tooltip"]').tooltip();
+	  
+ });
 
-
-$('.fileinput').fileinput();
-
-$('[rel="tooltip"]').tooltip();
 
 $('#confirmacaoExclusaoModal').on(
 		'show.bs.modal',
