@@ -122,7 +122,16 @@ public class ProdutoController {
 
 	@DeleteMapping("{id}")
 	public String excluir(@PathVariable("id") Long id, RedirectAttributes attributes) {
+		System.out.println("delete");
 		produtoService.delete(id);
+		attributes.addFlashAttribute("mensagem", "Produto excluido com sucesso!");
+		return "redirect:/produtos";
+	}
+	
+	@PostMapping("/enabled/{id}")
+	public String updateEnabled(@PathVariable("id") Long id, RedirectAttributes attributes) {
+		System.out.println("post");
+		produtoService.updateEnable(id);
 		attributes.addFlashAttribute("mensagem", "Produto excluido com sucesso!");
 		return "redirect:/produtos";
 	}

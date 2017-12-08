@@ -60,6 +60,9 @@ public class Produto implements Serializable {
 
 	@Column(name = "imagem_content_type")
 	private String imagemContentType;
+	
+	@Column(name = "enabled")
+	private boolean enabled;
 
 	@OneToMany(mappedBy = "produto", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Movimentacao> movimentacoes = new ArrayList<>();
@@ -126,6 +129,14 @@ public class Produto implements Serializable {
 
 	public void setMovimentacoes(List<Movimentacao> movimentacoes) {
 		this.movimentacoes = movimentacoes;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	@Override
