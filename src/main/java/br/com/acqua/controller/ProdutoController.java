@@ -20,7 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.acqua.entity.Produto;
 import br.com.acqua.entity.paginator.Pager;
-import br.com.acqua.service.AvatarProdService;
 import br.com.acqua.service.ProdutoService;
 
 @Controller
