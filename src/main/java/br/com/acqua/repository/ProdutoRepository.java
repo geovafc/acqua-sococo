@@ -15,6 +15,8 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 	
 	Page<Produto> findAllByOrderByIdAsc(Pageable pageable);
 	
+	Page<Produto> findByEnabledOrderByIdDesc(boolean enaled, Pageable pageable);
+	
 	Produto findByCodigoDeBarras(String codigoDeBarras);
 	
 	Produto findByAvatar(AvatarProd avatar);

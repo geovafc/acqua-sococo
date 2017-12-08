@@ -19,7 +19,7 @@ import br.com.acqua.repository.movimentacao.MovimentacaoRepositoryQuery;
 
 public interface MovimentacaoRepository extends JpaRepository<Movimentacao,Long>, MovimentacaoRepositoryQuery {
 
-	Page<Movimentacao> findAllByOrderByIdAsc(Pageable pageable);
+	Page<Movimentacao> findAllByOrderByIdDesc(Pageable pageable);
 	//Falta fazer para contar po ano
 	@Query("select count(m) from Movimentacao m where month(m.dataHora) = :dataMovimentacao and year(m.dataHora) = :anoMovimentacao")
 	Long countByMovimentacoesFromMesAno(@Param("dataMovimentacao") Integer dataMovimentacao, @Param("anoMovimentacao") Integer anoMovimentacao);

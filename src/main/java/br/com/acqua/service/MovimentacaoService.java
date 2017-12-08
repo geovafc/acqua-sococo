@@ -86,7 +86,7 @@ public class MovimentacaoService {
 
 	public Page<Movimentacao> findByPagination(int page, int size) {
 		Pageable pageable = new PageRequest(page, size);
-		return movimentacaoRepository.findAllByOrderByIdAsc(pageable);
+		return movimentacaoRepository.findAllByOrderByIdDesc(pageable);
 	}
 
 	public static Date converterDateFim(Date date) {
