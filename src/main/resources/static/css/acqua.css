@@ -23,9 +23,13 @@
 }
 
 .img-produto {
-	width: 20em;
+	/* width: 20em;
 	padding-bottom: 2em;
-	padding-top: 2em;
+	padding-top: 2em; */
+	width: 75%;
+	height: 280px;
+	margin-top: 10%;
+	margin-bottom: 10%;
 }
 
 

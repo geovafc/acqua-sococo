@@ -17,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -60,14 +61,17 @@ public class Usuario implements Serializable {
 	private Date dataCadastro;
 
 	@Column(name = "enabled")
-	private boolean enabled;
+	private boolean enabled = true;
 
 	@OneToMany(mappedBy = "usuario", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Movimentacao> movimentacoes = new ArrayList<>();
-
+	
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "usuario_permissoes",joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "permissao_id", referencedColumnName = "id"))
 	private List<Permissao> permissoes;
+	
+	@Transient
+	private String perfil;
 	
 	public Long getId() {
 		return id;
@@ -147,6 +151,14 @@ public class Usuario implements Serializable {
 
 	public void setPermissaos(List<Permissao> permissoes) {
 		this.permissoes = permissoes;
+	}
+	
+	public String getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
 	}
 
 	@Override
