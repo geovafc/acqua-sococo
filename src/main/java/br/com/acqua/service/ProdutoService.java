@@ -95,4 +95,10 @@ public class ProdutoService {
 		return produtosRepository.findByAvatar(avatar);
 	}
 
+	public void updateEnable(Long id) {
+		System.out.println("Passou aqui");
+		produtosRepository.updateEnable(false, id);
+
+	}
+
 }

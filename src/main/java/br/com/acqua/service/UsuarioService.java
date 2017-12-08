@@ -34,38 +34,64 @@ public class UsuarioService {
 
 	public void salvar(Usuario usuario) {
 		try {
+			Usuario usuarioSalvo = usuarioRepository.findOne(usuario.getId());
 			
-			List<Permissao> permissaos = new ArrayList<>();
-
-
-			if (usuario.getId() == null) {
-
-				permissaos.add(permissaoRepository.findByNome("ROLE_USER"));
-
-				if (usuario.getDataCadastro() == null) {
-					usuario.setDataCadastro(Date.valueOf(LocalDate.now()));
-				}
-
-			} else {
+			if (usuario.getPassword() != null){
+				String hash = new BCryptPasswordEncoder().encode(usuario.getPassword());
+				usuario.setPassword(hash);
 				
-				System.out.println(usuarioRepository.findByUsername(usuario.getUsername()).getPermissoes().size());
-				permissaos.addAll(usuarioRepository.findByUsername(usuario.getUsername()).getPermissoes());
+			} 
 
+			adcPermissoesUsuario(usuario);
+			
+//Metodo para salvar a senha do usuario caso ela venha vazia da view
+			if (usuarioSalvo != null && usuario.getPassword() == null){
+				usuario.setPassword(usuarioSalvo.getPassword());
 			}
 			
-			usuario.setEnabled(Boolean.TRUE);
-
-			usuario.setPermissaos(permissaos);
 			
-			String hash = new BCryptPasswordEncoder().encode(usuario.getPassword());
 
-			usuario.setPassword(hash);
 
 			usuarioRepository.save(usuario);
 
 		} catch (DataIntegrityViolationException e) {
 			throw new IllegalArgumentException("Algo deu errado ao salvar este operador");
 		}
+	}
+	
+	public void atualizarSenha(Usuario usuario) {
+		try {
+			Usuario usuarioSalvo = usuarioRepository.findOne(usuario.getId());
+			
+			if (usuario.getPassword() != null){
+				String hash = new BCryptPasswordEncoder().encode(usuario.getPassword());
+				usuarioSalvo.setPassword(hash);
+			}	
+			
+
+
+			usuarioRepository.save(usuario);
+
+		} catch (DataIntegrityViolationException e) {
+			throw new IllegalArgumentException("Algo deu errado ao atualizar a senha do operador");
+		}
+	}
+
+	private void adcPermissoesUsuario(Usuario usuario) {
+		List<Permissao> permissaos = new ArrayList<>();
+
+
+		if (usuario.getId() == null) {
+
+			if (usuario.getDataCadastro() == null) {
+				usuario.setDataCadastro(Date.valueOf(LocalDate.now()));
+			}
+		} 
+		
+		permissaos.add(permissaoRepository.findByNome(usuario.getPerfil()));
+		
+
+		usuario.setPermissaos(permissaos);
 	}
 
 	public void delete(Long id) {

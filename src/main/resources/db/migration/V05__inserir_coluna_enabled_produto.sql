@@ -1,0 +1,1 @@
+ALTER TABLE produto ADD enabled boolean NULL DEFAULT true;

@@ -46,7 +46,8 @@ public class InicioController {
 		for (int i = 0; i < produtos.size(); i++) {
 			quantidadeProdutos = i + 1;
 		}
-
+		
+		
 		view.addObject("movimentacoes", movimentacoes);
 		view.addObject("QTDmovimentacoes", quantidadeMovimentacao);
 		view.addObject("QTDprodutos", quantidadeProdutos);

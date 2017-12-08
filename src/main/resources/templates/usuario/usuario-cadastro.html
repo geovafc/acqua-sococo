@@ -46,48 +46,55 @@
 						<div layout:include="layout/mensagem-geral"></div>
 
 						<div class="row">
-							<div class="col-md-10 text-center">
+							<div class="col-lg-12 col-md-12 ">
 								<div class="form-group"
 									th:classappend="${#fields.hasErrors('nome')} ? has-error">
-									<label for="nome" class="col-lg-3 control-label">Nome</label>
-									<div class="col-lg-9">
+									<label for="nome" class="col-lg-3 col-md-3 control-label">Nome</label>
+									<div class="col-lg-9 col-md-9">
 										<input type="text" class="form-control" id="nome"
 											th:field="*{nome}" autofocus="autofocus"
-											placeholder="Nome do Operador" 
+											placeholder="Nome do usuário" 
 											autocomplete="off"/>
 									</div>
 								</div>
 								<div class="form-group"
 									th:classappend="${#fields.hasErrors('sobrenome')} ? has-error">
-									<label for="nome" class="col-lg-3 control-label">
+									<label for="nome" class="col-lg-3 col-md-3 control-label">
 										Sobrenome</label>
-									<div class="col-lg-9">
+									<div class="col-lg-9 col-md-9">
 										<input type="text" class="form-control" id="sobrenome"
 											th:field="*{sobrenome}" autofocus="autofocus"
-											placeholder="Sobrenome do Operador" 
+											placeholder="Sobrenome do usuário" 
 											autocomplete="off"/>
 									</div>
 								</div>
 								<div class="form-group"
 									th:classappend="${#fields.hasErrors('codigo')} ? has-error">
-									<label for="codigo" class="col-lg-3 control-label">Código</label>
-									<div class="col-lg-9">
+									<label for="codigo" class="col-lg-3 col-md-3 control-label">Código</label>
+									<div class="col-lg-9 col-md-9">
 										<input type="text" class="form-control" id="codigo"
-											th:field="*{codigo}" placeholder="Codigo do Operador" autocomplete="off"/>
+											th:field="*{codigo}" placeholder="Codigo do usuário" autocomplete="off"/>
 									</div>
 								</div>
 								<div class="form-group"
 									th:classappend="${#fields.hasErrors('username')} ? has-error">
-									<label for="username" class="col-lg-3 control-label">Nome
-										de usuário</label>
-									<div class="col-lg-9">
+									<label for="username" class="col-lg-3 col-md-3 control-label">login</label>
+									<div class="col-lg-9 col-md-9">
 										<input type="text" class="form-control" id="username"
 											th:field="*{username}" placeholder="Username" autocomplete="off"/>
 									</div>
 								</div>
+								<div class="form-group"
+									th:classappend="${#fields.hasErrors('password')} ? has-error">
+									<label for="password" class="col-lg-3 col-md-3 control-label">Password</label>
+									<div class="col-lg-9 col-md-9">
+										<input type="password" class="form-control" id="password"
+											th:field="*{password}" placeholder="Senha" autocomplete="off"/>
+									</div>
+								</div>
 								<div class="form-group">
-									<label for="enabled" class="col-sm-3 control-label">Status</label>
-									<div class="col-sm-2">
+									<label for="enabled" class="col-sm-1 col-md-3 col-lg-3 control-label">Status</label>
+									<div class="col-sm-4 col-md-4 col-lg-4">
 										<label class="radio-inline">
 										  <input type="radio" name="enabled" value="true" th:field="*{enabled}"/>Ativo
 										</label>
@@ -96,125 +103,23 @@
 										</label>
 									</div>
 								</div>
-															
-								
-								<div class="form-group"
-									th:classappend="${#fields.hasErrors('password')} ? has-error">
-									<label for="password" class="col-lg-3 control-label">Password</label>
-									<div class="col-lg-9">
-										<input type="password" class="form-control" id="password"
-											th:field="*{password}" placeholder="Senha" autocomplete="off"/>
+								<div class="form-group">
+									<label for="permissao" class="col-sm-1 col-md-3 col-lg-3 control-label">Permissão</label>
+									<div class="col-sm-4 col-md-4 col-lg-4">
+										<label class="radio-inline">
+										  <input type="radio" name="permissao" value="ROLE_USER" th:field="*{perfil}"/>Usuário
+										</label>
+										<label class="radio-inline">
+										  <input type="radio" name="permissao" value="ROLE_ADMIN" th:field="*{perfil}"/>Administrador
+										</label>
 									</div>
 								</div>
 								
-																<!-- Lista Roles -->
-		<div class="panel panel-default panel-primary">
-			<div class="panel-heading">
-				<div class="clearfix">
-					<h1 class="panel-title pde-detalhe-panel">Autorizações</h1>
-					<a class="btn btn-link pde-link-panel-detalhe" data-toggle="modal"
-						data-target="#addPerfilModal"
-						>Adicionar Perfil</a>
-				</div>
-			</div>
-
-			<div class="table-responsive">
-				<table class="table table-bordered table-striped">
-					<thead>
-						<th class="text-center col-md-1">#</th>
-						<th class="text-center col-md-2">Perfil</th>
-						<th class="text-center col-md-2">Ação</th>
-					</thead>
-
-					<tbody>
-						<tr th:each="perfil : ${usuario.permissoes}">
-							<td class="text-center" th:text="${perfil.id}"></td>
-							<td class="text-center" th:text="${perfil.nome}"></td>
-
-							<td class="text-center"><a class="btn btn-link btn-xs"
-								th:href="@{/perfil/excluir/{id}(id=${perfil.id})}"
-								title="Excluir" rel="tooltip" data-placement="top"> <span
-									class="glyphicon glyphicon-remove"></span>
-							</a></td>
-						</tr>
-
-						<tr>
-							<td th:if="${#lists.isEmpty(usuario.permissoes)}" class="text-center"
-								colspan="12">Nenhum Perfil cadastrado</td>
-						</tr>
-
-					</tbody>
-				</table>
-			</div>
-
-		</div>
-		
-				<!-- Modal adicionar Perfil -->
-		<!-- Modal -->
-		<div class="modal fade" id="addPerfilModal" tabindex="-1"
-			role="dialog" aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" id="myModalLabel">Adicionar Perfil</h4>
-					</div>
-					<div class="modal-body">
-
-						<form method="POST" th:action="@{/usuarios/adc-perfil}"
-							th:object="${usuario}">
-
-							<div class="panel panel-default">
-
-
-								<div class="panel-body">
-
-									<input type="hidden"  /> <input type="hidden"
-										
- />
-
-									<div class="row">
-
-										<div class="form-group col-sm-10">
-											<label for="operadora">Perfil</label>
-											 <select
-												class="form-control" name="perfil" >
- 												 <option value="ROLE_ADMIN">ADMIN</option>
- 												 <option value="ROLE_USER">USER</option>
-
-											</select>
-										</div>
-
-
-									</div>
-
-
-									<hr />
-
-									<div class="form-group">
-										<div>
-											<button type="submit" class="btn btn-primary">Salvar</button>
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</form>
-
-
-					</div>
-
-				</div>
-			</div>
-		</div>
 
 								<div class="form-group">
-									<div class="col-lg-6 col-lg-offset-3">
-										<button  type="submit" class="btn btn-success col-lg-4"><i class="fa fa-floppy-o" aria-hidden="true"></i> SALVAR</button>
-										<a th:href="@{/usuarios}" class="btn btn-default col-lg-4 col-lg-offset-1 ">CANCELAR</a>
+									<div class="col-lg-6 col-md-6 col-md-offset-3 col-lg-offset-3">
+										<button  type="submit" class="btn btn-success col-lg-4 col-md-4"><i class="fa fa-floppy-o" aria-hidden="true"></i> SALVAR</button>
+										<a th:href="@{/usuarios}" class="btn btn-default col-lg-4 col-md-4 col-lg-offset-1 ">CANCELAR</a>
 										
 									</div>
 								</div>

@@ -17,6 +17,7 @@ public abstract class Produto_ {
 	public static volatile SingularAttribute<Produto, String> codigoDeBarras;
 	public static volatile SingularAttribute<Produto, AvatarProd> avatar;
 	public static volatile SingularAttribute<Produto, Date> dataCadastro;
+	public static volatile SingularAttribute<Produto, Boolean> enabled;
 	public static volatile SingularAttribute<Produto, String> descricao;
 
 }
