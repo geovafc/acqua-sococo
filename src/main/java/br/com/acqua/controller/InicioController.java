@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.acqua.entity.Movimentacao;
 import br.com.acqua.entity.Produto;
+import br.com.acqua.entity.Usuario;
 import br.com.acqua.service.MovimentacaoService;
 import br.com.acqua.service.ProdutoService;
 
@@ -33,6 +34,8 @@ public class InicioController {
 		ModelAndView view = new ModelAndView("index");
 
 		List<Movimentacao> movimentacoes = movimentacaoService.listar();
+		List<Produto> produtos = produtoService.findAll();
+		Usuario usuario = new Usuario();	
 
 		int quantidadeMovimentacao = movimentacaoService.findAll().size();
 		int quantidadeProdutos = 0;
@@ -42,6 +45,7 @@ public class InicioController {
 		view.addObject("movimentacoes", movimentacoes);
 		view.addObject("QTDmovimentacoes", quantidadeMovimentacao);
 		view.addObject("QTDprodutos", quantidadeProdutos);
+		view.addObject("usuario", usuario);	
 
 		return view;
 	}

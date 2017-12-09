@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +37,7 @@ public class UsuarioController {
 	private static final String CADASTRO_VIEW = "usuario/usuario-cadastro";
 	
 	String naoEditarSenha = "";
+	
 	@Autowired
 	private UsuarioService usuarioService;
 	
@@ -68,11 +72,12 @@ public class UsuarioController {
 	
 	@RequestMapping(method = RequestMethod.POST )
 	public String salvar(@Validated Usuario usuario, Errors errors, RedirectAttributes attributes  ){
-		
+
 		if (errors.hasErrors()) {
 			return CADASTRO_VIEW;
 		}
 
+		System.out.println("naoEditarSenha: " + naoEditarSenha);
 		if (naoEditarSenha.equals("")) {
 			try {
 				System.out.println("NOVO USUARIO");
@@ -95,8 +100,34 @@ public class UsuarioController {
 				attributes.addFlashAttribute("mensagem", "Desculpe, mas algo deu errado.");
 				return CADASTRO_VIEW;
 			}
+
 		}
 	}
+	
+	
+	@RequestMapping(value = "/atualizar-senha", method = RequestMethod.POST)
+	public String atualizarSenha(@RequestParam("password") String password, @Validated Usuario usuario, Errors errors, RedirectAttributes attributes  ){
+		
+//		if(errors.hasErrors()){
+//			return CADASTRO_VIEW;
+//		}
+//		
+		System.out.println("senha "+password);
+		String userName = "";
+		userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuarioTemp = new Usuario();
+		usuarioTemp.setUsername(userName);
+		usuarioTemp.setPassword(password);
+		try{
+			usuarioService.atualizarSenha(usuarioTemp);
+			attributes.addFlashAttribute("mensagem", "Senha atualizada com sucesso!");
+			return "redirect:/index";
+		}catch (IllegalArgumentException e) {
+			attributes.addFlashAttribute("mensagem", "Desculpe, mas algo deu errado.");
+			return "";
+		}
+	}
+
 	
 	@GetMapping(value = {"{id}"})
 	public ModelAndView editar(@PathVariable("id") Optional<Long> id, @ModelAttribute("usuario") Usuario usuario) {
