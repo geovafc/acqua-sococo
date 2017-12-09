@@ -37,16 +37,10 @@ public class InicioController {
 		List<Produto> produtos = produtoService.findAll();
 		Usuario usuario = new Usuario();	
 
-		int quantidadeMovimentacao = 0;
+		int quantidadeMovimentacao = movimentacaoService.findAll().size();
 		int quantidadeProdutos = 0;
-		for (int i = 0; i < movimentacoes.size(); i++) {
-			quantidadeMovimentacao = i + 1;
-		}
 
-		for (int i = 0; i < produtos.size(); i++) {
-			quantidadeProdutos = i + 1;
-		}
-		
+		quantidadeProdutos = produtoService.findEnabled().size();
 		
 		view.addObject("movimentacoes", movimentacoes);
 		view.addObject("QTDmovimentacoes", quantidadeMovimentacao);

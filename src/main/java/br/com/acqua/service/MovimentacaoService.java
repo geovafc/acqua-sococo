@@ -108,6 +108,10 @@ public class MovimentacaoService {
 		return movimentacaoRepository.findTop10ByOrderByIdDesc();
 
 	}
+	
+	public List<Movimentacao> findAll() {
+		return movimentacaoRepository.findAll();
+	}
 
 	public Page<Movimentacao> pesquisar(MovimentacaoFilter filter, int page, int size) throws Throwable {
 

@@ -53,6 +53,10 @@ public class ProdutoService {
 	public List<Produto> findAll() {
 		return produtosRepository.findAll();
 	}
+	
+	public List<Produto> findEnabled() {
+		return produtosRepository.findByEnabledOrderByIdDesc(Boolean.TRUE);
+	}
 
 	public void delete(Long id) {
 		produtosRepository.delete(id);
