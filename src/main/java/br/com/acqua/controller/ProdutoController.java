@@ -74,6 +74,8 @@ public class ProdutoController {
 		}
 
 		try {
+			
+			produto.setEnabled(true);
 			produtoService.salvar(produto, file);
 			attributes.addFlashAttribute("mensagem", "Produto salvo com sucesso!");
 			return "redirect:/produtos";

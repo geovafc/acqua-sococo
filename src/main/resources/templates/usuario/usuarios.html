@@ -77,7 +77,7 @@
 
 										<td class="text-center"><span
 											th:each="permissao: ${usuario.permissoes}"
-											th:text="|${permissao.nome == 'ROLE_ADMIN' ? 'ADMIN,' : 'USER'}|">
+											th:text="|${permissao.nome == 'ROLE_ADMIN' ? 'ADMIN' : 'USER'}|">
 										</span></td>
 
 										<td class="text-center"

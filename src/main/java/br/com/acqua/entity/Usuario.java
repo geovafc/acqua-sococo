@@ -50,7 +50,7 @@ public class Usuario implements Serializable {
 	@Column(nullable = false, unique = true)
 	private String username;
 
-	@NotEmpty(message = "A senha é obrigatória")
+	//@NotEmpty(message = "A senha é obrigatória")
 	@Column(name = "password", nullable = false)
 	private String password;
 

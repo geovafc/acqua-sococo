@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.acqua.entity.Permissao;
 import br.com.acqua.entity.Usuario;
 import br.com.acqua.entity.paginator.Pager;
 import br.com.acqua.service.UsuarioService;
@@ -34,6 +33,7 @@ public class UsuarioController {
 
 	private static final String CADASTRO_VIEW = "usuario/usuario-cadastro";
 	
+	String naoEditarSenha = "";
 	@Autowired
 	private UsuarioService usuarioService;
 	
@@ -66,32 +66,53 @@ public class UsuarioController {
 		return modelAndView;
 	}
 	
-	
 	@RequestMapping(method = RequestMethod.POST )
 	public String salvar(@Validated Usuario usuario, Errors errors, RedirectAttributes attributes  ){
 		
-		if(errors.hasErrors()){
+		if (errors.hasErrors()) {
 			return CADASTRO_VIEW;
 		}
-		
-		try{
-			usuarioService.salvar(usuario);
-			attributes.addFlashAttribute("mensagem", "Operador cadastrado com sucesso!");
-			return "redirect:/usuarios";
-		}catch (IllegalArgumentException e) {
-			attributes.addFlashAttribute("mensagem", "Desculpe, mas algo deu errado.");
-			return CADASTRO_VIEW;
+
+		if (naoEditarSenha.equals("")) {
+			try {
+				System.out.println("NOVO USUARIO");
+				usuarioService.salvar(usuario);
+				attributes.addFlashAttribute("mensagem", "Operador cadastrado com sucesso!");
+				return "redirect:/usuarios";
+			} catch (IllegalArgumentException e) {
+				attributes.addFlashAttribute("mensagem", "Desculpe, mas algo deu errado.");
+				return CADASTRO_VIEW;
+			}
+		} else {
+			try {
+				System.out.println("Atualizando USUARIO");
+				usuario.setPassword(naoEditarSenha);
+				usuarioService.salvar(usuario);
+				attributes.addFlashAttribute("mensagem", "Operador cadastrado com sucesso!");
+				naoEditarSenha = "";
+				return "redirect:/usuarios";
+			} catch (IllegalArgumentException e) {
+				attributes.addFlashAttribute("mensagem", "Desculpe, mas algo deu errado.");
+				return CADASTRO_VIEW;
+			}
 		}
 	}
 	
 	@GetMapping(value = {"{id}"})
 	public ModelAndView editar(@PathVariable("id") Optional<Long> id, @ModelAttribute("usuario") Usuario usuario) {
 		
+		
+		
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
 		if(id.isPresent()){
 			usuario = usuarioService.findById(id.get());
 			usuario.setPerfil(usuario.getPermissoes().get(0).getNome());
 			mv.addObject("usuario", usuario);
+			
+			naoEditarSenha = usuario.getPassword();
+			System.out.println(">> Pass " + usuario.getPassword());
+			System.out.println(">> nome " + usuario.getNome());
+			System.out.println(">> sobrenome " + usuario.getSobrenome());
 		}
 		return mv;
 	}
