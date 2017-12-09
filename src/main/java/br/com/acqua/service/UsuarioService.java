@@ -34,7 +34,11 @@ public class UsuarioService {
 
 	public void salvar(Usuario usuario) {
 		try {
-			Usuario usuarioSalvo = usuarioRepository.findOne(usuario.getId());
+			Usuario usuarioSalvo = null;
+			if (usuario.getId() != null ){
+				usuarioSalvo = usuarioRepository.findOne(usuario.getId());
+
+			}
 			
 			if (usuario.getPassword() != null){
 				String hash = new BCryptPasswordEncoder().encode(usuario.getPassword());
@@ -45,13 +49,14 @@ public class UsuarioService {
 			adcPermissoesUsuario(usuario);
 			
 //Metodo para salvar a senha do usuario caso ela venha vazia da view
-			if (usuarioSalvo != null && usuario.getPassword() == null){
+
+			if (usuarioSalvo != null && usuario.getPassword().isEmpty()){
 				usuario.setPassword(usuarioSalvo.getPassword());
 			}
 			
 			
 
-
+			
 			usuarioRepository.save(usuario);
 
 		} catch (DataIntegrityViolationException e) {
@@ -61,16 +66,20 @@ public class UsuarioService {
 	
 	public void atualizarSenha(Usuario usuario) {
 		try {
-			Usuario usuarioSalvo = usuarioRepository.findOne(usuario.getId());
+			Usuario usuarioSalvo = usuarioRepository.findByUsername(usuario.getUsername());
 			
-			if (usuario.getPassword() != null){
+			System.out.println("senha "+usuario.getPassword());
+			System.out.println("senha 2"+usuarioSalvo.getPassword());
+
+			
+			if (!usuario.getPassword().isEmpty()){
 				String hash = new BCryptPasswordEncoder().encode(usuario.getPassword());
 				usuarioSalvo.setPassword(hash);
 			}	
 			
 
 
-			usuarioRepository.save(usuario);
+			usuarioRepository.save(usuarioSalvo);
 
 		} catch (DataIntegrityViolationException e) {
 			throw new IllegalArgumentException("Algo deu errado ao atualizar a senha do operador");
@@ -100,5 +109,9 @@ public class UsuarioService {
 
 	public Usuario findById(Long id) {
 		return usuarioRepository.findOne(id);
+	}
+	
+	public Usuario findByUserName(String userName){
+		return usuarioRepository.findByUsername(userName);
 	}
 }

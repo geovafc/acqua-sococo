@@ -1,6 +1,7 @@
 package br.com.acqua.repository;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +20,7 @@ import br.com.acqua.repository.movimentacao.MovimentacaoRepositoryQuery;
 
 public interface MovimentacaoRepository extends JpaRepository<Movimentacao,Long>, MovimentacaoRepositoryQuery {
 
-	Page<Movimentacao> findAllByOrderByIdAsc(Pageable pageable);
+	Page<Movimentacao> findAllByOrderByIdDesc(Pageable pageable);
 	//Falta fazer para contar po ano
 	@Query("select count(m) from Movimentacao m where month(m.dataHora) = :dataMovimentacao and year(m.dataHora) = :anoMovimentacao")
 	Long countByMovimentacoesFromMesAno(@Param("dataMovimentacao") Integer dataMovimentacao, @Param("anoMovimentacao") Integer anoMovimentacao);
@@ -28,4 +29,7 @@ public interface MovimentacaoRepository extends JpaRepository<Movimentacao,Long>
     Page<Movimentacao> findByDataHoraBetween(Date inicio, Date fim, Pageable pageable);
     
     Page<Movimentacao> findByDataHoraBetweenAndProduto(Date inicio, Date fim,Produto produto, Pageable pageable);
+
+    List<Movimentacao> findTop10ByOrderByIdDesc();
+
 }

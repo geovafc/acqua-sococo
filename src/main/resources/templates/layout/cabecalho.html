@@ -56,6 +56,9 @@
 						<li><a th:href="@{/usuarios/novo}">Registrar </a></li>
 						<li role="separator" class="divider"></li>
 						<li><a th:href="@{/usuarios}">Pesquisar </a></li>
+
+						<li><a data-toggle="modal" data-target="#alterarSenhaModal" >Alterar Senha </a></li>
+					</ul></li>
 			</ul>
 			
 
@@ -86,5 +89,50 @@
 		</div>
 	</div>
 </nav>
+
+<!--  MODAL ALTERAR SENHA -->
+<div class="modal fade" id="alterarSenhaModal" tabindex="-1" role="dialog">
+	
+	<div class="modal-dialog" role="document">
+	
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="titleAlterarSenha" >Você deseja alterar sua senha ?</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div >
+				<form  method="POST" th:action="@{/usuarios/atualizar-senha}"
+							>
+			<input type="hidden" name="_method" value="POST" />
+				
+				<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}" />
+						
+								
+					<div class="form-group col-lg-11">
+						<label for="nome">Nova senha</label> 
+						<input type="text"
+							class="form-control" id="password" name="password" placeholder="Senha" />
+					</div>
+					<div class="form-group col-lg-11">
+						<label for="descricao">Confirmar senha</label> 
+						<input type="text"
+							class="form-control" id="descricao" placeholder="Confirmar senha" />
+					</div>
+									<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-success">Confirmar</button>
+				</div>
+				</form>
+				</div>
+
+			</div>
+		
+	</div>
+</div>
 
 </html>

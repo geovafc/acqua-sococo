@@ -84,7 +84,9 @@
 											th:field="*{username}" placeholder="Username" autocomplete="off"/>
 									</div>
 								</div>
-								<div class="form-group"
+								
+								
+								<div  class="form-group"
 									th:classappend="${#fields.hasErrors('password')} ? has-error">
 									<label for="password" class="col-lg-3 col-md-3 control-label">Password</label>
 									<div class="col-lg-9 col-md-9">
@@ -92,6 +94,8 @@
 											th:field="*{password}" placeholder="Senha" autocomplete="off"/>
 									</div>
 								</div>
+								
+								
 								<div class="form-group">
 									<label for="enabled" class="col-sm-1 col-md-3 col-lg-3 control-label">Status</label>
 									<div class="col-sm-4 col-md-4 col-lg-4">

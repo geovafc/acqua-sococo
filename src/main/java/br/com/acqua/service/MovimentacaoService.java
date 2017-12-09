@@ -92,7 +92,7 @@ public class MovimentacaoService {
 
 	public Page<Movimentacao> findByPagination(int page, int size) {
 		Pageable pageable = new PageRequest(page, size);
-		return movimentacaoRepository.findAllByOrderByIdAsc(pageable);
+		return movimentacaoRepository.findAllByOrderByIdDesc(pageable);
 	}
 
 	public static Date converterDateFim(Date date) {
@@ -104,8 +104,9 @@ public class MovimentacaoService {
 	}
 
 	public List<Movimentacao> listar() {
-		
-		return movimentacaoRepository.findAll();
+
+		return movimentacaoRepository.findTop10ByOrderByIdDesc();
+
 	}
 
 	public Page<Movimentacao> pesquisar(MovimentacaoFilter filter, int page, int size) throws Throwable {
