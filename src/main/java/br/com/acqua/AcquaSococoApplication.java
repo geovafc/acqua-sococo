@@ -13,12 +13,11 @@ public class AcquaSococoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AcquaSococoApplication.class, args);
 	}
-
+	
 	@Bean
 	public FixedLocaleResolver localeResolver() {
 
 		return new FixedLocaleResolver(new Locale("pt", "BR"));
 
 	}
-
 }

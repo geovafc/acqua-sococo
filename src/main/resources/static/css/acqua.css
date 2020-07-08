@@ -8,37 +8,3 @@
 	width: 36px;
 	height: 36px;
 }
-
-.pagination-centered {
-	text-align: center;
-}
-
-.disabled {
-	pointer-events: none;
-	opacity: 0.5;
-}
-
-.pointer-disabled {
-	pointer-events: none;
-}
-
-.img-produto {
-	/* width: 20em;
-	padding-bottom: 2em;
-	padding-top: 2em; */
-	width: 75%;
-	height: 280px;
-	margin-top: 10%;
-	margin-bottom: 10%;
-}
-
-
-.imagem_acao{
-	width: 70px;
-	height: 70px;
-	margin-top: 15px;
-}
-
-.inputFiltro{
-	/* margin-bottom: 20px; */
-}

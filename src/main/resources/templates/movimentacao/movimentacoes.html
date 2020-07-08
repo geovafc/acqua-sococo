@@ -10,196 +10,106 @@
 
 <section layout:fragment="conteudo">
 
-	<div class="col-lg-10 col-lg-offset-1 col-sm-12">
-		<ol class="breadcrumb">
-			<li><a th:href="@{/index}">Dashboard</a></li>
-			<li class="active">Movimentações</li>
-		</ol>
-		
-		<div layout:include="layout/mensagem-geral"></div>
-		
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-lg-1">
-							<!-- <i class="fa fa-support fa-5x"></i> -->
-							<img class="imagem_acao" th:src="@{/imagens/movimentacao.png}" />
-						</div>
-						<div class="col-lg-6">
-							<h3 class="page-header">
-								Movimentações <small>Todos as movimentações</small>
-							</h3>
-						</div>
-				</div>
-			</div>
-			<div class="panel-body">
-				<a th:href="@{/movimentacoes/registrar}">
-					<button class="btn btn-info">
-						<i class="glyphicon glyphicon-plus"></i> Nova movimentação
-					</button>
-				</a>
-				<p></p>
-
-				<div class="jumbotron">
-					<form method="GET" class="form-horizontal"
-						th:action="@{/movimentacoes/pesquisar}" th:object="${filtro}">
-						<div class="form-group camposPesquisa">
-							<div class="col-lg-6 input-group input-daterange inputFiltro">
-								<input type="text" class="form-control" th:field="*{inicio}"
-									data-provide="datepicker" data-date-format="dd/mm/yyyy"
-									data-date-language="pt-BR" data-date-autoclose="true"
-									data-date-today-highlight="true" data-date-orientation="bottom"
-									placeholder="Data de Inicio" />
-								<div class="input-group-addon">até</div>
-								<input type="text" class="form-control" th:field="*{fim}"
-									data-provide="datepicker" data-date-format="dd/mm/yyyy"
-									data-date-language="pt-BR" data-date-autoclose="true"
-									data-date-today-highlight="true" data-date-orientation="bottom"
-									placeholder="Data Final" />
-							</div>
-							<div class="col-lg-6">
-								<input class="form-control color"
-									placeholder="Informe o código de barras do produto que esta procurando?"
-									autofocus="autofocus" th:field="*{codigo}"></input>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-lg-6 inputFiltro">
-								<input class="form-control color"
-									placeholder="Informe a nota fiscal da movimentação"
-									autofocus="autofocus" th:field="*{notaFiscal}"></input>
-							</div>
-							<div class="col-lg-6">
-								<input class="form-control color"
-									placeholder="Informe o nome do usuário" autofocus="autofocus"
-									th:field="*{nomeUsuario}"></input>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-lg-8 col-lg-offset-2">
-								<button type="submit" class="col-lg-4 col-lg-offset-1 btn btn-primary">
-									PESQUISAR <i class="glyphicon glyphicon-search"></i>
-								</button>
-								<a th:href="@{/movimentacoes}"
-											class="col-lg-4 col-lg-offset-2  btn btn-warning"><span
-											class="glyphicon glyphicon-remove"> LIMPAR</span></a>
-								
-							</div>
-						</div>
-					</form>
-				</div>
-
-				<div class="table-responsive">
-					<table class="table table-bordered table-striped">
-						<thead>
-							<tr>
-								<th class="text-center col-md-1">Imagem</th>
-								<th class="text-center col-md-2">Código de barras</th>
-								<th class="text-center col-md-2">Nota Fiscal</th>
-								<th class="text-center col-md-1">Operador</th>
-								<th class="text-center col-md-1">Data de registro</th>
-								<th class="text-center col-md-1">Operação</th>
-
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="movimentacao: ${movimentacoes}">
-								<td class="text-center"><img id="avatar"
-									th:src="@{/avatar-prod/load/{id}(id=${movimentacao.avatar.id})}" />
-								</td>
-
-								<td class="text-center"
-									th:text="${movimentacao.produto.codigoDeBarras}"></td>
-
-								<td class="text-center" th:text="${movimentacao.notaFiscal}"></td>
-
-								<td class="text-center" th:text="${movimentacao.usuario.nome}"></td>
-
-								<td class="text-center" th:text="${{movimentacao.dataHora}}"></td>
-
-
-								<td class="text-center"><a class="btn btn-info btn-xs"
-									th:href="@{/movimentacoes/detalhes/{id}(id=${movimentacao.id})}"
-									title="Visualizar" rel="tooltip" data-placement="top"> <span
-										class="glyphicon glyphicon-eye-open"></span>
-
-								</a> <a class="btn btn-warning btn-xs"
-									sec:authorize="hasRole('ROLE_ADMIN')"
-									th:href="@{/movimentacoes/{id}(id=${movimentacao.id})}"
-									title="Editar" rel="tooltip" data-placement="top"> <span
-										class="glyphicon glyphicon-pencil"></span>
-
-								</a> <a class="btn btn-danger btn-xs"
-									sec:authorize="hasRole('ROLE_ADMIN')" data-toggle="modal"
-									data-target="#confirmacaoExclusaoModal"
-									th:attr="data-id=${movimentacao.id}" title="Excluir"
-									rel="tooltip" data-placement="top"> <span
-										class="glyphicon glyphicon-remove"></span>
-								</a></td>
-
-							</tr>
-
-							<tr>
-								<td class="text-center" colspan="7"
-									th:if="${#lists.isEmpty(movimentacoes.content)}">Nenhuma
-									movimentação foi encontrado</td>
-							</tr>
-
-						</tbody>
-
-					</table>
-
-					<!-- Paginação -->
-
-					<div class="paginacao" th:if="${!#lists.isEmpty(movimentacoes.content)}">
-						<div class="form-group col-lg-1">
-							<select class="form-control pagination"
-								id="pageSizeSelectMovimentacoes">
-								<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
-									th:value="${pageSize}"
-									th:selected="${pageSize} == ${selectedPageSize}"></option>
-							</select>
-						</div>
-						<div th:if="${movimentacoes.totalPages != 1}"
-							class="form-group col-lg-11 pagination-centered">
-							<ul class="pagination">
-								<li th:class="${movimentacoes.number == 0} ? disabled"><a
-									class="pageLink"
-									th:href="@{/movimentacoes/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
-								</li>
-								<li th:class="${movimentacoes.number == 0} ? disabled"><a
-									class="pageLink"
-									th:href="@{/movimentacoes/(pageSize=${selectedPageSize}, page=${movimentacoes.number})}">&larr;</a>
-								</li>
-								<li
-									th:class="${movimentacoes.number == (page - 1)} ? 'active pointer-disabled'"
-									th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
-									<a class="pageLink"
-									th:href="@{/movimentacoes/(pageSize=${selectedPageSize}, page=${page})}"
-									th:text="${page}"></a>
-								</li>
-								<li
-									th:class="${movimentacoes.number + 1 == movimentacoes.totalPages} ? disabled">
-									<a class="pageLink"
-									th:href="@{/movimentacoes/(pageSize=${selectedPageSize}, page=${movimentacoes.number + 2})}">&rarr;</a>
-								</li>
-								<li
-									th:class="${movimentacoes.number + 1 == movimentacoes.totalPages} ? disabled">
-									<a class="pageLink"
-									th:href="@{/movimentacoes/(pageSize=${selectedPageSize}, page=${movimentacoes.totalPages})}">&raquo;</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-
-				</div>
-
-			</div>
-			<div layout:include="movimentacao/dialog-confirmacao-exclusao"></div>
+	<!-- Page Heading -->
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">
+				Movimentações <small>Todos os Registros</small>
+			</h1>
 		</div>
 	</div>
 
 
+	<div layout:include="layout/mensagem-geral"></div>
+
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-3">
+							<i class="fa fa-support fa-5x"></i>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<a th:href="@{/movimentacoes/pesquisar}">
+						<button class="btn btn-info">
+							<i class="glyphicon glyphicon-plus"></i> Nova movimentação
+						</button>
+					</a>
+					<p></p>
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th class="text-center col-md-2">Imagem</th>
+									<th class="text-center col-md-1">Código de barras</th>
+									<th class="text-center col-md-1">Nota Fiscal</th>
+									<th class="text-center col-md-1">Operador</th>
+									<th class="text-center col-md-1">Data de registro</th>
+									<th class="text-center col-md-1">Operação</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="movimentacao: ${movimentacoes}">
+									<td class="text-center"><img id="avatar"
+										th:src="@{/avatar-prod/load/{id}(id=${movimentacao.produto.avatar.id})}" />
+									</td>
+
+									<td class="text-center"
+										th:text="${movimentacao.produto.codigoDeBarras}"></td>
+
+									<td  class="text-center"
+										th:text="${movimentacao.notaFiscal}"></td>
+
+									<td  class="text-center"
+										th:text="${movimentacao.usuario.nome}"></td>
+
+									<td  class="text-center"
+										th:text="${{movimentacao.dataHora}}"></td>
+
+
+									<td class="text-center"><a class="btn btn-info btn-xs"
+										th:href="@{/movimentacoes/detalhes/{id}(id=${movimentacao.id})}"
+										title="Visualizar" rel="tooltip" data-placement="top"> <span
+											class="glyphicon glyphicon-eye-open"></span>
+
+									</a> <a class="btn btn-warning btn-xs"
+										sec:authorize="hasRole('ROLE_ADMIN')"
+										th:href="@{/movimentacoes/{id}(id=${movimentacao.id})}"
+										title="Editar" rel="tooltip" data-placement="top"> <span
+											class="glyphicon glyphicon-pencil"></span>
+
+									</a> <a class="btn btn-danger btn-xs"
+										sec:authorize="hasRole('ROLE_ADMIN')" data-toggle="modal"
+										data-target="#confirmacaoExclusaoModal"
+										th:attr="data-id=${movimentacao.id}" title="Excluir"
+										rel="tooltip" data-placement="top"> <span
+											class="glyphicon glyphicon-remove"></span>
+									</a></td>
+
+								</tr>
+
+								<tr>
+									<td class="text-center" colspan="7"
+										th:if="${#lists.isEmpty(movimentacoes)}">Nenhuma
+										movimentação foi encontrado</td>
+								</tr>
+
+							</tbody>
+
+						</table>
+
+					</div>
+
+				</div>
+				<div layout:include="movimentacao/dialog-confirmacao-exclusao"></div>
+			</div>
+		</div>
+	</div>
 </section>
 
 

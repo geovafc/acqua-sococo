@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Acqua - Controle de Produção</title>
+<title>Acesso ao Sistema</title>
 
 <link rel="stylesheet" type="text/css"
 	th:href="@{./css/bootstrap/bootstrap.min.css}" />
@@ -25,7 +25,7 @@
 <!-- #f9f9f9 -->
 <body style="background-color: #f1f1f1">
 
-	
+	<div class="col-sm-10 col-sm-offset-1"></div>
 
 	<div class="msg_erro col-lg-3">
 		<div th:if="${param.error}">
@@ -40,20 +40,20 @@
 
 		<div class="panel col-lg-6">
 			<div style="text-align: center;" class="panel-heading col-lg-6  ">
-				<h5>Controle de Produção</h5>
+				<h5>SISTEMA DE CONTROLE</h5>
 				<!-- <h1 style="color: #00bc8c; font-weight: bold; font-size: 340%;">
 					ACQUA</h1> -->
 				<img style="margin-top: 10%;" th:src="@{/imagens/logo.png}" />
 			</div>
 			<div class="col-lg-4  col-sm-offset-1">
 				<form th:action="@{/login}" method="post">
-					<div class="form-group" autocomplete="off">
-						<input name="username" class="form-control" placeholder="Usuário" autocomplete="off"/>
+					<div class="form-group">
+						<input name="username" class="form-control" placeholder="Usuário" />
 					</div>
 
 					<div class="form-group">
 						<input type="password" name="password" class="form-control"
-							placeholder="Senha" autocomplete="off"/>
+							placeholder="Senha" />
 					</div>
 
 					<div class="form-group">
