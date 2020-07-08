@@ -11,32 +11,6 @@ body {
     background-color: #fff;
 }
 
-/* Inicio Itens modificados  */
-.navbar-default{
-	/* background-color: #3CB371; */
-	background-color:  #00bc8c;
-	/*  background-color: #00bc8cb8;*/
-	
-}
-
-.panel-default>.panel-heading{
-	color: #fff;
-    background-color: #00bc8c;
-    border-color: #00bc8c;
-	
-}
-/* 
-.panel-primary {
-    border-color: #00bc8c;
-} */
-
-
-.navbar-default .navbar-nav>li>a{
-	color: white;
-}
-
-/* Fim itens modificados  */
-
 @media(min-width:768px) {
     body {
         margin-top: 50px;
@@ -60,7 +34,7 @@ body {
 
 @media(min-width:768px) {
     #wrapper {
-	/* padding-left: 225px; */
+        padding-left: 225px;
     }
 
     #page-wrapper {

@@ -27,7 +27,7 @@ public class Movimentacao implements Serializable {
 
 	@Column(name = "observacao")
 	private String observacao;
-
+	
 	@Column(name = "nota_fiscal")
 	private String notaFiscal;
 
@@ -43,9 +43,6 @@ public class Movimentacao implements Serializable {
 	@OneToOne
 	private Usuario usuario;
 
-	@OneToOne
-	public AvatarProd avatar;
-
 	public Long getId() {
 		return id;
 	}
@@ -53,6 +50,8 @@ public class Movimentacao implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -101,6 +100,8 @@ public class Movimentacao implements Serializable {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+	
+	
 
 	public String getNotaFiscal() {
 		return notaFiscal;
@@ -108,14 +109,6 @@ public class Movimentacao implements Serializable {
 
 	public void setNotaFiscal(String notaFiscal) {
 		this.notaFiscal = notaFiscal;
-	}
-
-	public AvatarProd getAvatar() {
-		return avatar;
-	}
-
-	public void setAvatar(AvatarProd avatar) {
-		this.avatar = avatar;
 	}
 
 	@Override
